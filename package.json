@@ -1,0 +1,56 @@
+{
+  "name": "stickybits",
+  "version": "0.0.1",
+  "description": "stickybits is a tool to make sticky dom elements",
+  "main": "dist/stickybits.js",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "stick",
+    "fixed",
+    "sticky",
+    "position",
+    "navigation",
+    "nav",
+    "dom",
+    "simple",
+    "javascript",
+    "stuck",
+    "waypoint",
+    "scroll"
+  ],
+  "scripts": {
+    "test": "gulp test",
+    "postpublish": "git tag $npm_package_version && git push origin --tags"
+  },
+  "bugs": {
+    "url": "https://github.com/dollarshaveclub/stickybits/issues"
+  },
+  "homepage": "https://github.com/dollarshaveclub/stickybits#readme",
+  "repository": {
+    "url": "https://github.com/dollarshaveclub/stickybits.git",
+    "type": "git"
+  },
+  "author": "Jeff Wainwright <jjwainwright2@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "babel-core": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-es2015-rollup": "^1.2.0",
+    "bower": "^1.7.9",
+    "debug": "^2.2.0",
+    "eslint": "^3.9.0",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-plugin-import": "^2.0.1",
+    "gulp": "^3.9.1",
+    "node-qunit-phantomjs": "^1.4.0",
+    "qunit": "^0.9.1",
+    "rollup": "^0.36.3",
+    "rollup-plugin-babel": "^2.6.1",
+    "rollup-plugin-commonjs": "^5.0.5",
+    "rollup-plugin-eslint": "^3.0.0",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-uglify": "^1.0.1"
+  }
+}
