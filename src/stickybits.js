@@ -9,11 +9,11 @@ export default function stickybit(target, opts) {
     stops: 0,
     stuck: 'top',
   };
-  const classname = opts && opts.classname || defaults.classname;
-  const position = opts && opts.position || defaults.position;
-  const starts = opts && opts.starts || defaults.starts;
-  const stops = opts && opts.stops || defaults.stops;
-  const stuck = opts && opts.stuck || defaults.stuck;
+  const classname = (opts && opts.classname) || defaults.classname;
+  const position = (opts && opts.position) || defaults.position;
+  const starts = (opts && opts.starts) || defaults.starts;
+  const stops = (opts && opts.stops) || defaults.stops;
+  const stuck = (opts && opts.stuck) || defaults.stuck;
 
   for (let i = 0; i < els.length; i++) {
     const el = els[i];
