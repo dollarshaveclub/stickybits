@@ -1,3 +1,5 @@
 #StickyBits
 
-StickyBits is a JavaScript Plugin that adds `position: fixed` which is overridden by  `position: sticky` (if supported) so sticky elements will stick to the top or bottom of element as desired. 
+> StickyBits is a JavaScript Plugin that ensures sticky elements stick as desired with a browser html document. 
+
+This is not a `position: sticky` polyfill. Stickybits accepts that how an element sticks is a non-issue compared to it sticking in an expected and performant way.👌
