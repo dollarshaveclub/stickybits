@@ -1,67 +1,65 @@
 export default function stickybit(target, opts) {
   let els = typeof target === 'string' ? document.querySelectorAll(target) : target;
   if (!('length' in els)) els = [els];
-
-  for (let i = 0; i < els.length; i++) {
-
+  const total = els.length;
+  for (let i = 0; i < total; i + 1) {
     const el = els[i];
-    let offset = el.parentNode.getBoundingClientRect();
+    const parent = el.parentNode.getBoundingClientRect();
 
     // defaults
     const defaults = {
-      start: offset.top,
-      stop: offset.top + el.outerHeight(),
-      topSticky: true,
+      start: parent.top,
+      stop: parent.top + el.outerHeight(),
       offset: 0,
+      stickyPosition: 'top',
     };
 
     // default option overrides
     const start = (opts && opts.start) || defaults.start;
     const stop = (opts && opts.stop) || defaults.stop;
-    const topSticky = (opts && opts.topSticky = false) || defaults.topSticky;
     const offset = (opts && opts.offset) || defaults.offset;
+    // stickyPosition can be only be either top or bottom
+    const stickyPosition = (opts && opts.stickyPosition) || defaults.topSticky;
+
+    if (
+      stickyPosition !== 'top' ||
+      stickyPosition !== 'bottom'
+    ) throw Error('Stickybits works with top and bottom positioning only. 😰');
 
     // setup stickybit
-    const stuck = topSticky === true ? el.style.top = offset: el.style.bottom = offset;
-    const stickyStyle = el.style.position = 'sticky' || 'fixed';
     const delta = el.outerHeight() / 8;
 
     // control scrolling
-    let measure = measure === undefined ? 0 : measure;
-    function stickiness(el, start, stop) {
+    // measure defines the measure of scroll
+    let measure;
+    const stickiness = function stickinessFunc() {
       const scroll = window.scrollY;
-      const scrollUp = window.scrollY < measure ? true : false;
-
-      const buffer = (scroll > (measure - delta) || scroll < (measure + delta)) ? true : false;
+      const scrollUp = window.scrollY < measure;
+      const buffer = (scroll > (measure - delta) || scroll < (measure + delta));
       console.log(delta, measure, scroll, buffer);
-      if (current > start) {
+      if (scroll > start) {
         el.style.position = 'sticky' || 'fixed';
-      }
-
-      if (current > end && ! el.classList.contains(stopname)) el.classList.add(stopname);
-
-      if (buffer && scroll < start) el.classList.remove(classname);
-          console.log('stuck');
-          el.classList.add(classname)
-        if () {
-          console.log('stop');
-          el.classList ? el.classList.add(stopname) : el.className += ' ' + stopname;
-
+        el.style[offset] = 0;
+        el.setAttribute('data-sticky', true);
+        if (buffer && scrollUp && (scroll < stop) && el.getAttribute('data-stuck') === true) {
+          el.setAttribute('data-stuck', false);
+          el.style.position = 'absolute';
         }
-        measure = current;
-        return;
+      } else if (buffer && scrollUp && (scroll < start)) {
+        el.setAttribute('data-sticky', false);
+        el.style.position = el.style[offset] = '';
       }
-      console.log('default');
+      if (scroll > stop && el.getAttribute('data-sticky') === true) el.setAttribute('data-stuck', true);
       measure = scroll;
+      console.log(measure, window.scrollY);
       return;
     };
 
     // stuff
     window.addEventListener('scroll', stickiness);
-    window.addEventListener('onresize', function() {
-
+    window.addEventListener('onresize', () => {
+      console.log('will do stuff');
     });
-
   }
 }
 
