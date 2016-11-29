@@ -8,7 +8,7 @@ export default {
   entry: 'src/stickybits.js',
   dest: 'dist/stickybits.js',
   format: 'umd',
-  moduleName: 'stickybits',
+  moduleName: 'stickybit',
   sourceMap: false, // removes the souremap at the bottom of the file
   plugins: [
     resolve({

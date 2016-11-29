@@ -1,32 +1,46 @@
 <!DOCTYPE html>
 <html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" media="all" href="https://cdnjs.cloudflare.com/ajax/libs/qunit/2.0.1/qunit.css">
-  <style>p {max-width: 18.75rem;margin: 1rem auto;}</style></head>
+  <style>
+  body,
+  html {
+    padding: 0;
+    margin: 0;
+  }
+  main {
+    height: 100%;
+  }
+  .parent {
+    min-height: 1000px;
+    height: 100%;
+  }
+  .child {
+    background-color: red;
+    padding: 1rem 0;
+  }
+  .child-text {
+    color: white;
+  }
+  p {max-width: 18.75rem;margin: 1rem auto;}
+  </style>
+
+
+</head>
   <body>
-    <div id="qunit"></div>
-    <div id="qunit-fixture"></div>
-		<nav id="main-sticky">Main Sticky</nav>
+    <!-- <div id="qunit"></div>
+    <div id="qunit-fixture"></div> -->
 		<main>
-	    <div class="test">
-				<nav id="sticky-test-1">Test 1</nav>
-	      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sollicitudin consequat eros, non posuere justo hendrerit quis. Integer eget risus dapibus, rutrum nisl sit amet, posuere dui. Cras vitae urna ac urna placerat vulputate. Morbi et tortor vel nisi rutrum consequat. Pellentesque non sem cursus, rhoncus nisi sed, semper quam. Phasellus efficitur iaculis auctor. Pellentesque at aliquam leo. Proin diam nulla, mollis vitae nibh sit amet, interdum suscipit risus. Sed fermentum leo enim, a pretium ipsum sollicitudin non. Nunc tempus nunc sed laoreet porttitor. Duis varius purus pellentesque luctus vestibulum. In ex dui, maximus vitae nisl a, molestie malesuada purus. Duis semper est in varius mattis. Pellentesque mollis convallis ex eu pretium.
-	      Vivamus eleifend nunc a sem euismod, non consequat purus varius. Donec hendrerit eleifend ex ac cursus. Ut ac nibh quis massa rhoncus accumsan. Praesent ultricies arcu quis magna tempus, vitae tristique diam euismod. Proin accumsan quam magna, quis condimentum diam lacinia et. Quisque tempor tellus neque, vitae facilisis dui mollis sit amet. Sed sit amet augue ac mi cursus egestas nec gravida velit. Suspendisse eu nunc tristique lorem eleifend vulputate. Aliquam viverra ex sed augue mollis, eu feugiat purus volutpat. Donec consectetur a lectus ac accumsan. Aenean massa libero, pellentesque a ultrices nec, commodo eget neque. Duis blandit augue et tempus egestas. Aenean facilisis lectus eget venenatis blandit. Nam porta sollicitudin erat, at fermentum eros iaculis ut.
-	    	</p>
-			</div>
-	    <div class="test-2">
-				<nav id="sticky-test-2">Test 2</nav>
-				<p>
-	      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-	    	</p>
-			</div>
-			<div id="test-bottom" class="test-3">
-				<nav id="sticky-test-3">Test 3</nav>
-		    <p class="test-2">
-		      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-		    </p>
+	    <div id="parent" class="parent">
+			     <div id="child" class="child">
+             <p class="child-text">Child</p>
+          </div>
 			</div>
 		</main>
     <script src="https://code.jquery.com/jquery-3.1.0.slim.min.js" integrity="sha256-cRpWjoSOw5KcyIOaZNo4i6fZ9tKPhYYb6i5T9RSVJG8=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qunit/2.0.1/qunit.js"></script>
-    <script src="../dist/stickybits.min.js"></script><script src="test.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/qunit/2.0.1/qunit.js"></script> -->
+    <script src="../dist/stickybits.js"></script>
+    <!-- <script src="test.js"></script> -->
+    <script>
+    stickybit('.child');
+    </script>
 </body></html>
