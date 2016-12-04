@@ -1,59 +1,51 @@
 export default function stickybit(target, opts) {
-  let els = typeof target === 'string' ? document.querySelectorAll(target) : target;
-  if (!('length' in els)) els = [els];
+  if (document.querySelector(target).length > 1) throw Error('Stickybits only works on one element per initialization. 😰');
+  const el = document.querySelector(target);
+  const parent = el.parentNode;
+  const parentPosition = parent.getBoundingClientRect();
 
   // defaults
   const defaults = {
+    delta: el.offestHeight,
     offset: 0,
     position: 'top',
+    start: parentPosition.top,
+    stop: parentPosition.top + parent.offestHeight,
   };
+
   const offset = (opts && opts.offset) || defaults.offset;
   const position = (opts && opts.position) || defaults.position;
+  const delta = (opts && opts.delta) || defaults.delta;
+  const start = (opts && opts.start) || defaults.start;
+  const stop = (opts && opts.stop) || defaults.stop;
 
-  // control scrolling
+  console.log(offset, position, el, parent, position, delta, start, stop);
+
+  if (
+    position !== 'top' &&
+    position !== 'bottom'
+  ) throw Error('Stickybits works with top and bottom positioning only. 😰');
+
+  // maintain stickiness
   let current = 0;
   function stickiness() {
     const scroll = window.scrollY;
     const scrollUp = scroll < current;
-    for (let i = 0; i < els.length; i + 1) {
-      const el = els[i];
-      const parent = el.parentNode.getBoundingClientRect();
-
-      // set defaults that could be parent element based
-      const delta = (opts && opts.delta) || el.offestHeight;
-      const start = (opts && opts.start) || parent.top;
-      const stop = (opts && opts.stop) || parent.top + parent.height;
-
-      if (
-        position !== 'top' &&
-        position !== 'bottom'
-      ) throw Error('Stickybits works with top and bottom positioning only. 😰');
-
-      if (scroll > start) {
-        el.style.position = 'sticky' || 'fixed';
-        el.style[offset] = 0;
-        el.setAttribute('data-sticky', true);
-      } else if (scrollUp && (scroll < start)) {
-        el.setAttribute('data-sticky', false);
-        el.style.position = el.style[offset] = '';
-      }
-      if (scroll > stop && el.getAttribute('data-sticky') === true) el.setAttribute('data-stuck', true);
-      console.log(
-        start,
-        stop,
-        offset,
-        position,
-        delta
-      );
+    console.log(current, scroll, scrollUp);
+    if (scroll > start) {
+      el.style.position = 'sticky';
+      if (el.style.position === '') el.style.position = 'fixed';
+      el.style[offset] = 0;
+      el.setAttribute('data-sticky', true);
+    } else if (scrollUp && (scroll < start)) {
+      el.setAttribute('data-sticky', false);
+      el.style.position = el.style[offset] = '';
     }
+    if (scroll > stop && el.getAttribute('data-sticky') === true) el.setAttribute('data-stuck', true);
     current = scroll;
-    console.log(
-      current,
-      scroll,
-      scrollUp
-    );
+    return;
   }
-  window.addEventListener('scroll', stickiness);
+  window.addEventListener('scroll', () => stickiness);
 }
 
 if (typeof window !== 'undefined') {
