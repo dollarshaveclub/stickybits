@@ -24,8 +24,6 @@ export default function stickybit(target, opts) {
   const stop = (opts && opts.stop) || defaults.stop;
   const width = (opts && opts.width) || defaults.width;
 
-  console.log(offset, position, el, parent, position, delta, start, stop);
-
   if (
     position !== 'top' &&
     position !== 'bottom'
@@ -36,7 +34,6 @@ export default function stickybit(target, opts) {
   function stickiness() {
     const scroll = window.scrollY;
     const scrollUp = scroll < current;
-    console.log(current, scroll, scrollUp);
     if (scroll > start) {
       stickyEl.cssText = `${elStyle}position: ${stickyStyle} sticky; width: ${width}`;
       if (stickyEl.position === '') {
