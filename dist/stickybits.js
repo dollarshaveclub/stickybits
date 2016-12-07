@@ -7,23 +7,28 @@
 function stickybit(target, opts) {
   if (document.querySelector(target).length > 1) throw Error('Stickybits only works on one element per initialization. 😰');
   var el = document.querySelector(target);
+  var elStyle = el.getAttribute('style');
   var parent = el.parentNode;
   var parentPosition = parent.getBoundingClientRect();
+  var stickyEl = el.style;
+  var stickyStyle = ['-webkit-', '-moz-', '-ms-', '-o-', ''].join('sticky; position: ');
 
   // defaults
   var defaults = {
-    delta: el.offestHeight,
+    delta: el.offsetHeight,
     offset: 0,
     position: 'top',
     start: parentPosition.top,
-    stop: parentPosition.top + parent.offestHeight
+    stop: parentPosition.top + parent.offsetHeight,
+    width: '100%'
   };
 
+  var delta = opts && opts.delta || defaults.delta;
   var offset = opts && opts.offset || defaults.offset;
   var position = opts && opts.position || defaults.position;
-  var delta = opts && opts.delta || defaults.delta;
   var start = opts && opts.start || defaults.start;
   var stop = opts && opts.stop || defaults.stop;
+  var width = opts && opts.width || defaults.width;
 
   console.log(offset, position, el, parent, position, delta, start, stop);
 
@@ -36,20 +41,22 @@ function stickybit(target, opts) {
     var scrollUp = scroll < current;
     console.log(current, scroll, scrollUp);
     if (scroll > start) {
-      el.style.position = 'sticky';
-      if (el.style.position === '') el.style.position = 'fixed';
-      el.style[offset] = 0;
+      stickyEl.cssText = elStyle + 'position: ' + stickyStyle + ' sticky; width: ' + width;
+      if (stickyEl.position === '') {
+        stickyEl.position = 'fixed';
+      }
+      stickyEl[offset] = 0;
       el.setAttribute('data-sticky', true);
     } else if (scrollUp && scroll < start) {
       el.setAttribute('data-sticky', false);
-      el.style.position = el.style[offset] = '';
+      stickyEl.position = stickyEl[offset] = '';
     }
     if (scroll > stop && el.getAttribute('data-sticky') === true) el.setAttribute('data-stuck', true);
     current = scroll;
     return;
   }
   window.addEventListener('scroll', function () {
-    return stickiness;
+    return stickiness();
   });
 }
 
