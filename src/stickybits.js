@@ -9,7 +9,7 @@ export default function stickybit(target, opts) {
 
   // defaults
   const defaults = {
-    delta: el.offsetHeight,
+    // delta: el.offsetHeight,
     offset: 0,
     position: 'top',
     start: parentPosition.top,
@@ -17,7 +17,7 @@ export default function stickybit(target, opts) {
     width: '100%',
   };
 
-  const delta = (opts && opts.delta) || defaults.delta;
+  // const delta = (opts && opts.delta) || defaults.delta;
   const offset = (opts && opts.offset) || defaults.offset;
   const position = (opts && opts.position) || defaults.position;
   const start = (opts && opts.start) || defaults.start;
@@ -35,7 +35,7 @@ export default function stickybit(target, opts) {
     const scroll = window.scrollY;
     const scrollUp = scroll < current;
     if (scroll > start) {
-      stickyEl.cssText = `${elStyle}position: ${stickyStyle} sticky; width: ${width}`;
+      stickyEl.cssText = `${elStyle}position: ${stickyStyle} sticky; width: ${width}; ${position}: ${offset}`;
       if (stickyEl.position === '') {
         stickyEl.position = 'fixed';
       }

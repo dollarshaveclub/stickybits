@@ -15,7 +15,7 @@ function stickybit(target, opts) {
 
   // defaults
   var defaults = {
-    delta: el.offsetHeight,
+    // delta: el.offsetHeight,
     offset: 0,
     position: 'top',
     start: parentPosition.top,
@@ -23,14 +23,12 @@ function stickybit(target, opts) {
     width: '100%'
   };
 
-  var delta = opts && opts.delta || defaults.delta;
+  // const delta = (opts && opts.delta) || defaults.delta;
   var offset = opts && opts.offset || defaults.offset;
   var position = opts && opts.position || defaults.position;
   var start = opts && opts.start || defaults.start;
   var stop = opts && opts.stop || defaults.stop;
   var width = opts && opts.width || defaults.width;
-
-  console.log(offset, position, el, parent, position, delta, start, stop);
 
   if (position !== 'top' && position !== 'bottom') throw Error('Stickybits works with top and bottom positioning only. 😰');
 
@@ -39,9 +37,8 @@ function stickybit(target, opts) {
   function stickiness() {
     var scroll = window.scrollY;
     var scrollUp = scroll < current;
-    console.log(current, scroll, scrollUp);
     if (scroll > start) {
-      stickyEl.cssText = elStyle + 'position: ' + stickyStyle + ' sticky; width: ' + width;
+      stickyEl.cssText = elStyle + 'position: ' + stickyStyle + ' sticky; width: ' + width + '; ' + position + ': ' + offset;
       if (stickyEl.position === '') {
         stickyEl.position = 'fixed';
       }
