@@ -4,19 +4,18 @@ export default function stickybit(target, opts) {
   const elStyle = el.getAttribute('style');
   const parent = el.parentNode;
   const parentPosition = parent.getBoundingClientRect();
-  const stickyEl = el.style;
+  const stickyEl = el.style; // Change variable name?
   const stickyStyle = ['-webkit-', '-moz-', '-ms-', '-o-', ''].join('sticky; position: ');
 
   // defaults
   const defaults = {
-    // delta: el.offsetHeight,
+    // delta: el.offsetHeight, // Need this still?
     offset: 0,
     position: 'top',
-    start: parentPosition.top,
+    start: parentPosition.top, // Maybe a different name?
     stop: parentPosition.top + parent.offsetHeight,
-    width: '100%',
+    width: '100%', // Can we get rid of this or automate it? If someone wants to hardcode a width on their element, they can with CSS
   };
-
   // const delta = (opts && opts.delta) || defaults.delta;
   const offset = (opts && opts.offset) || defaults.offset;
   const position = (opts && opts.position) || defaults.position;
@@ -31,25 +30,33 @@ export default function stickybit(target, opts) {
 
   // maintain stickiness
   let current = 0;
-  function stickiness() {
+  function stickiness(e) {
     const scroll = window.scrollY;
     const scrollUp = scroll < current;
-    if (scroll > start) {
+
+    // Make updates first and then see what needs to be done below.
+    if (scroll > stop && el.getAttribute('data-sticky') === true) el.setAttribute('data-stuck', true);
+    current = scroll;
+
+    // Return early if we can, check all conditions (i.e. something isn't changing, sticky -> sticy)
+    if (el.stuck && !el.needsToChange) return;
+
+    // Checking if we're not stuck already, etc
+    if (scroll > start && !stuck) {
       stickyEl.cssText = `${elStyle}position: ${stickyStyle} sticky; width: ${width}; ${position}: ${offset}`;
       if (stickyEl.position === '') {
         stickyEl.position = 'fixed';
       }
-      stickyEl[offset] = 0;
+      stickyEl.position = position; // WIP Code?
       el.setAttribute('data-sticky', true);
     } else if (scrollUp && (scroll < start)) {
       el.setAttribute('data-sticky', false);
       stickyEl.position = stickyEl[offset] = '';
     }
-    if (scroll > stop && el.getAttribute('data-sticky') === true) el.setAttribute('data-stuck', true);
-    current = scroll;
     return;
   }
-  window.addEventListener('scroll', () => stickiness());
+  // rAf
+  window.addEventListener('scroll', stickiness);
 }
 
 if (typeof window !== 'undefined') {
