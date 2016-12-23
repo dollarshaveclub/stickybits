@@ -1,23 +1,20 @@
 export default function stickybit(target, opts) {
   if (document.querySelector(target).length > 1) throw Error('Stickybits only works on one element per initialization. 😰');
+
   const el = document.querySelector(target);
-  const elStyle = el.getAttribute('style');
+  const currentCss = el.getAttribute('style');
   const parent = el.parentNode;
   const parentPosition = parent.getBoundingClientRect();
-  const stickyEl = el.style;
-  const stickyStyle = ['-webkit-', '-moz-', '-ms-', '-o-', ''].join('sticky; position: ');
 
   // defaults
   const defaults = {
-    // delta: el.offsetHeight,
     offset: 0,
     position: 'top',
     start: parentPosition.top,
     stop: parentPosition.top + parent.offsetHeight,
     width: '100%',
   };
-
-  // const delta = (opts && opts.delta) || defaults.delta;
+  // offset = the stickybit sticky position offset
   const offset = (opts && opts.offset) || defaults.offset;
   const position = (opts && opts.position) || defaults.position;
   const start = (opts && opts.start) || defaults.start;
@@ -28,25 +25,36 @@ export default function stickybit(target, opts) {
     position !== 'top' &&
     position !== 'bottom'
   ) throw Error('Stickybits works with top and bottom positioning only. 😰');
+  const css = el.style;
+  let stickycss = `${['-webkit-', '-moz-', '-ms-', '-o-', ''].join('sticky; position: ')}sticky`;
+  // test if sticky position exists
+  css.position = stickycss;
+  if (css.position === '') {
+    stickycss = 'fixed';
+  }
+  const csstext = `position: ${stickycss}; width: ${width}; ${position}: ${offset}; ${currentCss}`;
 
   // maintain stickiness
-  let current = 0;
   function stickiness() {
     const scroll = window.scrollY;
-    const scrollUp = scroll < current;
-    if (scroll > start) {
-      stickyEl.cssText = `${elStyle}position: ${stickyStyle} sticky; width: ${width}; ${position}: ${offset}`;
-      if (stickyEl.position === '') {
-        stickyEl.position = 'fixed';
+    // exit if function is less than start
+    if (scroll < start) {
+      if (el.getAttribute('data-sticky') === true) {
+        el.setAttribute('data-sticky', false);
+        css.position = css[offset] = '';
       }
-      stickyEl[offset] = 0;
-      el.setAttribute('data-sticky', true);
-    } else if (scrollUp && (scroll < start)) {
-      el.setAttribute('data-sticky', false);
-      stickyEl.position = stickyEl[offset] = '';
+      return;
     }
-    if (scroll > stop && el.getAttribute('data-sticky') === true) el.setAttribute('data-stuck', true);
-    current = scroll;
+    // exit if already sticky
+    if (el.getAttribute('data-sticky') === true && scroll < stop) return;
+    // sets up sticky
+    css.cssText = csstext;
+    css[position] = offset;
+    el.setAttribute('data-sticky', true);
+    // exit if already stuck
+    if (scroll > stop && el.getAttribute('data-stuck') === true) return;
+    // set up stuck
+    el.setAttribute('data-stuck', true);
     return;
   }
   window.addEventListener('scroll', () => stickiness());
