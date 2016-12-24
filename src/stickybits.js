@@ -1,75 +1,65 @@
-export default function stickybit(target, opts) {
-  if (document.querySelector(target).length > 1) throw Error('Stickybits only works on one element per initialization. 😰');
-
+// Stickybits
+// ----------
+/*
+  📍the basic stickybits only does what's needed
+    -  Only the sticky position and css classes are added to the Element.
+    -  Any extra styling must be added to make stickybits look awesome!
+*/
+export default function stickybits(target, opts) {
+  if (document.querySelector(target).length > 1) throw Error('Check or selector. Also, Stickybits only works on one element per initialization. 😰');
   const el = document.querySelector(target);
-  const elCurrentStyles = el.getAttribute('style');
+  const defaults = {
+    scrolltarget: window,
+    vendor: ['-webkit-', '-moz-', '-ms-', ''],
+  };
+  const scrolltarget = (opts && opts.scrolltarget) || defaults.scrolltarget;
+  const verdor = (opts && opts.vendor) || defaults.vendor;
+  const elStyle = el.style;
+  const stickyCss = `${verdor.join('sticky; position: ')}sticky`;
+  // does the sticky position css rule exist? 🤔
+  elStyle.position = stickyCss;
+  // if the sticky position rule exists we're done 💪
+  if (elStyle.position !== '') return;
+  // maintain stickiness with `fixed position` 🍬
   const parent = el.parentNode;
   const parentPosition = parent.getBoundingClientRect();
-
-  // defaults
-  const defaults = {
-    offset: 0,
-    position: 'top',
-    start: parentPosition.top,
-    stop: parentPosition.top + parent.offsetHeight,
-    width: '100%',
-  };
-  // offset = the stickybit sticky position offset
-  const offset = (opts && opts.offset) || defaults.offset;
-  const position = (opts && opts.position) || defaults.position;
-  const start = (opts && opts.start) || defaults.start;
-  const stop = (opts && opts.stop) || defaults.stop;
-  const width = (opts && opts.width) || defaults.width;
-
-  if (
-    position !== 'top' &&
-    position !== 'bottom'
-  ) throw Error('Stickybits works with top and bottom positioning only. 😰');
-  const elStyles = el.style;
-  let stickycss = `${['-webkit-', '-moz-', '-ms-', '-o-', ''].join('sticky; position: ')}sticky`;
-  // test if sticky position exists
-  elStyles.position = stickycss;
-  if (elStyles.position === '') {
-    stickycss = 'fixed';
-  }
-  const stickyStyles = `position: ${stickycss}; width: ${width}; ${position}: ${offset}; ${elCurrentStyles}`;
-
-  // maintain stickiness
+  const elClasses = el.classList;
+  const stickyClass = 'js-is-sticky';
+  const stuckClass = 'js-is-stuck';
+  const fixed = 'fixed';
+  const start = parentPosition.top;
+  const stop = parentPosition.top + parent.offsetHeight;
   function stickiness() {
-    const scroll = window.scrollY;
-    console.log(scroll, stop);
-    // exit if function is less than start
+    const scroll = scrolltarget.scrollY;
     if (scroll < start) {
-      if (el.getAttribute('data-sticky') === 'true') {
-        el.setAttribute('data-sticky', 'false');
-        elStyles.position = elStyles[offset] = '';
+      if (elClasses.contains(stickyClass)) {
+        elClasses.remove(stickyClass);
+        elStyle.position = '';
       }
       return;
+    } else if (!elClasses.contains(stickyClass)) {
+      elClasses.add(stickyClass);
+      elStyle.position = fixed;
+      return;
+    } else if (scroll < stop && elClasses.contains(stuckClass)) {
+      elClasses.remove(stuckClass);
+      elStyle.position = fixed;
+      return;
+    } else if (scroll > stop && !elClasses.contains(stuckClass)) {
+      elClasses.add(stuckClass);
+      elStyle.position = 'absolute';
+      return;
     }
-    el.setAttribute('data-sticky', 'true');
-    if (scroll < stop && el.getAttribute('data-stuck') === 'true') {
-      el.setAttribute('data-stuck', 'false');
-    }
-    // sets up sticky
-    elStyles.cssText = stickyStyles;
-    elStyles[position] = offset;
-    // exit if already stuck
-    // if (scroll > stop && el.getAttribute('data-stuck') === 'true') return;
-    // // set up stuck
-    // el.setAttribute('data-stuck', 'true');
-    // el.style.position = 'absolute';
-    // el.style.bottom = '0';
-    // el.style.top = '';
-    // return;
+    return;
   }
-  window.addEventListener('scroll', () => window.requestAnimationFrame(stickiness));
+  scrolltarget.addEventListener('scroll', () => scrolltarget.requestAnimationFrame(stickiness));
 }
 
 if (typeof window !== 'undefined') {
   const plugin = window.$ || window.jQuery || window.Zepto;
   if (plugin) {
-    plugin.fn.stickybit = function stickybitPlugin(opts) {
-      stickybit(this, opts);
+    plugin.fn.stickybits = function stickybitsPlugin(opts) {
+      stickybits(this, opts);
       return;
     };
   }

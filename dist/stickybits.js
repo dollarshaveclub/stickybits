@@ -1,75 +1,68 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global.stickybit = factory());
+  (global.stickybits = factory());
 }(this, (function () { 'use strict';
 
-function stickybit(target, opts) {
-  if (document.querySelector(target).length > 1) throw Error('Stickybits only works on one element per initialization. 😰');
-
+// Stickybits
+// ----------
+/*
+  📍the basic stickybits only does what's needed
+    -  Only the sticky position and css classes are added to the Element.
+    -  Any extra styling must be added to make stickybits look awesome!
+*/
+function stickybits(target, opts) {
+  if (document.querySelector(target).length > 1) throw Error('Check or selector. Also, Stickybits only works on one element per initialization. 😰');
   var el = document.querySelector(target);
-  var elCurrentStyles = el.getAttribute('style');
+  var defaults = {
+    scrolltarget: window,
+    vendor: ['-webkit-', '-moz-', '-ms-', '']
+  };
+  var scrolltarget = opts && opts.scrolltarget || defaults.scrolltarget;
+  var verdor = opts && opts.vendor || defaults.vendor;
+  var elStyle = el.style;
+  var stickyCss = verdor.join('sticky; position: ') + 'sticky';
+  // does the sticky position css rule exist? 🤔
+  elStyle.position = stickyCss;
+  // if the sticky position rule exists we're done 💪
+  if (elStyle.position !== '') return;
+  // maintain stickiness with `fixed position` 🍬
   var parent = el.parentNode;
   var parentPosition = parent.getBoundingClientRect();
-
-  // defaults
-  var defaults = {
-    offset: 0,
-    position: 'top',
-    start: parentPosition.top,
-    stop: parentPosition.top + parent.offsetHeight,
-    width: '100%'
-  };
-  // offset = the stickybit sticky position offset
-  var offset = opts && opts.offset || defaults.offset;
-  var position = opts && opts.position || defaults.position;
-  var start = opts && opts.start || defaults.start;
-  var stop = opts && opts.stop || defaults.stop;
-  var width = opts && opts.width || defaults.width;
-
-  if (position !== 'top' && position !== 'bottom') throw Error('Stickybits works with top and bottom positioning only. 😰');
-  var elStyles = el.style;
-  var stickycss = ['-webkit-', '-moz-', '-ms-', '-o-', ''].join('sticky; position: ') + 'sticky';
-  // test if sticky position exists
-  elStyles.position = stickycss;
-  if (elStyles.position === '') {
-    stickycss = 'fixed';
-  }
-  var stickyStyles = 'position: ' + stickycss + '; width: ' + width + '; ' + position + ': ' + offset + '; ' + elCurrentStyles;
-
-  // maintain stickiness
+  var elClasses = el.classList;
+  var stickyClass = 'js-is-sticky';
+  var stuckClass = 'js-is-stuck';
+  var fixed = 'fixed';
+  var start = parentPosition.top;
+  var stop = parentPosition.top + parent.offsetHeight;
   function stickiness() {
-    var scroll = window.scrollY;
-    console.log(scroll, stop);
-    // exit if function is less than start
+    var scroll = scrolltarget.scrollY;
     if (scroll < start) {
-      if (el.getAttribute('data-sticky') === 'true') {
-        el.setAttribute('data-sticky', 'false');
-        elStyles.position = elStyles[offset] = '';
+      if (elClasses.contains(stickyClass)) {
+        elClasses.remove(stickyClass);
+        elStyle.position = '';
       }
       return;
+    } else if (!elClasses.contains(stickyClass)) {
+      elClasses.add(stickyClass);
+      elStyle.position = fixed;
+      return;
+    } else if (scroll < stop && elClasses.contains(stuckClass)) {
+      elClasses.remove(stuckClass);
+      elStyle.position = fixed;
+      return;
+    } else if (scroll > stop && !elClasses.contains(stuckClass)) {
+      elClasses.add(stuckClass);
+      elStyle.position = 'absolute';
+      return;
     }
-    el.setAttribute('data-sticky', 'true');
-    if (scroll < stop && el.getAttribute('data-stuck') === 'true') {
-      el.setAttribute('data-stuck', 'false');
-    }
-    // sets up sticky
-    elStyles.cssText = stickyStyles;
-    elStyles[position] = offset;
-    // exit if already stuck
-    // if (scroll > stop && el.getAttribute('data-stuck') === 'true') return;
-    // // set up stuck
-    // el.setAttribute('data-stuck', 'true');
-    // el.style.position = 'absolute';
-    // el.style.bottom = '0';
-    // el.style.top = '';
-    // return;
+    return;
   }
-  window.addEventListener('scroll', function () {
-    return window.requestAnimationFrame(stickiness);
+  scrolltarget.addEventListener('scroll', function () {
+    return scrolltarget.requestAnimationFrame(stickiness);
   });
 }
 
-return stickybit;
+return stickybits;
 
 })));

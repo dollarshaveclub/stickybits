@@ -1,43 +1,19 @@
-<!DOCTYPE html>
-<html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" media="all" href="https://cdnjs.cloudflare.com/ajax/libs/qunit/2.0.1/qunit.css">
   <style>
-  body,
-  html {
-    padding: 0;
-    margin: 0;
-  }
-  main {
-    height: 100%;
-    min-height: 2000px;
-  }
-  .parent {
-    height: 200px;
-  }
-  .child {
-    background-color: red;
-    padding: 1rem 0;
-  }
-  .child-text {
-    color: white;
-  }
-  p {max-width: 18.75rem;margin: 1rem auto;}
+  body,html {padding: 0;margin: 0;}main {height: 100%;min-height: 2000px;}p {color: white;font-family: sans-serif;max-width: 18.75rem;margin: 1rem auto;}.child {padding: 1rem 0;}.parent {position: relative;}
+  .parent-1 {height: 200px;}
+  .child-1 {background-color: red;width: 100%;}
+  .child-1.js-is-sticky {top: 0;}
+  .child-1.js-is-stuck {bottom: 0;}
   </style>
-
-
-</head>
-  <body>
-    <div id="qunit"></div>
-    <div id="qunit-fixture"></div>
-		<main>
-	    <div id="parent" class="parent">
-			     <div id="child" class="child">
-             <p class="child-text">Child</p>
+</head><body><div id="qunit"></div><div id="qunit-fixture"></div><main>
+	    <div id="parent-1" class="parent parent-1">
+			     <div id="child-1" class="child child-1">
+             <p>Child</p>
           </div>
 			</div>
-		</main>
-    <script src="https://code.jquery.com/jquery-3.1.0.slim.min.js" integrity="sha256-cRpWjoSOw5KcyIOaZNo4i6fZ9tKPhYYb6i5T9RSVJG8=" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/qunit/2.0.1/qunit.js"></script>
-    <script src="../dist/stickybits.js"></script>
-    <script src="test.js"></script>
+</main><script src="https://code.jquery.com/jquery-3.1.0.slim.min.js" integrity="sha256-cRpWjoSOw5KcyIOaZNo4i6fZ9tKPhYYb6i5T9RSVJG8=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/qunit/2.0.1/qunit.js"></script>
+<script src="../dist/stickybits.js"></script>
+<script src="test.js"></script>
 </body></html>
