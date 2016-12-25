@@ -10,25 +10,38 @@ export default function stickybits(target, opts) {
   const el = document.querySelector(target);
   const defaults = {
     scrolltarget: window,
-    vendor: ['-webkit-', '-moz-', '-ms-', ''],
+    prefix: ['', '-webkit-', '-moz-', '-ms-'],
+    verticalposition: 'top',
+    stickyoffset: '0',
   };
   const scrolltarget = (opts && opts.scrolltarget) || defaults.scrolltarget;
-  const verdor = (opts && opts.vendor) || defaults.vendor;
+  const prefix = (opts && opts.prefix) || defaults.prefix;
+  // vertical position css prop (top 🔺|| bottom 🔻), relative to its parent
+  // re: `top: 0; || bottom: 0;` (the prop)
+  const verticalposition = (opts && opts.verticalposition) || defaults.verticalposition;
+  // sticky offset is the css num val associated with the sticky element's vertical position
+  // re: `top: 0; || top: 10px`; (the val)
+  const stickyoffset = (opts && opts.stickyoffset) || defaults.stickyoffset;
   const elStyle = el.style;
-  const stickyCss = `${verdor.join('sticky; position: ')}sticky`;
+  const elClasses = el.classList;
   // does the sticky position css rule exist? 🤔
-  elStyle.position = stickyCss;
+  for (let i = 0; i < prefix.length; i += 1) {
+    elStyle.position = `${prefix[i]}sticky`;
+  }
   // if the sticky position rule exists we're done 💪
-  if (elStyle.position !== '') return;
+  if (elStyle.position !== '') {
+    elStyle[verticalposition] = stickyoffset;
+    elClasses.add('js-sticky-support');
+    return;
+  }
   // maintain stickiness with `fixed position` 🍬
   const parent = el.parentNode;
-  const parentPosition = parent.getBoundingClientRect();
-  const elClasses = el.classList;
+  const elPosition = el.getBoundingClientRect();
   const stickyClass = 'js-is-sticky';
   const stuckClass = 'js-is-stuck';
   const fixed = 'fixed';
-  const start = parentPosition.top;
-  const stop = parentPosition.top + parent.offsetHeight;
+  const start = elPosition.top;
+  const stop = elPosition.top + parent.offsetHeight;
   function stickiness() {
     const scroll = scrolltarget.scrollY;
     if (scroll < start) {
@@ -39,12 +52,18 @@ export default function stickybits(target, opts) {
       return;
     } else if (scroll > start && scroll < stop) {
       if (!elClasses.contains(stickyClass)) elClasses.add(stickyClass);
-      if (elClasses.contains(stuckClass)) elClasses.remove(stuckClass);
+      if (elClasses.contains(stuckClass)) {
+        elClasses.remove(stuckClass);
+        elStyle.bottom = '';
+      }
       elStyle.position = fixed;
+      elStyle[verticalposition] = stickyoffset;
       return;
     } else if (scroll > stop && !elClasses.contains(stuckClass)) {
       elClasses.remove(stickyClass);
       elClasses.add(stuckClass);
+      elStyle.top = '';
+      elStyle.bottom = '0';
       elStyle.position = 'absolute';
       return;
     }
