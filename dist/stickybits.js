@@ -43,15 +43,13 @@ function stickybits(target, opts) {
         elStyle.position = '';
       }
       return;
-    } else if (!elClasses.contains(stickyClass)) {
-      elClasses.add(stickyClass);
-      elStyle.position = fixed;
-      return;
-    } else if (scroll < stop && elClasses.contains(stuckClass)) {
-      elClasses.remove(stuckClass);
+    } else if (scroll > start && scroll < stop) {
+      if (!elClasses.contains(stickyClass)) elClasses.add(stickyClass);
+      if (elClasses.contains(stuckClass)) elClasses.remove(stuckClass);
       elStyle.position = fixed;
       return;
     } else if (scroll > stop && !elClasses.contains(stuckClass)) {
+      elClasses.remove(stickyClass);
       elClasses.add(stuckClass);
       elStyle.position = 'absolute';
       return;

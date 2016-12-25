@@ -6,7 +6,7 @@
     -  Any extra styling must be added to make stickybits look awesome!
 */
 export default function stickybits(target, opts) {
-  if (document.querySelector(target).length > 1) throw Error('Check or selector. Also, Stickybits only works on one element per initialization. 😰');
+  if (document.querySelector(target).length > 1) throw Error('Check your selector. Stickybits only works on one element per initialization. 😰');
   const el = document.querySelector(target);
   const defaults = {
     scrolltarget: window,
@@ -37,15 +37,13 @@ export default function stickybits(target, opts) {
         elStyle.position = '';
       }
       return;
-    } else if (!elClasses.contains(stickyClass)) {
-      elClasses.add(stickyClass);
-      elStyle.position = fixed;
-      return;
-    } else if (scroll < stop && elClasses.contains(stuckClass)) {
-      elClasses.remove(stuckClass);
+    } else if (scroll > start && scroll < stop) {
+      if (!elClasses.contains(stickyClass)) elClasses.add(stickyClass);
+      if (elClasses.contains(stuckClass)) elClasses.remove(stuckClass);
       elStyle.position = fixed;
       return;
     } else if (scroll > stop && !elClasses.contains(stuckClass)) {
+      elClasses.remove(stickyClass);
       elClasses.add(stuckClass);
       elStyle.position = 'absolute';
       return;
