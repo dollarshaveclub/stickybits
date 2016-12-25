@@ -5,9 +5,8 @@
     -  Only the sticky position and css classes are added to the Element.
     -  Any extra styling must be added to make stickybits look awesome!
 */
-export default function stickybits(target, opts) {
-  if (document.querySelector(target).length > 1) throw Error('Check your selector. Stickybits only works on one element per initialization. 😰');
-  const el = document.querySelector(target);
+function stickybit(target, opts) {
+  const el = target;
   const defaults = {
     scrolltarget: window,
     prefix: ['', '-webkit-', '-moz-', '-ms-'],
@@ -70,6 +69,16 @@ export default function stickybits(target, opts) {
     return;
   }
   scrolltarget.addEventListener('scroll', () => scrolltarget.requestAnimationFrame(stickiness));
+}
+
+export default function stickybits(target, opts) {
+  let els = typeof target === 'string' ? document.querySelectorAll(target) : target;
+  if (!('length' in els)) els = [els];
+
+  for (let i = 0; i < els.length; i += 1) {
+    const el = els[i];
+    stickybit(el, opts);
+  }
 }
 
 if (typeof window !== 'undefined') {
