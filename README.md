@@ -3,7 +3,7 @@
 StickyBits is a JavaScript Plugin ensuring sticky elements stick as desired within a browser html document when scrolling vertically. 
 
 **Stickybits is awesome because:**
--  it loosely mimics `position: [sticky](https://www.sitepoint.com/css-position-sticky-introduction-polyfills/)` to consistently stick elements across multiple platforms 
+-  it loosely mimics [position: sticky](https://www.sitepoint.com/css-position-sticky-introduction-polyfills/)` to consistently stick elements across multiple platforms 
 -  does not jump in certain browsers because it will use `sticky` then `fixed` position as supported 
 -  is super simple so it is very lightweight (1kb minified).
 -  is **not** a `position: sticky` polyfill which allows it to work more simply but do the sticky stuff you want
