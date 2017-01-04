@@ -17,7 +17,8 @@ function stickybit(target, opts) {
     scrolltarget: window,
     prefix: ['', '-webkit-', '-moz-', '-ms-'],
     verticalposition: 'top',
-    stickyoffset: '0'
+    stickyoffset: '0',
+    oldschool: false
   };
   var scrolltarget = opts && opts.scrolltarget || defaults.scrolltarget;
   var prefix = opts && opts.prefix || defaults.prefix;
@@ -27,6 +28,8 @@ function stickybit(target, opts) {
   // sticky offset is the css num val associated with the sticky element's vertical position
   // re: `top: 0; || top: 10px`; (the val)
   var stickyoffset = opts && opts.stickyoffset || defaults.stickyoffset;
+  // set `oldschool:  true` if you want a stickybit to be `position: fixed`
+  var oldSchool = opts && opts.oldSchool || defaults.oldSchool;
   var elStyle = el.style;
   var elClasses = el.classList;
   // does the sticky position css rule exist? 🤔
@@ -37,7 +40,7 @@ function stickybit(target, opts) {
   if (elStyle.position !== '') {
     elStyle[verticalposition] = stickyoffset;
     elClasses.add('js-sticky-support');
-    return;
+    if (oldSchool === false) return;
   }
   // maintain stickiness with `fixed position` 🍬
   var parent = el.parentNode;
@@ -86,6 +89,16 @@ function stickybits(target, opts) {
   for (var i = 0; i < els.length; i += 1) {
     var el = els[i];
     stickybit(el, opts);
+  }
+}
+
+if (typeof window !== 'undefined') {
+  var plugin = window.$ || window.jQuery || window.Zepto;
+  if (plugin) {
+    plugin.fn.stickybits = function stickybitsPlugin(opts) {
+      stickybits(this, opts);
+      return;
+    };
   }
 }
 

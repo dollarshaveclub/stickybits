@@ -12,6 +12,7 @@ function stickybit(target, opts) {
     prefix: ['', '-webkit-', '-moz-', '-ms-'],
     verticalposition: 'top',
     stickyoffset: '0',
+    oldschool: false,
   };
   const scrolltarget = (opts && opts.scrolltarget) || defaults.scrolltarget;
   const prefix = (opts && opts.prefix) || defaults.prefix;
@@ -21,6 +22,8 @@ function stickybit(target, opts) {
   // sticky offset is the css num val associated with the sticky element's vertical position
   // re: `top: 0; || top: 10px`; (the val)
   const stickyoffset = (opts && opts.stickyoffset) || defaults.stickyoffset;
+  // set `oldschool:  true` if you want a stickybit to be `position: fixed`
+  const oldSchool = (opts && opts.oldSchool) || defaults.oldSchool;
   const elStyle = el.style;
   const elClasses = el.classList;
   // does the sticky position css rule exist? 🤔
@@ -31,7 +34,7 @@ function stickybit(target, opts) {
   if (elStyle.position !== '') {
     elStyle[verticalposition] = stickyoffset;
     elClasses.add('js-sticky-support');
-    return;
+    if (oldSchool === false) return;
   }
   // maintain stickiness with `fixed position` 🍬
   const parent = el.parentNode;
