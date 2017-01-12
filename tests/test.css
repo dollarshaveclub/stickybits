@@ -1,0 +1,66 @@
+body,
+html{
+  margin: 0;
+  padding: 0;
+}
+main {
+  display: flex;
+  height: 100%;
+  max-width: 100vw;
+  min-height: 2000px;
+  width: 100%;
+}
+p {
+  color: white;
+  font-family: sans-serif;
+  max-width: 18.75rem;
+  margin: 1rem auto;
+}
+.child,
+.parent {
+  max-width: 50vw;
+  width: 50%;
+}
+.child {
+  padding: 1rem 0;
+}
+.parent {
+  height: 100%;
+  position: relative;
+}
+main {
+  position: absolute;
+  top: 300px;
+  width: 100%;
+}
+.parent-1 {
+  background: tan;
+}
+.parent:before {
+  left: 1rem;
+  position: absolute;
+  top: 1rem;
+}
+.parent-1:before {
+  content: 'Parent 1';
+}
+.parent-2 {
+  background: aqua;
+}
+.parent-2:before {
+  content: 'Parent 2';
+}
+.child-1 {
+  background-color: red;
+  width: 100%;
+}
+.child-1.js-is-sticky {
+  top: 0;
+}
+.child-1.js-is-stuck {
+  bottom: 0;
+}
+.child-2 {
+  background-color: green;
+  width: 100%;
+}

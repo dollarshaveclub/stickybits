@@ -18,6 +18,7 @@ function stickybit(target, opts) {
     prefix: ['', '-webkit-', '-moz-', '-ms-'],
     verticalPosition: 'top',
     stickyOffset: '0',
+    fixedOnly: false,
     oldSchool: false
   };
   var scrollTarget = opts && opts.scrollTarget || defaults.scrollTarget;
@@ -28,28 +29,35 @@ function stickybit(target, opts) {
   // sticky offset is the css num val associated with the sticky element's vertical position
   // re: `top: 0; || top: 10px`; (the val)
   var stickyOffset = opts && opts.stickyOffset || defaults.stickyOffset;
-  // set `oldschool:  true` if you want a stickybit to be `position: fixed`
+  // set fixedOnly to not use `position: sticky;
+  // -  optimal if you use position sticky elseware with stickybits in the same app
+  var fixedOnly = opts && opts.fixedOnly || defaults.fixedOnly;
+  // set `oldschool:  true` if you want a stickybit to behave more closely to fixed position
+  // -  beneficial b/c of position sticky (no jitter)
+  // -  item will only be set to position sticky when the `start variable` threshold is passed
   var oldSchool = opts && opts.oldSchool || defaults.oldSchool;
   var elStyle = el.style;
   var elClasses = el.classList;
-  // does the sticky position css rule exist? 🤔
-  for (var i = 0; i < prefix.length; i += 1) {
-    elStyle.position = prefix[i] + 'sticky';
-  }
-  // if the sticky position rule exists we're done 💪
-  if (elStyle.position !== '') {
-    elStyle[verticalPosition] = stickyOffset;
-    elClasses.add('js-sticky-support');
-    if (oldSchool === false) return;
+  if (fixedOnly === true) {
+    // does the sticky position css rule exist? 🤔
+    for (var i = 0; i < prefix.length; i += 1) {
+      elStyle.position = prefix[i] + 'sticky';
+    }
+    // if the sticky position rule exists we're done 💪
+    if (elStyle.position !== '') {
+      elStyle[verticalPosition] = stickyOffset;
+      elClasses.add('js-sticky-support');
+      if (oldSchool === false) return;
+    }
   }
   // maintain stickiness with `fixed position` 🍬
   var parent = el.parentNode;
-  var elPosition = el.getBoundingClientRect();
+  var elHeight = el.offsetHeight;
   var stickyClass = 'js-is-sticky';
   var stuckClass = 'js-is-stuck';
   var fixed = 'fixed';
-  var start = elPosition.top;
-  var stop = elPosition.top + parent.offsetHeight;
+  var start = el.getBoundingClientRect().top;
+  var stop = start + parent.offsetHeight - elHeight;
   function stickiness() {
     var scroll = scrollTarget.scrollY;
     if (scroll < start) {
