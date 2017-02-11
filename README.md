@@ -1,7 +1,7 @@
-<figure align="center">
+<p align="center">
   <img alt="StickyBits banner" src="https://cloud.githubusercontent.com/assets/1074042/22852626/b53c2918-eff4-11e6-8505-58bd36510649.jpg" />
-  <figcaption>Make things get sticky in a good way</figcaption>
-</figure>
+</p>
+<p align="center">Make things get sticky in a good way</p>
 <hr />
 <p align="center">
   <a href="https://travis-ci.org/dollarshaveclub/stickbits/">
