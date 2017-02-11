@@ -39,7 +39,6 @@ stickybits('selector');
 ## CSS Class Usage
 
 3 CSS classes will be added or removed by stickybits unrelated to the basic usage.
-- `js-sticky-support` is added if `position: sticky` is supported
 - `js-is-sticky` if the selected element is sticky.
 - `js-is-stuck` if the selected element is stopped at the bottom of its parent.
 
@@ -47,17 +46,17 @@ stickybits('selector');
 
 #### Vertical Layout Position
 
-By default, a StickyBit element will stick to the top of the viewport.
+By default, a StickyBit element will stick to the top of the viewport when vertically scrolled to.
 
-To have a StickYBit stick to the bottom of the viewport:
+To have a StickyBit not have the inline css property `top` style:
 
 ```javascript
-stickybits('selector', verticalLayoutPosition: 'bottom');
+stickybits('selector', customVerticalPosition: true);
 ```
 
 #### StickyBit Sticky Offset
 
-By default, a StickyBit Element will have a `0` sticky layout offest. This means that if the element will sticky to the top of the viewport by default.
+By default, a StickyBit Element will have a `0px` sticky layout offest. This means that if the element will sticky to the top of the viewport by default.
 
 To have a stickyBit stick with a `20px` offset to its vertical layout position:
 
@@ -69,7 +68,7 @@ stickybits('selector', stickyBitStickyOffset: '20');
 
 By default, a StickyBit will use `position: sticky` if supported. 
 
-To have a StickyBit used `position: fixed` only:
+To have a StickyBit use `position: fixed` only:
 
 ```javascript
 stickybits('selector', fixedOnly: true);
@@ -77,7 +76,7 @@ stickybits('selector', fixedOnly: true);
 
 #### Making a StickyBit work similarly to `position: fixed`
 
-`position: sticky` does not work exactly like `position: fixed`. You can ready more [here](https://developer.mozilla.org/en-US/docs/Web/CSS/position). 
+`position: sticky` does not work exactly like `position: fixed`. Read more [here](https://developer.mozilla.org/en-US/docs/Web/CSS/position). 
 
 To make a StickyBit work *_more similarily_ to `position: fixed`:
 
