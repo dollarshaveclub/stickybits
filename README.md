@@ -1,4 +1,24 @@
-# StickyBits 🍬
+<figure align="center">
+  <img alt="StickyBits banner" src="https://cloud.githubusercontent.com/assets/1074042/22852626/b53c2918-eff4-11e6-8505-58bd36510649.jpg" />
+  <figcaption>Make things get sticky in a good way</figcaption>
+</figure>
+<hr />
+<p align="center">
+  <a href="https://travis-ci.org/dollarshaveclub/stickbits/">
+    <img alt="Build Status" src="https://travis-ci.org/dollarshaveclub/stickybits.svg?branch=master" />
+  </a>
+  <a href="https://www.npmjs.com/package/stickybits">
+    <img alt="npm version" src="https://badge.fury.io/js/stickybits.svg" />
+  </a>
+  <a href="https://github.com/dollarshaveclub/stickybits"> 
+    <img alt="Bower version" src="https://badge.fury.io/bo/stickybits.svg" />
+  </a>
+  <a href="https://twitter.com/home?status=Stickybits%2C%20A%200%20dep%2C%201kb%20JS%20plugin.%20Make%20things%20get%20sticky%20in%20a%20good%20way!%20%F0%9F%8D%AC%20https%3A%2F%2Fgithub.com%2Fdollarshaveclub%2Fstickybits%40yowainwright">
+    <img alt="Share on Twitter" src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social&maxAge=2592000" />
+  </a>
+</p>
+<hr />
+<h1 align="center">StickyBits 🍬</h1>
 
 > StickyBits is a JavaScript Plugin that ensures elements stick to the top or bottom of a browser's viewport as desired.
 
@@ -10,6 +30,10 @@
 
 ## Installing from a package manager
 
+yarn
+```sh
+yarn add stickybits
+```
 npm
 ```sh
 npm install stickybits --save
@@ -17,10 +41,6 @@ npm install stickybits --save
 bower
 ```sh
 bower install stickybits --save
-```
-yarn
-```sh
-yarn add stickybits
 ```
 
 ## Setup
@@ -38,7 +58,7 @@ stickybits('selector');
 
 ## CSS Class Usage
 
-3 CSS classes will be added or removed by stickybits unrelated to the basic usage.
+2 CSS classes will be added or removed by stickybits unrelated to the basic usage.
 - `js-is-sticky` if the selected element is sticky.
 - `js-is-stuck` if the selected element is stopped at the bottom of its parent.
 
