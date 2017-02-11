@@ -10,20 +10,22 @@ function stickybit(target, opts) {
   const el = target;
   const defaults = {
     scrollTarget: window,
-    verticalLayoutPosition: 'top',
     stickyBitStickyOffset: '0',
     fixedOnly: false,
     fixedSticky: false,
+    customVerticalPosition: false,
   };
   const scrollTarget = (opts && opts.scrollTarget) || defaults.scrollTarget;
   const browserPrefix = ['', '-o-', '-webkit-', '-moz-', '-ms-'];
-  const verticalLayoutPosition = (opts && opts.verticalLayoutPosition) || defaults.verticalLayoutPosition;
+  const customVerticalPosition = (opts && opts.customVerticalPosition) || defaults.customVerticalPosition;
   const stickyBitStickyOffset = (opts && opts.stickyBitStickyOffset) || defaults.stickyBitStickyOffset;
   const fixedOnly = (opts && opts.fixedOnly) || defaults.fixedOnly;
   const fixedSticky = (opts && opts.fixedSticky) || defaults.fixedSticky;
   const elStyle = el.style;
   const elClasses = el.classList;
-  if (fixedOnly === true) {
+  let positionStickySupport = false;
+  let stickyValue;
+  if (fixedOnly === false) {
     // does the sticky position css rule exist? 🤔
     for (let i = 0; i < browserPrefix.length; i += 1) {
       elStyle.position = `${browserPrefix[i]}sticky`;
@@ -34,8 +36,15 @@ function stickybit(target, opts) {
       we're done 💪
     */
     if (elStyle.position !== '') {
-      elStyle[verticalLayoutPosition] = stickyBitStickyOffset;
-      elClasses.add('js-sticky-support');
+      positionStickySupport = true;
+      if (fixedSticky) {
+        stickyValue = elStyle.position;
+        console.log(stickyValue);
+        elStyle.top = '';
+      }
+      if (customVerticalPosition === false) {
+        elStyle.top = `${stickyBitStickyOffset}px`;
+      }
       if (fixedSticky === false) return;
     }
   }
@@ -48,7 +57,7 @@ function stickybit(target, opts) {
   const elHeight = el.offsetHeight;
   const stickyBitClass = 'js-is-sticky';
   const stickyBitIsStuckClass = 'js-is-stuck';
-  const fixed = 'fixed';
+  const stickyBitCss = positionStickySupport ? stickyValue : 'fixed';
   const stickyBitStart = el.getBoundingClientRect().top;
   const stickyBitStop = (stickyBitStart + elParent.offsetHeight) - elHeight;
   elParent.classList.add('js-stickybit-parent');
@@ -66,8 +75,10 @@ function stickybit(target, opts) {
         elClasses.remove(stickyBitIsStuckClass);
         elStyle.bottom = '';
       }
-      elStyle.position = fixed;
-      elStyle[verticalLayoutPosition] = stickyBitStickyOffset;
+      elStyle.position = stickyBitCss;
+      if (customVerticalPosition === false) {
+        elStyle.top = `${stickyBitStickyOffset}px`;
+      }
       return;
     } else if (scroll > stop && !elClasses.contains(stickyBitIsStuckClass)) {
       elClasses.remove(stickyBitClass);
