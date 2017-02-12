@@ -11,51 +11,36 @@
     -  Only `position: sticky || postition: fixed` + css classes are added to the Element.
     -  Extra styling must be added to make stickybits look awesome!
 */
-function supportsSticky() {
-  var el = document.createElement('test');
-  var browserPrefix = ['', '-o-', '-webkit-', '-moz-', '-ms-'];
-  var elStylePosition = el.style;
-  for (var i = 0; i < browserPrefix.length; i += 1) {
-    elStylePosition = browserPrefix[i] + 'sticky';
-  }
-  var htmlEl = document.documentElement;
-  if (elStylePosition !== '') {
-    htmlEl.setAttribute('data-sticky-style', elStylePosition);
-    return;
-  }
-  return;
-}
 function stickybit(target, opts) {
   var el = target;
   var defaults = {
     scrollTarget: window,
     stickyBitStickyOffset: '0',
-    fixedOnly: false,
-    fixedSticky: false,
     customVerticalPosition: false
   };
   var scrollTarget = opts && opts.scrollTarget || defaults.scrollTarget;
+  var browserPrefix = ['', '-o-', '-webkit-', '-moz-', '-ms-'];
   var customVerticalPosition = opts && opts.customVerticalPosition || defaults.customVerticalPosition;
   var stickyBitStickyOffset = opts && opts.stickyBitStickyOffset || defaults.stickyBitStickyOffset;
-  var fixedOnly = opts && opts.fixedOnly || defaults.fixedOnly;
-  var fixedSticky = opts && opts.fixedSticky || defaults.fixedSticky;
   var elStyle = el.style;
-  var stickyPosition = document.documentElement.getAttribute('data-sticky-style') || 'fixed';
-  if (fixedSticky === false) {
+  var elClasses = el.classList;
+  // does the sticky position css rule exist? 🤔
+  for (var i = 0; i < browserPrefix.length; i += 1) {
+    elStyle.position = browserPrefix[i] + 'sticky';
+  }
+  // if `position: sticky` exists we're done 💪
+  if (elStyle.position !== '') {
     if (customVerticalPosition === false) {
       elStyle.top = stickyBitStickyOffset + 'px';
     }
-    elStyle.position = stickyPosition;
     return;
   }
-  if (fixedOnly === true) {
-    stickyPosition = 'fixed';
-  }
-  var elClasses = el.classList;
+  // maintain stickiness with `fixed position`  🍬
   var elParent = el.parentNode;
   var elHeight = el.offsetHeight;
   var stickyBitClass = 'js-is-sticky';
   var stickyBitIsStuckClass = 'js-is-stuck';
+  var stickyStyle = 'fixed';
   var stickyBitStart = el.getBoundingClientRect().top;
   var stickyBitStop = stickyBitStart + elParent.offsetHeight - elHeight;
   elParent.classList.add('js-stickybit-parent');
@@ -73,7 +58,7 @@ function stickybit(target, opts) {
         elClasses.remove(stickyBitIsStuckClass);
         elStyle.bottom = '';
       }
-      elStyle.position = stickyPosition;
+      elStyle.position = stickyStyle;
       if (customVerticalPosition === false) {
         elStyle.top = stickyBitStickyOffset + 'px';
       }
@@ -91,17 +76,18 @@ function stickybit(target, opts) {
   scrollTarget.addEventListener('scroll', function () {
     return scrollTarget.requestAnimationFrame(stickiness);
   });
-  return;
 }
+
 function stickybits(target, opts) {
-  supportsSticky();
   var els = typeof target === 'string' ? document.querySelectorAll(target) : target;
   if (!('length' in els)) els = [els];
+
   for (var i = 0; i < els.length; i += 1) {
     var el = els[i];
     stickybit(el, opts);
   }
 }
+
 if (typeof window !== 'undefined') {
   var plugin = window.$ || window.jQuery || window.Zepto;
   if (plugin) {
