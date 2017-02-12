@@ -26,7 +26,6 @@
 -  it loosely mimics [position: sticky](http://caniuse.com/#search=sticky) to consistently stick elements vertically across multiple platforms 
 -  does not have the _jumpiness_ that plugins that are built around `position: fixed` have 
 -  it is super simple so it is very lightweight (1kb minified)
--  it is **not** a `position: sticky` polyfill
 
 ## Installing from a package manager
 
@@ -83,28 +82,6 @@ To have a stickyBit stick with a `20px` offset to its vertical layout position:
 ```javascript
 stickybits('selector', stickyBitStickyOffset: '20');
 ```
-
-#### Making a StickyBit use `position: fixed` only
-
-By default, a StickyBit will use `position: sticky` if supported. 
-
-To have a StickyBit use `position: fixed` only:
-
-```javascript
-stickybits('selector', fixedOnly: true);
-```
-
-#### Making a StickyBit work similarly to `position: fixed`
-
-`position: sticky` does not work exactly like `position: fixed`. Read more [here](https://developer.mozilla.org/en-US/docs/Web/CSS/position). 
-
-To make a StickyBit work *_more similarily_ to `position: fixed`:
-
-```javascript
-stickybits('selector', fixedSticky: true);
-```
-*\**More similarily:** Element's that are set to `position: sticky` will be relatively contained by their parent.
-
 
 ## Examples
 
