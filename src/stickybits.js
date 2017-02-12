@@ -8,7 +8,7 @@
 function supportsSticky() {
   const el = document.createElement('test');
   const browserPrefix = ['', '-o-', '-webkit-', '-moz-', '-ms-'];
-  const elStylePosition = el.style;
+  let elStylePosition = el.style;
   for (let i = 0; i < browserPrefix.length; i += 1) {
     elStylePosition = `${browserPrefix[i]}sticky`;
   }
@@ -18,10 +18,34 @@ function supportsSticky() {
     return;
   }
   return;
-};
-function stickyScroll(target, stickyPositionCss) {
+}
+function stickybit(target, opts) {
   const el = target;
-  const stickyStyle = opts.stickyPositionCss;
+  const defaults = {
+    scrollTarget: window,
+    stickyBitStickyOffset: '0',
+    fixedOnly: false,
+    fixedSticky: false,
+    customVerticalPosition: false,
+  };
+  const scrollTarget = (opts && opts.scrollTarget) || defaults.scrollTarget;
+  const customVerticalPosition = (opts && opts.customVerticalPosition) || defaults.customVerticalPosition;
+  const stickyBitStickyOffset = (opts && opts.stickyBitStickyOffset) || defaults.stickyBitStickyOffset;
+  const fixedOnly = (opts && opts.fixedOnly) || defaults.fixedOnly;
+  const fixedSticky = (opts && opts.fixedSticky) || defaults.fixedSticky;
+  const elStyle = el.style;
+  let stickyPosition = document.documentElement.getAttribute('data-sticky-style') || 'fixed';
+  if (fixedSticky === false) {
+    if (customVerticalPosition === false) {
+      elStyle.top = `${stickyBitStickyOffset}px`;
+    }
+    elStyle.position = stickyPosition;
+    return;
+  }
+  if (fixedOnly === true) {
+    stickyPosition = 'fixed';
+  }
+  const elClasses = el.classList;
   const elParent = el.parentNode;
   const elHeight = el.offsetHeight;
   const stickyBitClass = 'js-is-sticky';
@@ -43,7 +67,7 @@ function stickyScroll(target, stickyPositionCss) {
         elClasses.remove(stickyBitIsStuckClass);
         elStyle.bottom = '';
       }
-      elStyle.position = stickyBitCss;
+      elStyle.position = stickyPosition;
       if (customVerticalPosition === false) {
         elStyle.top = `${stickyBitStickyOffset}px`;
       }
@@ -59,34 +83,8 @@ function stickyScroll(target, stickyPositionCss) {
     return;
   }
   scrollTarget.addEventListener('scroll', () => scrollTarget.requestAnimationFrame(stickiness));
-};
-function stickybit(target, opts) {
-  const el = target;
-  const defaults = {
-    scrollTarget: window,
-    stickyBitStickyOffset: '0',
-    fixedOnly: false,
-    fixedSticky: false,
-    customVerticalPosition: false,
-  };
-  const scrollTarget = (opts && opts.scrollTarget) || defaults.scrollTarget;
-  const customVerticalPosition = (opts && opts.customVerticalPosition) || defaults.customVerticalPosition;
-  const stickyBitStickyOffset = (opts && opts.stickyBitStickyOffset) || defaults.stickyBitStickyOffset;
-  const fixedOnly = (opts && opts.fixedOnly) || defaults.fixedOnly;
-  const fixedSticky = (opts && opts.fixedSticky) || defaults.fixedSticky;
-  const elClasses = el.classList;
-  let stickyPosition = document.documentElement.getAttribute('data-sticky-style') || 'fixed';
-  if (fixedSticky === false) {
-    if (customVerticalPosition === false) {
-      elStyle.top = `${stickyBitStickyOffset}px`;
-    }
-    return elStyle.position = stickyPosition;
-  }
-  if (fixedOnly === true) {
-    stickyPosition = 'fixed';
-  }
-  return stickyScroll(el, stickyPosition);
-};
+  return;
+}
 export default function stickybits(target, opts) {
   supportsSticky();
   let els = typeof target === 'string' ? document.querySelectorAll(target) : target;
