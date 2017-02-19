@@ -11,13 +11,17 @@
     -  Only `position: sticky || postition: fixed` + css classes are added to the Element.
     -  Extra styling must be added to make stickybits look awesome!
 */
-function stickybit(target, opts) {
+function stickybit(target) {
+  var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
   var el = target;
   var defaults = {
     scrollTarget: window,
     stickyBitStickyOffset: '0',
     customVerticalPosition: false
   };
+
+  var newOpts = Object.assign(opts, defaults);
   var scrollTarget = opts && opts.scrollTarget || defaults.scrollTarget;
   var browserPrefix = ['', '-o-', '-webkit-', '-moz-', '-ms-'];
   var customVerticalPosition = opts && opts.customVerticalPosition || defaults.customVerticalPosition;
