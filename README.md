@@ -24,8 +24,8 @@
 
 **Stickybits is awesome because:**
 -  it loosely mimics [position: sticky](http://caniuse.com/#search=sticky) to consistently stick elements vertically across multiple platforms 
--  does not have the _jumpiness_ that plugins that are built around `position: fixed` have 
--  it is super simple so it is very lightweight (1kb minified)
+-  does not have the _jumpiness_ that plugins that are built around `position: fixed` have because it tries to support `position: fixed` first.
+-  it is super simple & lightweight (2kb minified)
 
 ## Installing from a package manager
 
@@ -52,14 +52,15 @@ Add **dist/stickybits.min.js**.
 stickybits('selector');
 ```
 #### By default a selected stickybits element will:
--  stick to the top of the viewport when scrolled to vertically.
--  stick at bottom of it's parent when scrolled past the bottom of its parent.
+-  stick elements to the top of the viewport when scrolled to vertically.
+-  stick elements at the bottom of their parent when scrolled past.
 
 ## CSS Class Usage
 
-2 CSS classes will be added or removed by stickybits unrelated to the basic usage.
+3 CSS classes will be added or removed by stickybits unrelated to the basic usage.
 - `js-is-sticky` if the selected element is sticky.
 - `js-is-stuck` if the selected element is stopped at the bottom of its parent.
+= `js-stickybit-parent` so that styles can easily be added to the parent of a Stickbit
 
 ## Options
 
@@ -75,7 +76,7 @@ stickybits('selector', customVerticalPosition: true);
 
 #### StickyBit Sticky Offset
 
-By default, a StickyBit Element will have a `0px` sticky layout offest. This means that if the element will sticky to the top of the viewport by default.
+By default, a StickyBit element will have a `0px` sticky layout offset. This means that if the element will sticky to the top of the viewport by default.
 
 To have a stickyBit stick with a `20px` offset to its vertical layout position:
 
@@ -85,8 +86,8 @@ stickybits('selector', stickyBitStickyOffset: '20');
 
 ## Examples
 
-TODO
+-  [Basic Usage](http://codepen.io/yowainwright/pen/e68dcc768322fef0c72588576bbc1bfa)
 
 ## Notes
 
-TODO
+We strayed away from calling Stickybits a Shim or Polyfill because full support requires more code. This is the most simple version we could think of to support Elements that become sticky on webpages. 
