@@ -60,9 +60,10 @@ function Stickybit(target, o) {
 export default function stickybits(target, o) {
   let els = typeof target === 'string' ? document.querySelectorAll(target) : target;
   if (!('length' in els)) els = [els];
+  let stickyBit;
   for (let i = 0; i < els.length; i += 1) {
     const el = els[i];
-    return new Stickybit(el, o);
+    stickyBit = new Stickybit(el, o);
   }
-  return false;
+  return stickyBit;
 }

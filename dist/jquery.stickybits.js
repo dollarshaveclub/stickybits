@@ -68,11 +68,12 @@ function Stickybit(target, o) {
 function stickybits(target, o) {
   var els = typeof target === 'string' ? document.querySelectorAll(target) : target;
   if (!('length' in els)) els = [els];
+  var stickyBit = void 0;
   for (var i = 0; i < els.length; i += 1) {
     var el = els[i];
-    return new Stickybit(el, o);
+    stickyBit = new Stickybit(el, o);
   }
-  return false;
+  return stickyBit;
 }
 
 if (typeof window !== 'undefined') {
