@@ -71,7 +71,7 @@ By default, a StickyBit element will stick to the top of the viewport when verti
 To have a StickyBit not have the inline css property `top` style:
 
 ```javascript
-stickybits('selector', customVerticalPosition: true);
+stickybits('selector', {customVerticalPosition: true});
 ```
 
 #### StickyBit Sticky Offset
@@ -81,13 +81,19 @@ By default, a StickyBit element will have a `0px` sticky layout offset. This mea
 To have a stickyBit stick with a `20px` offset to its vertical layout position:
 
 ```javascript
-stickybits('selector', stickyBitStickyOffset: '20');
+stickybits('selector', {stickyBitStickyOffset: 20});
 ```
 
 ## Examples
 
 -  [Basic Usage](http://codepen.io/yowainwright/pen/e68dcc768322fef0c72588576bbc1bfa)
+-  [Basic usage but with multiple instances of the same selector](http://codepen.io/yowainwright/pen/8965fb5fd72300b38294b31963b27c68)
+
+----
+Examples customVerticalPosition, stickyBitStickyOffset & plugin will be coming soon! 👌
 
 ## Notes
 
-We strayed away from calling Stickybits a Shim or Polyfill because full support requires more code. This is the most simple version we could think of to support Elements that become sticky on webpages. 
+We strayed away from calling Stickybits a Shim or Polyfill for `position: sticky` because full support would require more code. This plugin simply makes elements vertically sticky very similarly to `position: sticky`. Read more about position sticky [here](https://developer.mozilla.org/en-US/docs/Web/CSS/position) or follow it's browser implementation [here](http://caniuse.com/#search=sticky).  
+
+This plugin was heavily influenced by [Filament Group](https://www.filamentgroup.com/)'s awesome [Fixed-sticky](https://github.com/filamentgroup/fixed-sticky) jQuery plugin.
