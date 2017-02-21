@@ -26,6 +26,7 @@
 -  it loosely mimics [position: sticky](http://caniuse.com/#search=sticky) to consistently stick elements vertically across multiple platforms 
 -  does not have the _jumpiness_ that plugins that are built around `position: fixed` have because it tries to support `position: fixed` first.
 -  it is super simple & lightweight (2kb minified)
+
 <hr />
   <p align="center">
     <a href="#install">Installation</a>
@@ -36,6 +37,7 @@
     <a href="#notes">Notes</a>
   </p>
 <hr />
+
 <h2 id="install">Installing from a package manager</h2>
 
 yarn
