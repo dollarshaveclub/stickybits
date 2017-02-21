@@ -26,8 +26,17 @@
 -  it loosely mimics [position: sticky](http://caniuse.com/#search=sticky) to consistently stick elements vertically across multiple platforms 
 -  does not have the _jumpiness_ that plugins that are built around `position: fixed` have because it tries to support `position: fixed` first.
 -  it is super simple & lightweight (2kb minified)
-
-## Installing from a package manager
+<hr />
+  <p align="center">
+    <a href="#install">Installation</a>
+    <a href="#setup">Setup</a>
+    <a href="#usage">Usage</a>
+    <a href="#options">Options</a>
+    <a href="#examples">Examples</a>
+    <a href="#notes">Notes</a>
+  </p>
+<hr />
+<h2 id="install">Installing from a package manager</h2>
 
 yarn
 ```sh
@@ -42,11 +51,11 @@ bower
 bower install stickybits --save
 ```
 
-## Setup
+<h2 id="setup">Setup</h2>
 
 Add **dist/stickybits.min.js**.
 
-## Basic Usage
+<h2 id="usage">Basic Usage</h2>
 
 ```javascript
 stickybits('selector');
@@ -55,14 +64,13 @@ stickybits('selector');
 -  stick elements to the top of the viewport when scrolled to vertically.
 -  stick elements at the bottom of their parent when scrolled past.
 
-## CSS Class Usage
-
+#### CSS Class Usage
 3 CSS classes will be added or removed by stickybits unrelated to the basic usage.
 - `js-is-sticky` if the selected element is sticky.
 - `js-is-stuck` if the selected element is stopped at the bottom of its parent.
 = `js-stickybit-parent` so that styles can easily be added to the parent of a Stickbit
 
-## Options
+<h2 id="options">Options</h2>
 
 #### Vertical Layout Position
 
@@ -84,7 +92,7 @@ To have a stickyBit stick with a `20px` offset to its vertical layout position:
 stickybits('selector', {stickyBitStickyOffset: 20});
 ```
 
-## Examples
+<h2 id="examples">Examples</h2>
 
 -  [Basic Usage](http://codepen.io/yowainwright/pen/e68dcc768322fef0c72588576bbc1bfa)
 -  [Basic usage but with multiple instances of the same selector](http://codepen.io/yowainwright/pen/8965fb5fd72300b38294b31963b27c68)
@@ -94,7 +102,7 @@ stickybits('selector', {stickyBitStickyOffset: 20});
 <hr />
 Have another example or question? Feel free to [comment](https://github.com/dollarshaveclub/stickybits/issues). 🙌
 
-## Notes
+<h2 id="notes">Notes</h2>
 
 We strayed away from calling Stickybits a Shim or Polyfill for `position: sticky` because full support would require more code. This plugin simply makes elements vertically sticky very similarly to `position: sticky`. Read more about position sticky [here](https://developer.mozilla.org/en-US/docs/Web/CSS/position) or follow it's browser implementation [here](http://caniuse.com/#search=sticky).  
 
