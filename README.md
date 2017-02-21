@@ -88,9 +88,11 @@ stickybits('selector', {stickyBitStickyOffset: 20});
 
 -  [Basic Usage](http://codepen.io/yowainwright/pen/e68dcc768322fef0c72588576bbc1bfa)
 -  [Basic usage but with multiple instances of the same selector](http://codepen.io/yowainwright/pen/8965fb5fd72300b38294b31963b27c68)
-
-----
-Examples customVerticalPosition, stickyBitStickyOffset & plugin will be coming soon! 👌
+-  [Custom vertical top offset](http://codepen.io/yowainwright/pen/eeafd2ab68d468d3cd19a4361aff6aa6) ie: `stickybits('selector', {stickyBitStickyOffset: 20})`
+-  [Custom vertical position](http://codepen.io/yowainwright/pen/e32cc7b82907ed9715a0a482ffa57596) ie: `stickybits('selector', {customVerticalPosition: true})`
+-  [As a jQuery or Zepto Plugin](http://codepen.io/yowainwright/pen/57b852e88a644e9d919f843dc7b3b5f1) ie: $('selector').stickybits();
+<hr />
+Have another example or question? Feel free to [comment](https://github.com/dollarshaveclub/stickybits/issues). 🙌
 
 ## Notes
 
