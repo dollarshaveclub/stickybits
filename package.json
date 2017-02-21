@@ -23,6 +23,7 @@
   "scripts": {
     "test": "gulp test",
     "rollup": "rollup -c --environment entry:stickybits && rollup -c --environment entry:jquery.stickybits",
+    "build": "rollup -c --environment entry:stickybits && rollup -c --environment entry:jquery.stickybits && gulp",
     "postpublish": "git tag $npm_package_version && git push origin --tags"
   },
   "bugs": {
@@ -35,7 +36,7 @@
   },
   "author": "Jeff Wainwright <jjwainwright2@gmail.com>",
   "license": "MIT",
-  "dependencies": {
+  "devDependencies": {
     "babel-core": "^6.18.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-es2015-rollup": "^1.2.0",
@@ -55,9 +56,7 @@
     "rollup-plugin-commonjs": "^5.0.5",
     "rollup-plugin-eslint": "^3.0.0",
     "rollup-plugin-node-resolve": "^2.0.0",
-    "rollup-plugin-uglify": "^1.0.1"
-  },
-  "devDependencies": {
+    "rollup-plugin-uglify": "^1.0.1",
     "gulp": "^3.9.1",
     "gulp-header": "^1.8.8",
     "gulp-rename": "^1.2.2",
