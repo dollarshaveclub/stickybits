@@ -23,6 +23,11 @@ gulp.task('minify', function() {
     .pipe(head(banner, { pkg }))
     .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest('dist/'));
+  gulp.src('dist/jquery.stickybits.js')
+    .pipe(uglify())
+    .pipe(head(banner, { pkg }))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('default', ['test', 'minify']);
