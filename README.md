@@ -29,11 +29,11 @@
 
 <hr />
   <p align="center">
-    <a href="#install">Installation</a>
-    <a href="#setup">Setup</a>
-    <a href="#usage">Usage</a>
-    <a href="#options">Options</a>
-    <a href="#examples">Examples</a>
+    <a href="#install">Installation</a>&nbsp;&nbsp;
+    <a href="#setup">Setup</a>&nbsp;&nbsp;
+    <a href="#usage">Usage</a>&nbsp;&nbsp;
+    <a href="#options">Options</a>&nbsp;&nbsp;
+    <a href="#examples">Examples</a>&nbsp;&nbsp;
     <a href="#notes">Notes</a>
   </p>
 <hr />
