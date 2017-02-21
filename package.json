@@ -22,6 +22,7 @@
   ],
   "scripts": {
     "test": "gulp test",
+    "rollup": "rollup -c --environment entry:stickybits && rollup -c --environment entry:jquery.stickybits",
     "postpublish": "git tag $npm_package_version && git push origin --tags"
   },
   "bugs": {

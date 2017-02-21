@@ -4,12 +4,15 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import uglify from 'rollup-plugin-uglify';
 
+const entry = process.env.entry;
+
 export default {
-  entry: 'src/stickybits.js',
-  dest: 'dist/stickybits.js',
+  entry: `src/${entry}.js`,
+  dest: `dist/${entry}.js`,
   format: 'umd',
-  moduleName: 'stickybits',
-  sourceMap: false, // removes the souremap at the bottom of the file
+  moduleName: entry,
+  sourceMap: false, // removes the sourcemap at the bottom of the file
+  treeshake: true,
   plugins: [
     resolve({
       jsnext: true,
@@ -18,7 +21,7 @@ export default {
     }),
     commonjs(),
     eslint({
-      exclude: []
+      exclude: [],
     }),
     babel({
       exclude: 'node_modules/**',

@@ -16,7 +16,7 @@ $(window).on('load', function() {
     num = 2;
     content = '<div id="parent-'+ num +'" class="parent parent-'+ num +'"><div id="child-'+ num +'" class="child child-'+ num +'"><p>Child '+ num +'</p></div>';
     $main.append(content);
-    stickybits('.child-2', {stickyBitStickyOffset: '10'});
+    stickybits('.child-2', {stickyBitStickyOffset: 10});
     assert.equal($('.child-2').css('top'), '10px', 'top should be set to 10px');
   });
   QUnit.test( "unique top test", function(assert) {
@@ -24,21 +24,7 @@ $(window).on('load', function() {
     content = '<div id="parent-'+ num +'" class="parent parent-'+ num +'"><div id="child-'+ num +'" class="child child-'+ num +'"><p>Child '+ num +'</p></div>';
     $main.append(content);
     $('.child-3').css('top', '20px')
-    stickybits('.child-3', {customVerticalPosition: 'true'});
+    stickybits('.child-3', {customVerticalPosition: true});
     assert.equal($('.child-3').css('top'), '20px', 'top should be set to 20px');
-  });
-  QUnit.test( "always fixed test", function(assert) {
-    num = 4;
-    content = '<div id="parent-'+ num +'" class="parent parent-'+ num +'"><div id="child-'+ num +'" class="child child-'+ num +'"><p>Child '+ num +'</p></div>';
-    $main.append(content);
-    stickybits('.child-4', {fixedOnly: true});
-    assert.equal($('.child-4').css('position'), 'static', 'position should be set to static until fixed');
-  });
-  QUnit.test( "sticky like fixed", function(assert) {
-    num = 5;
-    content = '<div id="parent-'+ num +'" class="parent parent-'+ num +'"><div id="child-'+ num +'" class="child child-'+ num +'"><p>Child '+ num +'</p></div>';
-    $main.append(content);
-    stickybits('.child-5', {fixedSticky: true});
-    assert.equal($('.child-5').css('top'), '0px', 'position should be set to static until sticky');
   });
 });

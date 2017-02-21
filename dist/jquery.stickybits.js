@@ -1,7 +1,7 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global.stickybits = factory());
+  (factory());
 }(this, (function () { 'use strict';
 
 function Stickybit(target, o) {
@@ -75,6 +75,14 @@ function stickybits(target, o) {
   return false;
 }
 
-return stickybits;
+if (typeof window !== 'undefined') {
+  var plugin = window.$ || window.jQuery || window.Zepto;
+  if (plugin) {
+    plugin.fn.stickybits = function stickybitsPlugin(opts) {
+      stickybits(this, opts);
+      return;
+    };
+  }
+}
 
 })));
