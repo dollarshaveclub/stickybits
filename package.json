@@ -1,7 +1,7 @@
 {
   "name": "stickybits",
-  "version": "0.0.2",
-  "description": "stickybits is a tool to make sticky dom elements",
+  "version": "0.0.3",
+  "description": "Stickybits is a lightweight (<2KB) alternative to `position: sticky` polyfills",
   "main": "dist/stickybits.js",
   "files": [
     "dist",

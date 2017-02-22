@@ -1,7 +1,7 @@
 <p align="center">
-  <img alt="StickyBits banner" src="https://cloud.githubusercontent.com/assets/1074042/22852626/b53c2918-eff4-11e6-8505-58bd36510649.jpg" />
+  <img alt="StickyBits banner" src="https://cloud.githubusercontent.com/assets/1074042/23196560/36427292-f86f-11e6-9145-8f78be3fba08.jpg" />
 </p>
-<p align="center">Make things get sticky in a good way</p>
+<p align="center">Make things get sticky &hellip;in a good way</p>
 <hr />
 <p align="center">
   <a href="https://travis-ci.org/dollarshaveclub/stickbits/">
@@ -20,7 +20,7 @@
 <hr />
 <h1 align="center">StickyBits 🍬</h1>
 
-> StickyBits is a JavaScript Plugin that ensures elements stick to the top or bottom of a browser's viewport as desired.
+> Stickybits is a lightweight (<2KB) alternative to `position: sticky` polyfills that works perfectly for things like sticky headers.
 
 **Stickybits is awesome because:**
 -  it loosely mimics [position: sticky](http://caniuse.com/#search=sticky) to consistently stick elements vertically across multiple platforms 
