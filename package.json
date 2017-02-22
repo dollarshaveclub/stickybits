@@ -1,6 +1,6 @@
 {
   "name": "stickybits",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "stickybits is a tool to make sticky dom elements",
   "main": "dist/stickybits.js",
   "files": [
