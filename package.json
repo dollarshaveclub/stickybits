@@ -4,7 +4,8 @@
   "description": "stickybits is a tool to make sticky dom elements",
   "main": "dist/stickybits.js",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "keywords": [
     "stick",
