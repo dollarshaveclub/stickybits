@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="StickyBits banner" src="https://cloud.githubusercontent.com/assets/1074042/23196560/36427292-f86f-11e6-9145-8f78be3fba08.jpg" />
+  <img alt="StickyBits banner" src="http://imgh.us/stickybits.svg" width="400" />
 </p>
 <p align="center">Make things get sticky &hellip;in a good way</p>
 <hr />
@@ -107,6 +107,6 @@ Have another example or question? Feel free to [comment](https://github.com/doll
 
 <h2 id="notes">Notes</h2>
 
-We strayed away from calling Stickybits a Shim or Polyfill for `position: sticky` because full support would require more code. This plugin simply makes elements vertically sticky very similarly to `position: sticky`. Read more about position sticky [here](https://developer.mozilla.org/en-US/docs/Web/CSS/position) or follow it's browser implementation [here](http://caniuse.com/#search=sticky).  
+We strayed away from calling Stickybits a Shim or Polyfill for `position: sticky` because full support would require more code. This plugin simply makes elements vertically sticky very similarly to `position: sticky`. Read more about position sticky [here](https://developer.mozilla.org/en-US/docs/Web/CSS/position) or follow its browser implementation [here](http://caniuse.com/#search=sticky).  
 
 This plugin was heavily influenced by [Filament Group](https://www.filamentgroup.com/)'s awesome [Fixed-sticky](https://github.com/filamentgroup/fixed-sticky) jQuery plugin.
