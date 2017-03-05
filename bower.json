@@ -1,0 +1,31 @@
+{
+  "name": "stickybits",
+  "description": "Stickybits is a lightweight (<2KB) alternative to `position: sticky` polyfills",
+  "main": "dist/stickybits.js",
+  "authors": [
+    "Jeff Wainwright <jjwainwright2@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "stick",
+    "fixed",
+    "sticky",
+    "position",
+    "navigation",
+    "nav",
+    "dom",
+    "simple",
+    "javascript",
+    "stuck",
+    "waypoint",
+    "scroll"
+  ],
+  "homepage": "https://github.com/dollarshaveclub/stickybits",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

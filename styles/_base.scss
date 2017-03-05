@@ -1,0 +1,112 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: #eee;
+  font-family: sans-serif;
+}
+header {
+  background: #dddfed;
+  background: -moz-radial-gradient(center, ellipse cover,  #dddfed 22%, #959ec9 100%);
+  background: -webkit-radial-gradient(center, ellipse cover,  #dddfed 22%,#959ec9 100%);
+  background: radial-gradient(ellipse at center,  #dddfed 22%,#959ec9 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dddfed', endColorstr='#959ec9',GradientType=1 );
+  padding-top: 4rem;
+  @media (min-width: #{$width-medium}) {
+    padding-top: 6rem;
+  }
+}
+figure {
+  margin: 0 auto;
+  max-width: 10rem;
+  @media (min-width: #{$width-medium}) {
+    max-width: 20rem;
+  }
+}
+figcaption {
+
+}
+img {
+  display: block;
+  max-width: (100 / 16) + $spacing-unit;
+  @media (min-width: #{$width-medium}) {
+    max-width: (250 / 16) + $spacing-unit;
+  }
+}
+hr {
+  border: 0;
+  border-top: 3px solid #ccc;
+  margin-bottom: 1rem;
+  max-width: calc(100% - 2rem);
+  @media (min-width: #{$width-large}) {
+    margin-bottom: 2rem;
+    max-width: $width-medium;
+  }
+}
+h2,
+h3,
+p,
+ul,
+ol,
+section div {
+  color: #333;
+  max-width: calc(100% - 2rem);
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  text-shadow: 0 1px 1px white;
+  @media (min-width: #{$width-large}) {
+    max-width: $width-medium;
+  }
+}
+p,
+ul,
+ol {
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+h1 {
+  color: transparent;
+  height: 0;
+  width: 0;
+}
+h2 {
+  border-bottom: 1px solid #ccc;
+  font-size: 2rem;
+  padding-bottom: .5rem;
+  margin-bottom: 1.5rem;
+}
+li {
+  margin-bottom: 1rem;
+}
+code {
+}
+pre {
+  background-color: #ddd;
+  border: 1px solid #ccc;
+  border-radius: .5rem;
+  overflow-x: auto;
+  padding: .5rem 1rem;
+  code {
+    display: block;
+    float: left;
+    font-size: 1.25rem;
+    margin: 0;
+    padding: 0;
+  }
+}
+p > code {
+  font-size: 1.25rem;
+  line-height: 1.5;}
+a {
+  color: $purple;
+}
+footer {
+  margin-top: 2rem;
+  min-height: 3rem;
+  @media (min-width: #{$width-large}) {
+    min-height: 4rem;
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "extends": [ "airbnb/base"],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "globals": {
+    "document": true,
+    "foo": true,
+    "window": true
+  },
+  "rules": {
+    "indent": 2
+  }
+}

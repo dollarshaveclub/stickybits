@@ -1,0 +1,20 @@
+// colors
+
+// purples
+$purple: #353f7a; // standard (darker than purple medium)
+$purple-light: #dddfed;
+$purple-medium: #5c6aa5;
+$purple-dark: #131431;
+
+// greys
+$grey-light: #eee;
+$grey-dark: #555;
+$grey-medium: #ccc;
+
+// unit
+$spacing-unit: 1rem;
+
+// widths
+$width-small: calc(100% - 2rem); // used for max widths
+$width-medium: (700 / 16) + $spacing-unit;
+$width-large: (900 / 16) + $spacing-unit;
