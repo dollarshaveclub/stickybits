@@ -1,0 +1,17 @@
+.share {
+  padding: 1rem;
+  text-align: center;
+  @media (min-width: #{$width-large}) {
+    padding: 2rem;
+  }
+  &__link {
+    display: inline-block;
+    padding: 0 .5rem;
+    &--twitter {
+      padding-right: 0;
+    }
+    &--reddit {
+      padding-left: 0;
+    }
+  }
+}

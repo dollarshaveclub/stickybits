@@ -2,37 +2,34 @@ html,
 body {
   margin: 0;
   padding: 0;
+  position: relative;
 }
 body {
-  background-color: #eee;
-  font-family: sans-serif;
+  font-family: garamond, sans-serif;
 }
 header {
-  background: #dddfed;
-  background: -moz-radial-gradient(center, ellipse cover,  #dddfed 22%, #959ec9 100%);
-  background: -webkit-radial-gradient(center, ellipse cover,  #dddfed 22%,#959ec9 100%);
-  background: radial-gradient(ellipse at center,  #dddfed 22%,#959ec9 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dddfed', endColorstr='#959ec9',GradientType=1 );
+  height: 100vh;
   padding-top: 4rem;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 1;
   @media (min-width: #{$width-medium}) {
     padding-top: 6rem;
   }
 }
 figure {
   margin: 0 auto;
-  max-width: 10rem;
+  @include vertical-align;
   @media (min-width: #{$width-medium}) {
-    max-width: 20rem;
   }
-}
-figcaption {
-
 }
 img {
   display: block;
-  max-width: (100 / 16) + $spacing-unit;
+  margin: 0 auto;
+  max-width: 25rem;
   @media (min-width: #{$width-medium}) {
-    max-width: (250 / 16) + $spacing-unit;
+    max-width: 30rem;
   }
 }
 hr {
@@ -74,7 +71,8 @@ h1 {
 }
 h2 {
   border-bottom: 1px solid #ccc;
-  font-size: 2rem;
+  font-family: $font-headline;
+  font-size: 1.5rem;
   padding-bottom: .5rem;
   margin-bottom: 1.5rem;
 }
@@ -82,17 +80,23 @@ li {
   margin-bottom: 1rem;
 }
 code {
+  background-color: $grey-light;
+  border: 1px solid #ccc;
+  border-radius: .5rem;
+  padding: 0 .15rem;
 }
 pre {
-  background-color: #ddd;
+  background-color: $grey-light;
   border: 1px solid #ccc;
   border-radius: .5rem;
   overflow-x: auto;
   padding: .5rem 1rem;
   code {
+    border: none;
+    border-radius: 0;
     display: block;
     float: left;
-    font-size: 1.25rem;
+    font-size: 1rem;
     margin: 0;
     padding: 0;
   }
@@ -101,7 +105,8 @@ p > code {
   font-size: 1.25rem;
   line-height: 1.5;}
 a {
-  color: $purple;
+  color: black;
+  text-decoration: underline;
 }
 footer {
   margin-top: 2rem;
@@ -109,4 +114,17 @@ footer {
   @media (min-width: #{$width-large}) {
     min-height: 4rem;
   }
+}
+.content {
+  background-color: white;
+  margin-top: calc(100vh - 3rem);
+  position: relative;
+  z-index: 11;
+}
+.button {
+  bottom: 1rem;
+  right: 1rem;
+  position: fixed;
+  text-decoration: none;
+  z-index: 11;
 }
