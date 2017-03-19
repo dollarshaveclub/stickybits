@@ -9,6 +9,8 @@ const postcss = require('gulp-postcss');
 const autoprefixer = require('gulp-autoprefixer');
 const mqpacker = require("css-mqpacker");
 const uglify = require('gulp-uglify');
+const concat = require('gulp-concat');
+const babel = require('gulp-babel');
 const htmlmin = require('gulp-htmlmin');
 const server = require('gulp-server-livereload');
 const imagemin = require('gulp-imagemin');
@@ -46,9 +48,13 @@ gulp.task('styles', () => {
 });
 
 gulp.task('minify', () => {
-  gulp.src('./scripts/app.js')
-  .pipe(uglify())
-  .pipe(gulp.dest('./page/'));
+  gulp.src(['./scripts/page.js'])
+    .pipe(babel({
+      presets: ['es2015']
+    }))
+    .pipe(uglify())
+    .pipe(gulp.dest('./page/'))
+  ;
 });
 
 gulp.task('inline', () => {

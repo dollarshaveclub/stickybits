@@ -211,7 +211,7 @@ babel-code-frame@^6.16.0, babel-code-frame@^6.22.0:
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
-babel-core@6, babel-core@^6.18.0, babel-core@^6.22.0:
+babel-core@6, babel-core@^6.0.2, babel-core@^6.18.0, babel-core@^6.22.0:
   version "6.22.1"
   resolved "https://registry.yarnpkg.com/babel-core/-/babel-core-6.22.1.tgz#9c5fd658ba1772d28d721f6d25d968fc7ae21648"
   dependencies:
@@ -328,6 +328,12 @@ babel-messages@^6.22.0:
   dependencies:
     babel-runtime "^6.22.0"
 
+babel-messages@^6.23.0:
+  version "6.23.0"
+  resolved "https://registry.yarnpkg.com/babel-messages/-/babel-messages-6.23.0.tgz#f3cdf4703858035b2a2951c6ec5edf6c62f2630e"
+  dependencies:
+    babel-runtime "^6.22.0"
+
 babel-plugin-check-es2015-constants@^6.22.0:
   version "6.22.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-check-es2015-constants/-/babel-plugin-check-es2015-constants-6.22.0.tgz#35157b101426fd2ffd3da3f75c7d1e91835bbf8a"
@@ -424,6 +430,14 @@ babel-plugin-transform-es2015-modules-amd@^6.22.0:
     babel-runtime "^6.22.0"
     babel-template "^6.22.0"
 
+babel-plugin-transform-es2015-modules-amd@^6.24.0:
+  version "6.24.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2015-modules-amd/-/babel-plugin-transform-es2015-modules-amd-6.24.0.tgz#a1911fb9b7ec7e05a43a63c5995007557bcf6a2e"
+  dependencies:
+    babel-plugin-transform-es2015-modules-commonjs "^6.24.0"
+    babel-runtime "^6.22.0"
+    babel-template "^6.22.0"
+
 babel-plugin-transform-es2015-modules-commonjs@^6.22.0:
   version "6.22.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2015-modules-commonjs/-/babel-plugin-transform-es2015-modules-commonjs-6.22.0.tgz#6ca04e22b8e214fb50169730657e7a07dc941145"
@@ -432,6 +446,15 @@ babel-plugin-transform-es2015-modules-commonjs@^6.22.0:
     babel-runtime "^6.22.0"
     babel-template "^6.22.0"
     babel-types "^6.22.0"
+
+babel-plugin-transform-es2015-modules-commonjs@^6.24.0:
+  version "6.24.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2015-modules-commonjs/-/babel-plugin-transform-es2015-modules-commonjs-6.24.0.tgz#e921aefb72c2cc26cb03d107626156413222134f"
+  dependencies:
+    babel-plugin-transform-strict-mode "^6.22.0"
+    babel-runtime "^6.22.0"
+    babel-template "^6.23.0"
+    babel-types "^6.23.0"
 
 babel-plugin-transform-es2015-modules-systemjs@^6.22.0:
   version "6.22.0"
@@ -448,6 +471,14 @@ babel-plugin-transform-es2015-modules-umd@^6.22.0:
     babel-plugin-transform-es2015-modules-amd "^6.22.0"
     babel-runtime "^6.22.0"
     babel-template "^6.22.0"
+
+babel-plugin-transform-es2015-modules-umd@^6.24.0:
+  version "6.24.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2015-modules-umd/-/babel-plugin-transform-es2015-modules-umd-6.24.0.tgz#fd5fa63521cae8d273927c3958afd7c067733450"
+  dependencies:
+    babel-plugin-transform-es2015-modules-amd "^6.24.0"
+    babel-runtime "^6.22.0"
+    babel-template "^6.23.0"
 
 babel-plugin-transform-es2015-object-super@^6.22.0:
   version "6.22.0"
@@ -529,7 +560,36 @@ babel-preset-es2015-rollup@^1.2.0:
     babel-preset-es2015 "^6.3.13"
     modify-babel-preset "^2.1.1"
 
-babel-preset-es2015@^6.18.0, babel-preset-es2015@^6.3.13:
+babel-preset-es2015@^6.24.0:
+  version "6.24.0"
+  resolved "https://registry.yarnpkg.com/babel-preset-es2015/-/babel-preset-es2015-6.24.0.tgz#c162d68b1932696e036cd3110dc1ccd303d2673a"
+  dependencies:
+    babel-plugin-check-es2015-constants "^6.22.0"
+    babel-plugin-transform-es2015-arrow-functions "^6.22.0"
+    babel-plugin-transform-es2015-block-scoped-functions "^6.22.0"
+    babel-plugin-transform-es2015-block-scoping "^6.22.0"
+    babel-plugin-transform-es2015-classes "^6.22.0"
+    babel-plugin-transform-es2015-computed-properties "^6.22.0"
+    babel-plugin-transform-es2015-destructuring "^6.22.0"
+    babel-plugin-transform-es2015-duplicate-keys "^6.22.0"
+    babel-plugin-transform-es2015-for-of "^6.22.0"
+    babel-plugin-transform-es2015-function-name "^6.22.0"
+    babel-plugin-transform-es2015-literals "^6.22.0"
+    babel-plugin-transform-es2015-modules-amd "^6.24.0"
+    babel-plugin-transform-es2015-modules-commonjs "^6.24.0"
+    babel-plugin-transform-es2015-modules-systemjs "^6.22.0"
+    babel-plugin-transform-es2015-modules-umd "^6.24.0"
+    babel-plugin-transform-es2015-object-super "^6.22.0"
+    babel-plugin-transform-es2015-parameters "^6.22.0"
+    babel-plugin-transform-es2015-shorthand-properties "^6.22.0"
+    babel-plugin-transform-es2015-spread "^6.22.0"
+    babel-plugin-transform-es2015-sticky-regex "^6.22.0"
+    babel-plugin-transform-es2015-template-literals "^6.22.0"
+    babel-plugin-transform-es2015-typeof-symbol "^6.22.0"
+    babel-plugin-transform-es2015-unicode-regex "^6.22.0"
+    babel-plugin-transform-regenerator "^6.22.0"
+
+babel-preset-es2015@^6.3.13:
   version "6.22.0"
   resolved "https://registry.yarnpkg.com/babel-preset-es2015/-/babel-preset-es2015-6.22.0.tgz#af5a98ecb35eb8af764ad8a5a05eb36dc4386835"
   dependencies:
@@ -587,6 +647,16 @@ babel-template@^6.22.0:
     babylon "^6.11.0"
     lodash "^4.2.0"
 
+babel-template@^6.23.0:
+  version "6.23.0"
+  resolved "https://registry.yarnpkg.com/babel-template/-/babel-template-6.23.0.tgz#04d4f270adbb3aa704a8143ae26faa529238e638"
+  dependencies:
+    babel-runtime "^6.22.0"
+    babel-traverse "^6.23.0"
+    babel-types "^6.23.0"
+    babylon "^6.11.0"
+    lodash "^4.2.0"
+
 babel-traverse@^6.22.0, babel-traverse@^6.22.1:
   version "6.22.1"
   resolved "https://registry.yarnpkg.com/babel-traverse/-/babel-traverse-6.22.1.tgz#3b95cd6b7427d6f1f757704908f2fc9748a5f59f"
@@ -601,9 +671,32 @@ babel-traverse@^6.22.0, babel-traverse@^6.22.1:
     invariant "^2.2.0"
     lodash "^4.2.0"
 
+babel-traverse@^6.23.0:
+  version "6.23.1"
+  resolved "https://registry.yarnpkg.com/babel-traverse/-/babel-traverse-6.23.1.tgz#d3cb59010ecd06a97d81310065f966b699e14f48"
+  dependencies:
+    babel-code-frame "^6.22.0"
+    babel-messages "^6.23.0"
+    babel-runtime "^6.22.0"
+    babel-types "^6.23.0"
+    babylon "^6.15.0"
+    debug "^2.2.0"
+    globals "^9.0.0"
+    invariant "^2.2.0"
+    lodash "^4.2.0"
+
 babel-types@^6.19.0, babel-types@^6.22.0:
   version "6.22.0"
   resolved "https://registry.yarnpkg.com/babel-types/-/babel-types-6.22.0.tgz#2a447e8d0ea25d2512409e4175479fd78cc8b1db"
+  dependencies:
+    babel-runtime "^6.22.0"
+    esutils "^2.0.2"
+    lodash "^4.2.0"
+    to-fast-properties "^1.0.1"
+
+babel-types@^6.23.0:
+  version "6.23.0"
+  resolved "https://registry.yarnpkg.com/babel-types/-/babel-types-6.23.0.tgz#bb17179d7538bad38cd0c9e115d340f77e7e9acf"
   dependencies:
     babel-runtime "^6.22.0"
     esutils "^2.0.2"
@@ -913,9 +1006,17 @@ cliui@^3.2.0:
     strip-ansi "^3.0.1"
     wrap-ansi "^2.0.0"
 
+clone-buffer@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/clone-buffer/-/clone-buffer-1.0.0.tgz#e3e25b207ac4e701af721e2cb5a16792cac3dc58"
+
 clone-stats@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/clone-stats/-/clone-stats-0.0.1.tgz#b88f94a82cf38b8791d58046ea4029ad88ca99d1"
+
+clone-stats@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/clone-stats/-/clone-stats-1.0.0.tgz#b3782dff8bb5474e18b9b6bf0fdfe782f8777680"
 
 clone@^0.2.0:
   version "0.2.0"
@@ -924,6 +1025,14 @@ clone@^0.2.0:
 clone@^1.0.0, clone@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.2.tgz#260b7a99ebb1edfe247538175f783243cb19d149"
+
+cloneable-readable@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/cloneable-readable/-/cloneable-readable-1.0.0.tgz#a6290d413f217a61232f95e458ff38418cfb0117"
+  dependencies:
+    inherits "^2.0.1"
+    process-nextick-args "^1.0.6"
+    through2 "^2.0.1"
 
 co@3.1.0, co@^3.0.6:
   version "3.1.0"
@@ -1037,7 +1146,7 @@ concat-stream@^1.4.6, concat-stream@^1.4.7:
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
 
-concat-with-sourcemaps@*:
+concat-with-sourcemaps@*, concat-with-sourcemaps@^1.0.0:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/concat-with-sourcemaps/-/concat-with-sourcemaps-1.0.4.tgz#f55b3be2aeb47601b10a2d5259ccfb70fd2f1dd6"
   dependencies:
@@ -2329,6 +2438,25 @@ gulp-autoprefixer@^3.1.1:
     postcss "^5.0.4"
     through2 "^2.0.0"
     vinyl-sourcemaps-apply "^0.2.0"
+
+gulp-babel@^6.1.2:
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/gulp-babel/-/gulp-babel-6.1.2.tgz#7c0176e4ba3f244c60588a0c4b320a45d1adefce"
+  dependencies:
+    babel-core "^6.0.2"
+    gulp-util "^3.0.0"
+    object-assign "^4.0.1"
+    replace-ext "0.0.1"
+    through2 "^2.0.0"
+    vinyl-sourcemaps-apply "^0.2.0"
+
+gulp-concat@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/gulp-concat/-/gulp-concat-2.6.1.tgz#633d16c95d88504628ad02665663cee5a4793353"
+  dependencies:
+    concat-with-sourcemaps "^1.0.0"
+    through2 "^2.0.0"
+    vinyl "^2.0.0"
 
 gulp-cssnano@^2.1.2:
   version "2.1.2"
@@ -4303,7 +4431,7 @@ private@^0.1.6:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/private/-/private-0.1.7.tgz#68ce5e8a1ef0a23bb570cc28537b5332aba63ef1"
 
-process-nextick-args@~1.0.6:
+process-nextick-args@^1.0.6, process-nextick-args@~1.0.6:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-1.0.7.tgz#150e20b756590ad3f91093f25a4f2ad8bff30ba3"
 
@@ -4542,6 +4670,10 @@ relateurl@0.2.x:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
 
+remove-trailing-separator@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/remove-trailing-separator/-/remove-trailing-separator-1.0.1.tgz#615ebb96af559552d4bf4057c8436d486ab63cc4"
+
 repeat-element@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/repeat-element/-/repeat-element-1.1.2.tgz#ef089a178d1483baae4d93eb98b4f9e4e11d990a"
@@ -4559,6 +4691,10 @@ repeating@^2.0.0:
 replace-ext@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/replace-ext/-/replace-ext-0.0.1.tgz#29bbd92078a739f0bcce2b4ee41e837953522924"
+
+replace-ext@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/replace-ext/-/replace-ext-1.0.0.tgz#de63128373fcbf7c3ccfa4de5a480c45a67958eb"
 
 request-progress@~2.0.1:
   version "2.0.1"
@@ -5195,7 +5331,7 @@ through2@^0.6.0, through2@^0.6.1:
     readable-stream ">=1.0.33-1 <1.1.0-0"
     xtend ">=4.0.0 <4.1.0-0"
 
-through2@^2.0.0, through2@^2.0.3, through2@~2.0.0:
+through2@^2.0.0, through2@^2.0.1, through2@^2.0.3, through2@~2.0.0:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/through2/-/through2-2.0.3.tgz#0004569b37c7c74ba39c43f3ced78d1ad94140be"
   dependencies:
@@ -5525,6 +5661,18 @@ vinyl@^1.0.0:
     clone "^1.0.0"
     clone-stats "^0.0.1"
     replace-ext "0.0.1"
+
+vinyl@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/vinyl/-/vinyl-2.0.1.tgz#1c3b4931e7ac4c1efee743f3b91a74c094407bb6"
+  dependencies:
+    clone "^1.0.0"
+    clone-buffer "^1.0.0"
+    clone-stats "^1.0.0"
+    cloneable-readable "^1.0.0"
+    is-stream "^1.1.0"
+    remove-trailing-separator "^1.0.1"
+    replace-ext "^1.0.0"
 
 vlq@^0.2.1:
   version "0.2.1"
