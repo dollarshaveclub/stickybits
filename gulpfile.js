@@ -48,7 +48,7 @@ gulp.task('styles', () => {
 });
 
 gulp.task('minify', () => {
-  gulp.src(['./scripts/page.js'])
+  gulp.src(['./scripts/app.js'])
     .pipe(babel({
       presets: ['es2015']
     }))
