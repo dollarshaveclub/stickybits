@@ -5,7 +5,8 @@ body {
   position: relative;
 }
 body {
-  font-family: garamond, sans-serif;
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 300;
 }
 header {
   height: 100vh;
@@ -41,6 +42,12 @@ hr {
     margin-bottom: 2rem;
     max-width: $width-medium;
   }
+}
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 600;
 }
 h2,
 h3,
@@ -121,6 +128,15 @@ footer {
   position: relative;
   z-index: 11;
 }
+.wrapper {
+  p,
+  ul,
+  ol {
+    a {
+      @include text-underline(white, pink, 100%, 1.4rem);
+    }
+  }
+}
 .button {
   bottom: 1rem;
   right: 1rem;
@@ -131,5 +147,10 @@ footer {
 .footer {
   padding: 1rem 0;
   text-align: center;
-
+  a {
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

@@ -30,6 +30,7 @@
     <meta name="robots" content="index,follow" />
   <meta name="description" content="0 dependency JS library to leverage scroll direction in CSS">
   <title>Stickybits</title>
+  <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,600" rel="stylesheet">
   <link href="styles.css" rel="stylesheet" inline />
 </head>
 <body>
@@ -100,22 +101,12 @@
         <section id="installation" class=" section section--installation">
           <h2>Install</h2>
           <h3>yarn</h3>
-          <div>
-            <pre>
-              <code>yarn add stickybits --dev</code>
-            </pre>
+          <div><pre><code>yarn add stickybits --dev</code></pre>
           </div>
           <h3>npm</h3>
-          <div>
-            <pre>
-              <code>npm install stickybits --save-dev</code>
-            </pre>
-          </div>
+          <div><pre><code>npm install stickybits --save-dev</code></pre></div>
           <h3>bower</h3>
-          <div>
-            <pre>
-              <code>bower install stickybits --save</code>
-            </pre>
+          <div><pre><code>bower install stickybits --save</code></pre>
           </div>
         <section id="setup" class="section section--setup">
           <h2>Setup</h2>
@@ -146,19 +137,11 @@
           <h3>Vertical Layout Position</h3>
           <p>By default, a StickyBit element will stick to the top of the viewport when vertically scrolled to.</p>
           <p>To have a StickyBit not have the inline css property top style:</p>
-          <div>
-            <pre>
-              <code>stickybits('selector', {customVerticalPosition: true});</code>
-            </pre>
-          </div>
+          <div><pre><code>stickybits('selector', {customVerticalPosition: true});</code></pre></div>
           <h3>StickyBit Sticky Offset</h3>
           <p>By default, a StickyBit element will have a 0px sticky layout offset. This means that if the element will sticky to the top of the viewport by default.</p>
           <p>To have a stickyBit stick with a 20px offset to its vertical layout position:</p>
-          <div>
-            <pre>
-              <code>stickybits('selector', {stickyBitStickyOffset: 20});</code>
-            </pre>
-          </div>
+          <div><pre><code>stickybits('selector', {stickyBitStickyOffset: 20});</code></pre></div>
         </section>
         <section id="examples" class="section section--examples">
           <h3>Examples</h3>
@@ -182,7 +165,7 @@
         </section>
         <section id="notes" class="section section--notes">
           <h2>Notes</h2>
-          <p>We strayed away from calling Stickybits a Shim or Polyfill for <code>position: sticky</code>  because full support would require more code. This plugin simply makes elements vertically sticky very similarly to <code>position: sticky</code>. Read more about position sticky <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position">here</a> or follow its browser implementation <a href="http://caniuse.com/#search=sticky">here</a>.</p>
+          <p>We strayed away from calling Stickybits a Shim or Polyfill for <code>position: sticky</code> because full support would require more code. This plugin simply makes elements vertically sticky very similarly to <code>position: sticky</code>. Read more about position sticky <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position">here</a> or follow its browser implementation <a href="http://caniuse.com/#search=sticky">here</a>.</p>
         </section>
       </div>
       <aside id="aside" class="aside">

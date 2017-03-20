@@ -12,3 +12,32 @@ $spacing-unit: 1rem;
 $width-small: calc(100% - 2rem); // used for max widths
 $width-medium: (700 / 16) + $spacing-unit;
 $width-large: (900 / 16) + $spacing-unit;
+
+@mixin text-underline(
+  $background: white,
+  $underline: $color-theme-default,
+  $position: 85%,
+  $fontsize: 1rem
+) {
+  // $width = 1/10 the fontsize
+  $width: $fontsize * .1;
+  color: inherit;
+  text-decoration: none;
+  background:
+    linear-gradient($background, $background),
+    linear-gradient($background, $background),
+    linear-gradient($underline, $underline);
+  // this sets up the size of the bottom border
+  background-size: #{$width / 2} $width;
+  background-repeat: no-repeat, no-repeat, repeat-x;
+  // this create all of the text shadows needed to create a stroke around the text
+  text-shadow:
+    $width $width $background,
+    $width 0 $background,
+    0 $width $background,
+    -#{$width} -#{$width} $background,
+    -#{$width} 0 $background,
+    0  -#{$width} $background;
+  // this sets up the location of the bottom border
+  background-position: 0 $position, 100% $position;
+}
