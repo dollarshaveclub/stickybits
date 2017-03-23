@@ -13,11 +13,12 @@ const banner = ['/**',
   ' * @license <%= pkg.license %> */',
 ''].join('\n');
 
-gulp.task('test', function() {
+gulp.task('test', () => {
+  console.log('here');
   qunit('tests/index.html');
 });
 
-gulp.task('minify', function() {
+gulp.task('minify', () => {
   gulp.src('dist/stickybits.js')
     .pipe(uglify())
     .pipe(head(banner, { pkg }))
