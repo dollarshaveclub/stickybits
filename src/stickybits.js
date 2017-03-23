@@ -12,7 +12,7 @@ function Stickybit(target, o) {
   for (let i = 0; i < browserPrefix.length; i += 1) {
     this.el.style.position = `${browserPrefix[i]}sticky`;
   }
-  if (this.el.style.postion !== '') {
+  if (this.el.style.position !== '') {
     if (this.customVerticalPosition === false) {
       this.el.style.top = `${this.stickyBitStickyOffset}px`;
     }
