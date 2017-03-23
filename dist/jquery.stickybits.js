@@ -5,15 +5,15 @@
 }(this, (function () { 'use strict';
 
 function Stickybit(target, o) {
-  var defaults = {
+  var opts = {
     scrollTarget: window,
     stickyBitStickyOffset: 0,
     customVerticalPosition: false
   };
   this.el = target;
-  this.scrollTarget = o && o.scrollTarget || defaults.scrollTarget;
-  this.stickyBitStickyOffset = o && o.stickyBitStickyOffset || defaults.stickyBitStickyOffset;
-  this.customVerticalPosition = o && o.customVerticalPosition || defaults.customVerticalPosition;
+  this.scrollTarget = o && o.scrollTarget || opts.scrollTarget;
+  this.stickyBitStickyOffset = o && o.stickyBitStickyOffset || opts.stickyBitStickyOffset;
+  this.customVerticalPosition = o && o.customVerticalPosition || opts.customVerticalPosition;
   var browserPrefix = ['', '-o-', '-webkit-', '-moz-', '-ms-'];
   for (var i = 0; i < browserPrefix.length; i += 1) {
     this.el.style.position = browserPrefix[i] + 'sticky';
