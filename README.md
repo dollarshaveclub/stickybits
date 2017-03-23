@@ -67,7 +67,7 @@ stickybits('selector');
 -  Stick elements at the bottom of their parent when scrolled past.
 
 #### CSS Class Usage
-3 CSS classes will be added or removed by stickybits unrelated to the basic usage.
+3 CSS classes will be added or removed by stickybits **unrelated** to the basic usage.
 -  `js-is-sticky` if the selected element is sticky.
 -  `js-is-stuck` if the selected element is stopped at the bottom of its parent.
 -  `js-stickybit-parent` so that styles can easily be added to the parent of a Stickbit
@@ -94,12 +94,23 @@ To have a stickyBit stick with a `20px` offset to its vertical layout position:
 stickybits('selector', {stickyBitStickyOffset: 20});
 ```
 
+#### StickyBit Monitor Stickiness
+
+By default, if `position: sticky` is supported, StickyBits will exit allowing the browser to manage stickiness.
+
+If `monitorStickiness` is set to `true` then even if a browser supports `position: sticky`, StickyBits will still add a `scroll` event listener for adding or removing CSS Classes. This option is available so that manipulations can still be done when StickyBits become sticky.
+
+```javascript
+stickybits('selector', {monitorStickiness: true});
+```
+
 <h2 id="examples">Examples</h2>
 
 -  [Basic Usage](http://codepen.io/yowainwright/pen/e68dcc768322fef0c72588576bbc1bfa)
 -  [Basic usage but with multiple instances of the same selector](http://codepen.io/yowainwright/pen/8965fb5fd72300b38294b31963b27c68)
 -  [Custom vertical top offset](http://codepen.io/yowainwright/pen/eeafd2ab68d468d3cd19a4361aff6aa6) ie: `stickybits('selector', {stickyBitStickyOffset: 20})`
 -  [Custom vertical position](http://codepen.io/yowainwright/pen/e32cc7b82907ed9715a0a482ffa57596) ie: `stickybits('selector', {customVerticalPosition: true})`
+-  [Monitor Stickiness](http://codepen.io/yowainwright/pen/NpzPGR) ie: `stickybits('selector', {monitorStickiness: true})`
 -  [As a jQuery or Zepto Plugin](http://codepen.io/yowainwright/pen/57b852e88a644e9d919f843dc7b3b5f1) ie: `$('selector').stickybits();`
 
 <hr />

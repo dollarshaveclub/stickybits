@@ -8,22 +8,29 @@ function Stickybit(target, o) {
   var opts = {
     scrollTarget: window,
     stickyBitStickyOffset: 0,
-    customVerticalPosition: false
+    customVerticalPosition: false,
+    monitorStickiness: false
   };
   this.el = target;
   this.scrollTarget = o && o.scrollTarget || opts.scrollTarget;
   this.stickyBitStickyOffset = o && o.stickyBitStickyOffset || opts.stickyBitStickyOffset;
   this.customVerticalPosition = o && o.customVerticalPosition || opts.customVerticalPosition;
+  this.monitorStickiness = o && o.monitorStickiness || opts.monitorStickiness;
   var browserPrefix = ['', '-o-', '-webkit-', '-moz-', '-ms-'];
   for (var i = 0; i < browserPrefix.length; i += 1) {
     this.el.style.position = browserPrefix[i] + 'sticky';
   }
-  if (this.el.style.postion !== '') {
+  var positionStickyVal = 'fixed';
+  if (this.el.style.position !== '') {
+    positionStickyVal = this.el.style.position;
     if (this.customVerticalPosition === false) {
       this.el.style.top = this.stickyBitStickyOffset + 'px';
     }
-    return;
+    if (this.monitorStickiness === false) return;
   }
+  var el = this.el;
+  var customVerticalPosition = this.customVerticalPosition;
+  var stickyBitStickyOffset = this.stickyBitStickyOffset;
   var elClasses = this.el.classList;
   var elParent = this.el.parentNode;
   var scrollTarget = this.scrollTarget;
@@ -37,26 +44,26 @@ function Stickybit(target, o) {
     if (scroll < stickyBitStart) {
       if (elClasses.contains(stickyBitClass)) {
         elClasses.remove(stickyBitClass);
-        this.el.style.position = '';
+        el.style.position = '';
       }
       return;
     } else if (scroll > stickyBitStart && scroll < stickyBitStop) {
       if (!elClasses.contains(stickyBitClass)) elClasses.add(stickyBitClass);
       if (elClasses.contains(stickyBitIsStuckClass)) {
         elClasses.remove(stickyBitIsStuckClass);
-        this.el.style.bottom = '';
+        el.style.bottom = '';
       }
-      this.el.style.position = 'fixed';
-      if (this.customVerticalPosition === false) {
-        this.el.style.top = this.opts.stickyBitStickyOffset + 'px';
+      el.style.position = positionStickyVal;
+      if (customVerticalPosition === false) {
+        el.style.top = stickyBitStickyOffset + 'px';
       }
       return;
-    } else if (scroll > stop && !elClasses.contains(stickyBitIsStuckClass)) {
+    } else if (scroll > stickyBitStop && !elClasses.contains(stickyBitIsStuckClass)) {
       elClasses.remove(stickyBitClass);
       elClasses.add(stickyBitIsStuckClass);
-      this.el.style.top = '';
-      this.el.style.bottom = '0';
-      this.el.style.position = 'absolute';
+      el.style.top = '';
+      el.style.bottom = '0';
+      el.style.position = 'absolute';
       return;
     }
     return;

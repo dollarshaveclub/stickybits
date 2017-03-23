@@ -1,3 +1,6 @@
+QUnit.test( "hello test", function(assert) {
+  assert.ok(1 == "1", "Passed!");
+});
 $(window).on('load', function() {
   var $main = $('#main');
   var num;
@@ -26,5 +29,12 @@ $(window).on('load', function() {
     $('.child-3').css('top', '20px')
     stickybits('.child-3', {customVerticalPosition: true});
     assert.equal($('.child-3').css('top'), '20px', 'top should be set to 20px');
+  });
+  QUnit.test( "Checks to make sure sticky monitoring works", function(assert) {
+    num = 4;
+    content = '<div id="parent-'+ num +'" class="parent parent-'+ num +'"><div id="child-'+ num +'" class="child child-'+ num +'"><p>Child '+ num +'</p></div>';
+    $main.append(content);
+    stickybits('.child-'+ num, {monitorStickiness: true});
+    assert.equal($('#parent-'+ num).hasClass('js-stickybit-parent'), true, 'This should work like fixed');
   });
 });

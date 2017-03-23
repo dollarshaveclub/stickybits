@@ -3,20 +3,24 @@ function Stickybit(target, o) {
     scrollTarget: window,
     stickyBitStickyOffset: 0,
     customVerticalPosition: false,
+    monitorStickiness: false,
   };
   this.el = target;
   this.scrollTarget = (o && o.scrollTarget) || opts.scrollTarget;
   this.stickyBitStickyOffset = (o && o.stickyBitStickyOffset) || opts.stickyBitStickyOffset;
   this.customVerticalPosition = (o && o.customVerticalPosition) || opts.customVerticalPosition;
+  this.monitorStickiness = (o && o.monitorStickiness) || opts.monitorStickiness;
   const browserPrefix = ['', '-o-', '-webkit-', '-moz-', '-ms-'];
   for (let i = 0; i < browserPrefix.length; i += 1) {
     this.el.style.position = `${browserPrefix[i]}sticky`;
   }
+  let positionStickyVal = 'fixed';
   if (this.el.style.position !== '') {
+    positionStickyVal = this.el.style.position;
     if (this.customVerticalPosition === false) {
       this.el.style.top = `${this.stickyBitStickyOffset}px`;
     }
-    return;
+    if (this.monitorStickiness === false) return;
   }
   const el = this.el;
   const customVerticalPosition = this.customVerticalPosition;
@@ -43,12 +47,12 @@ function Stickybit(target, o) {
         elClasses.remove(stickyBitIsStuckClass);
         el.style.bottom = '';
       }
-      el.style.position = 'fixed';
+      el.style.position = positionStickyVal;
       if (customVerticalPosition === false) {
         el.style.top = `${stickyBitStickyOffset}px`;
       }
       return;
-    } else if (scroll > stop && !elClasses.contains(stickyBitIsStuckClass)) {
+    } else if (scroll > stickyBitStop && !elClasses.contains(stickyBitIsStuckClass)) {
       elClasses.remove(stickyBitClass);
       elClasses.add(stickyBitIsStuckClass);
       el.style.top = '';
