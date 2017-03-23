@@ -18,6 +18,9 @@ function Stickybit(target, o) {
     }
     return;
   }
+  const el = this.el;
+  const customVerticalPosition = this.customVerticalPosition;
+  const stickyBitStickyOffset = this.stickyBitStickyOffset;
   const elClasses = this.el.classList;
   const elParent = this.el.parentNode;
   const scrollTarget = this.scrollTarget;
@@ -31,26 +34,26 @@ function Stickybit(target, o) {
     if (scroll < stickyBitStart) {
       if (elClasses.contains(stickyBitClass)) {
         elClasses.remove(stickyBitClass);
-        this.el.style.position = '';
+        el.style.position = '';
       }
       return;
     } else if (scroll > stickyBitStart && scroll < stickyBitStop) {
       if (!elClasses.contains(stickyBitClass)) elClasses.add(stickyBitClass);
       if (elClasses.contains(stickyBitIsStuckClass)) {
         elClasses.remove(stickyBitIsStuckClass);
-        this.el.style.bottom = '';
+        el.style.bottom = '';
       }
-      this.el.style.position = 'fixed';
-      if (this.customVerticalPosition === false) {
-        this.el.style.top = `${this.opts.stickyBitStickyOffset}px`;
+      el.style.position = 'fixed';
+      if (customVerticalPosition === false) {
+        el.style.top = `${stickyBitStickyOffset}px`;
       }
       return;
     } else if (scroll > stop && !elClasses.contains(stickyBitIsStuckClass)) {
       elClasses.remove(stickyBitClass);
       elClasses.add(stickyBitIsStuckClass);
-      this.el.style.top = '';
-      this.el.style.bottom = '0';
-      this.el.style.position = 'absolute';
+      el.style.top = '';
+      el.style.bottom = '0';
+      el.style.position = 'absolute';
       return;
     }
     return;
