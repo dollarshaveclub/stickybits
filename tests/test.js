@@ -26,9 +26,8 @@ $(window).on('load', function() {
     num = 3;
     content = '<div id="parent-'+ num +'" class="parent parent-'+ num +'"><div id="child-'+ num +'" class="child child-'+ num +'"><p>Child '+ num +'</p></div>';
     $main.append(content);
-    $('.child-3').css('top', '20px')
-    stickybits('.child-3', {customVerticalPosition: true});
-    assert.equal($('.child-3').css('top'), '20px', 'top should be set to 20px');
+    stickybits('.child-3', {verticalPosition: 'top'});
+    assert.equal($('.child-3').css('top'), '0px', 'top should be set to 20px');
   });
   QUnit.test( "Checks to make sure sticky monitoring works", function(assert) {
     num = 4;
