@@ -66,6 +66,8 @@ Add **dist/stickybits.min.js**.
 stickybits('selector');
 ```
 #### By default, a selected stickybits element will:
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/dollarshaveclub/stickybits.svg)](https://greenkeeper.io/)
 -  Stick elements to the top of the viewport when scrolled to vertically.
 -  Stick elements at the bottom of their parent element when scrolled past.
 
