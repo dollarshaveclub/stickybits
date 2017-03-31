@@ -40,7 +40,7 @@ gulp.task('styles', () => {
     .pipe(postcss(processors))
     .pipe(purifyCSS([
       'index.html',
-      'app.js',
+      './scripts/app.js',
       './../dist/stickybits.min.js'
     ]))
     .pipe(cssnano())
@@ -52,7 +52,7 @@ gulp.task('minify', () => {
     .pipe(babel({
       presets: ['es2015']
     }))
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(gulp.dest('./page/'))
   ;
 });

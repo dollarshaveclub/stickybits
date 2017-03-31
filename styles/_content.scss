@@ -1,0 +1,36 @@
+.wrapper {
+  @media (min-width: #{$width-large}) {
+    display: flex;
+    margin: 2rem auto;
+    max-width: $width-large;
+  }
+}
+.js-has-aside .container--section {
+  @media (min-width: #{$width-large}) {
+    padding-right: 2rem;
+    width: 80%;
+  }
+}
+.aside {
+  display: none;
+  .js-has-aside & {
+    @media (min-width: #{$width-large}) {
+      display: block;
+      padding-top: 2rem;
+      width: 30%;
+    }
+  }
+}
+.sticky-parent {
+  @media (min-width: #{$width-large}) {
+    background-color: #f5f5f5;
+    min-height: 15rem;
+  }
+}
+.sticky-element {
+  @media (min-width: #{$width-large}) {
+    background-color: #ccc;
+    font-weight: bold;
+    padding: 1rem;
+  }
+}

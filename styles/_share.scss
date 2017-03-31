@@ -2,7 +2,8 @@
   padding: 1rem;
   text-align: center;
   @media (min-width: #{$width-large}) {
-    padding: 2rem;
+    padding: 2rem 0;
+    text-align: left;
   }
   &__link {
     display: inline-block;

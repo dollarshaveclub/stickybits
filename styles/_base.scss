@@ -147,6 +147,16 @@ footer {
 .footer {
   padding: 1rem 0;
   text-align: center;
+
+  &__description,
+  &--horizontal-rule {
+    @media (min-width: #{$width-large}) {
+      max-width: $width-large;
+    }
+  }
+  p {
+    font-weight: bold;
+  }
   a {
     text-decoration: none;
     &:hover {
