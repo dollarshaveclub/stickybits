@@ -50,5 +50,8 @@
 .stuck {
   @media (min-width: #{$width-large}) {
     display: none;
+    .js-is-sticky & {
+      display: inline;
+    }
   }
 }
