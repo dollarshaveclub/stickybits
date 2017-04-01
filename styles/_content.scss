@@ -8,7 +8,7 @@
 .js-has-aside .container--section {
   @media (min-width: #{$width-large}) {
     padding-right: 2rem;
-    width: 75%;
+    width: 70%;
   }
 }
 .aside {
@@ -17,8 +17,8 @@
     @media (min-width: #{$width-large}) {
       display: block;
       margin-top: .5rem;
-      padding-left: 2rem;
-      width: 25%;
+      padding-left: 1.5rem;
+      width: 30%;
     }
   }
 }
@@ -45,5 +45,10 @@
     font-weight: bold;
     padding: 1rem;
     text-shadow: 0 1px 0 white;
+  }
+}
+.stuck {
+  @media (min-width: #{$width-large}) {
+    display: none;
   }
 }

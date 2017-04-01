@@ -14,7 +14,7 @@
     for (var _iterator = stickyItems[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
       var i = _step.value;
 
-      var stickyItem = '<div class="sticky-element sticky-element--' + i + '">StickyBit #' + i + '</div>';
+      var stickyItem = '<div class="sticky-element sticky-element--' + i + '">StickyBit Item ' + i + ' <span class="stuck">is Stuck! \uD83D\uDD25</span></div>';
       var stickyParent = '<div class="sticky-parent sticky-parent--' + i + '">' + stickyItem + '</div>';
       stickyWrapper.innerHTML += stickyParent;
     }
@@ -33,5 +33,8 @@
     }
   }
 
-  stickybits('.sticky-element', { stickyBitStickyOffset: 48 });
+  stickybits('.sticky-element', {
+    stickyBitStickyOffset: 48,
+    useStickyClasses: true
+  });
 })();
