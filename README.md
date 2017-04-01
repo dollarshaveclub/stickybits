@@ -13,6 +13,9 @@
   <a href="https://github.com/dollarshaveclub/stickybits"> 
     <img alt="bower version" src="https://badge.fury.io/bo/stickybits.svg" />
   </a>
+  <a href="https://greenkeeper.io/">
+    <img alt="Greenkeeper" src="https://badges.greenkeeper.io/dollarshaveclub/stickybits.svg" />
+  </a>
   <a href="https://twitter.com/home?status=Stickybits%2C%20A%200%20dep%2C%201kb%20JS%20plugin.%20Make%20things%20get%20sticky%20in%20a%20good%20way!%20%F0%9F%8D%AC%20https%3A%2F%2Fgithub.com%2Fdollarshaveclub%2Fstickybits%40yowainwright">
     <img alt="Share on Twitter" src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social&maxAge=2592000" />
   </a>
@@ -67,7 +70,6 @@ stickybits('selector');
 ```
 #### By default, a selected stickybits element will:
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/dollarshaveclub/stickybits.svg)](https://greenkeeper.io/)
 -  Stick elements to the top of the viewport when scrolled to vertically.
 -  Stick elements at the bottom of their parent element when scrolled past.
 
