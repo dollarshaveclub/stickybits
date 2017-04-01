@@ -8,7 +8,7 @@
 .js-has-aside .container--section {
   @media (min-width: #{$width-large}) {
     padding-right: 2rem;
-    width: 80%;
+    width: 75%;
   }
 }
 .aside {
@@ -16,21 +16,34 @@
   .js-has-aside & {
     @media (min-width: #{$width-large}) {
       display: block;
-      padding-top: 2rem;
-      width: 30%;
+      margin-top: .5rem;
+      padding-left: 2rem;
+      width: 25%;
     }
+  }
+}
+.aside--title {
+  @media (min-width: #{$width-large}) {
+    margin-bottom: .5rem;
+  }
+}
+.aside--text {
+  @media (min-width: #{$width-large}) {
+    font-size: .8rem;
+    margin-top: 0;
   }
 }
 .sticky-parent {
   @media (min-width: #{$width-large}) {
-    background-color: #f5f5f5;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .2);
     min-height: 15rem;
   }
 }
 .sticky-element {
   @media (min-width: #{$width-large}) {
-    background-color: #ccc;
+    background-color: #f9f9f9;
     font-weight: bold;
     padding: 1rem;
+    text-shadow: 0 1px 0 white;
   }
 }
