@@ -27,16 +27,23 @@
   }
 }
 figure {
-  animation: header-fade-slide-up 1s 1s cubic-bezier(.17, .67, .83, .67) forwards;
+  animation: up 2.5s, visible 1.5s;
 }
 
-@keyframes header-fade-slide-up {
+@keyframes up {
   0% {
-    opacity: 0;
     transform: translateY(-10%);
   }
   100% {
-    opacity: 1;
     transform: translateY(-50%);
+  }
+}
+
+@keyframes visible {
+  0% {
+    opacity: 0
+  }
+  100% {
+    opacity: 1;
   }
 }
