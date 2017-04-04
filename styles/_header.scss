@@ -26,3 +26,17 @@
     }
   }
 }
+figure {
+  animation: header-fade-slide-up 1s 1s cubic-bezier(.17, .67, .83, .67) forwards;
+}
+
+@keyframes header-fade-slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(-10%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-50%);
+  }
+}
