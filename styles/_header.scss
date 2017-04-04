@@ -27,7 +27,9 @@
   }
 }
 figure {
-  animation: up 2.5s, visible 1.5s;
+  @media (min-width: #{$width-large}) {
+    animation: up 2.5s, visible 1.5s;
+  }
 }
 
 @keyframes up {
@@ -35,7 +37,7 @@ figure {
     transform: translateY(-10%);
   }
   100% {
-    transform: translateY(-50%);
+    transform: translateY(-60%);
   }
 }
 
