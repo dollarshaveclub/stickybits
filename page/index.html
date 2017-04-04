@@ -92,11 +92,11 @@
             <hr />
             <h3>Stickybits is awesome because:</h3>
             <ul>
-              <li>it loosely mimics position: sticky to consistently stick elements vertically across multiple platforms</li>
-              <li>does not have the jumpiness that plugins that are built around position: fixed have because it tries to support position: fixed first.</li>
+              <li>it can add a CSS Sticky Class (<code>.js-is-sticky</code>) when <a href="http://caniuse.com/#feat=css-sticky">position: sticky</a> elements become active and a CSS Stuck Class (.js-is-stuck) when they become stuck. See <a href="#usage">useStickyClasses</a></li>
+              <li>it loosely mimics <code>position: sticky</code> to consistently stick elements vertically across multiple platforms</li>
+              <li>does not have the <em>jumpiness</em> that plugins that are built around <code>position: fixed</code> have because it tries to support <code>position: sticky</code> first</li>
               <li>it is super simple & lightweight (2kb minified)</li>
             </ul>
-            <h3>Awesome Demo Coming Soonish! 🙌</h3>
             <hr />
           </section>
           <section id="installation" class=" section section--installation">
@@ -119,54 +119,78 @@
           <section id="usage" class="section section--usage">
             <h2>Default Usage</h2>
             <h3>Basic Setup</h3>
-            <div><pre><code>stickybits();</code></pre></div>
+            <div><pre><code>stickybits('selector');</code></pre></div>
             <h3>By default a selected stickybits element will:</h3>
             <ul>
               <li>Stick elements to the top of the viewport when scrolled to vertically.</li>
               <li>Stick elements at the bottom of their parent when scrolled past.</li>
-              <li>CSS Class Usage</li>
             </ul>
-            <h3>3 CSS classes will be added or removed by stickybits unrelated to the basic usage.</h3>
-            <ul>
-              <li>js-is-sticky if the selected element is sticky.</li>
-              <li>js-is-stuck if the selected element is stopped at the bottom of its parent.</li>
-              <li>js-stickybit-parent so that styles can easily be added to the parent of a Stickbit</li>
-            </ul>
+            <h2><code>useStickyClasses</code> Feature</h2>
+            <p>Stickybits allows costumers to add CSS to elements when they become sticky and when they become stuck at the bottom of their parent element.</p>
+            <p>By default, if <code>position: sticky</code> is supported, StickyBits will exit allowing the browser to manage stickiness and avoid adding a <code>scroll</code> event listener.</p>
+            <p>If the <code>useStickyClasses</code> argument is set to true then even if a browser supports <code>position: sticky</code>, StickyBits will still <a href="#notes">add a <code>scroll</code> event listener to add and remove sticky CSS Classes</a>. This option is available so that CSS styles can use when StickyBits elements become sticky or stuck at the bottom of their parent.</p>
+            <p>To use <code>useStickyClasses</code>:</p>
+            <div><pre><code>stickybits('selector', { useStickyClasses: true });</code></pre></div>
+            <p>Then, in css you can do:</p>
+            <div><pre><code>.some-sticky-element .js-is-sticky { background-color: red; }<br>.some-sticky-elemen .js-is-stuck { background-color: green; }</code></pre></div>
+            <p>View <a href="#notes">add css classes</a> for more information on StickyBits CSS Classes</p>.
           </section>
           <section id="options" class="section section--options">
             <h2>Options</h2>
             <h3>Vertical Layout Position</h3>
-            <p>By default, a StickyBit element will stick to the top of the viewport when vertically scrolled to.</p>
-            <p>To have a StickyBit not have the inline css property top style:</p>
-            <div><pre><code>stickybits('selector', {customVerticalPosition: true});</code></pre></div>
+            <p>By default, a StickyBits element will stick to the top of the viewport when vertically scrolled to. Stickybits loosely works for bottom positioning as well.</p>
+            <p>To have a StickyBits element stick to the <code>bottom</code>:</p>
+            <div><pre><code>stickybits('selector', { verticalPosition: 'bottom' });</code></pre></div>
             <h3>StickyBit Sticky Offset</h3>
-            <p>By default, a StickyBit element will have a 0px sticky layout offset. This means that if the element will sticky to the top of the viewport by default.</p>
-            <p>To have a stickyBit stick with a 20px offset to its vertical layout position:</p>
-            <div><pre><code>stickybits('selector', {stickyBitStickyOffset: 20});</code></pre></div>
+            <p>By default, a StickyBits element will have a <code>0px</code> sticky layout top offset. This means that the element will stick flush to the top of the viewport.</p>
+            <p>To have a stickyBit stick with a <code>20px</code> offset to its vertical layout position:</p>
+            <div><pre><code>stickybits('selector', { stickyBitStickyOffset: 20 });</code></pre></div>
           </section>
           <section id="examples" class="section section--examples">
             <h3>Examples</h3>
             <ul>
               <li>
-                <a href="http://codepen.io/yowainwright/pen/e68dcc768322fef0c72588576bbc1bfa">Basic Example</a>
+                <a href="http://codepen.io/yowainwright/pen/QdedaO">Basic Example</a>
+              </li>
+              <li>
+                <a href="http://codepen.io/yowainwright/pen/VPogaX">Basic usage but with multiple instances of the same selector</a>
               </li>
               <li>
                 <a href="http://codepen.io/yowainwright/pen/8965fb5fd72300b38294b31963b27c68">Basic usage but with multiple instances of the same selector</a>
               </li>
               <li>
-                <a href="http://codepen.io/yowainwright/pen/eeafd2ab68d468d3cd19a4361aff6aa6">Custom vertical top offset</a> ie: <code>stickybits('selector', {stickyBitStickyOffset: 20});</code>
+                <a href="http://codepen.io/yowainwright/pen/BpXbjj">Custom vertical top offset</a><br>ie: <code>stickybits('selector', { stickyBitStickyOffset: 20 });</code>
               </li>
               <li>
-                <a href="http://codepen.io/yowainwright/pen/e32cc7b82907ed9715a0a482ffa57596">Custom vertical position</a>  ie: <code>stickybits('selector', {customVerticalPosition: true});</code>
+                <a href="http://codepen.io/yowainwright/pen/QdePbr">Custom vertical position</a><br>ie: <code>stickybits('selector', { verticalPosition: 'bottom' });</code>
               </li>
+                <a href="http://codepen.io/yowainwright/pen/NpzPGR">Monitor Stickiness</a><br>ie: <code>stickybits('selector', { useStickyClasses: true })</code>
               <li>
-                <a href="http://codepen.io/yowainwright/pen/57b852e88a644e9d919f843dc7b3b5f1">As a jQuery or Zepto Plugin</a>  ie: <code>$('selector').stickybits();</code>
+                <a href="http://codepen.io/yowainwright/pen/LxwvNp">As a jQuery or Zepto Plugin</a><br>ie: <code>$('selector').stickybits();</code>
               </li>
             </ul>
           </section>
           <section id="notes" class="section section--notes">
             <h2>Notes</h2>
+            <h3>3 CSS classes will be added or removed by stickybits unrelated to the basic usage.</h3>
+            <ul>
+              <li><code>js-is-sticky</code> if the selected element is sticky.</li>
+              <li><code>js-is-stuck</code> if the selected element is stopped at the bottom of its parent.</li>
+              <li><code>js-stickybit-parent</code> so that styles can easily be added to the parent of a Stickbit</li>
+            </ul>
+            <h3>Not a Polyfill</h3>
             <p>We strayed away from calling Stickybits a Shim or Polyfill for <code>position: sticky</code> because full support would require more code. This plugin simply makes elements vertically sticky very similarly to <code>position: sticky</code>. Read more about position sticky <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position">here</a> or follow its browser implementation <a href="http://caniuse.com/#search=sticky">here</a>.</p>
+            <h3>jQuery and Zepto Usage</h3>
+            <p>Basic</p>
+            <div><pre><code>$('selector').stickybits();</code></pre></div>
+            <p>With useStickyClasses</p>
+            <div><pre><code>$('selector').stickybits({useStickyClasses: true});</code></pre></div>
+            <p>With customVerticalPosition</p>
+            <div><pre><code>$('selector').stickybits({customVerticalPosition: true});</code></pre></div>
+            <p>With stickyBitStickyOffset</p>
+            <div><pre><code>$('selector').stickybits({stickyBitStickyOffset: 20});</code></pre></div>
+            <h3>Thanks</h3>
+            <p>This plugin was heavily influenced by <a href="https://www.filamentgroup.com/">Filament Group</a>'s awesome <a href="https://github.com/filamentgroup/fixed-sticky">Fixed-sticky</a> jQuery plugin. Thanks to them for the ideas.</p>
           </section>
         </div>
         <aside id="aside" class="aside">
