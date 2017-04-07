@@ -23,7 +23,7 @@ function Stickybit(target, o) {
     if (verticalPosition === 'top') {
       elStyle[verticalPosition] = `${this.stickyBitStickyOffset}px`;
     }
-    if (this.monitorStickiness === false) return;
+    if (this.useStickyClasses === false) return;
   }
   const stickyBitStickyOffset = this.stickyBitStickyOffset;
   const elClasses = el.classList;

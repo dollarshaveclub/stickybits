@@ -1,7 +1,7 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global.stickybits = factory());
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global.stickybits = factory());
 }(this, (function () { 'use strict';
 
 function Stickybit(target, o) {
@@ -29,7 +29,7 @@ function Stickybit(target, o) {
     if (verticalPosition === 'top') {
       elStyle[verticalPosition] = this.stickyBitStickyOffset + 'px';
     }
-    if (this.monitorStickiness === false) return;
+    if (this.useStickyClasses === false) return;
   }
   var stickyBitStickyOffset = this.stickyBitStickyOffset;
   var elClasses = el.classList;

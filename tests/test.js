@@ -33,7 +33,7 @@ $(window).on('load', function() {
     num = 4;
     content = '<div id="parent-'+ num +'" class="parent parent-'+ num +'"><div id="child-'+ num +'" class="child child-'+ num +'"><p>Child '+ num +'</p></div>';
     $main.append(content);
-    stickybits('.child-'+ num, {monitorStickiness: true});
+    stickybits('.child-'+ num, {useStickyClasses: true});
     assert.equal($('#parent-'+ num).hasClass('js-stickybit-parent'), true, 'This should work like fixed');
   });
 });
