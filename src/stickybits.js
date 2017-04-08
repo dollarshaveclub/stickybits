@@ -1,19 +1,11 @@
 function Stickybit(target, o) {
-  const opts = {
-    scrollTarget: window,
-    stickyBitStickyOffset: 0,
-    verticalPosition: 'top',
-    useStickyClasses: false,
-  };
-  this.el = target;
-  this.scrollTarget = (o && o.scrollTarget) || opts.scrollTarget;
-  this.stickyBitStickyOffset = (o && o.stickyBitStickyOffset) || opts.stickyBitStickyOffset;
-  this.verticalPosition = (o && o.verticalPosition) || opts.verticalPosition;
-  this.useStickyClasses = (o && o.useStickyClasses) || opts.useStickyClasses;
-  const el = this.el;
+  const el = target;
+  const scrollTarget = (o && o.scrollTarget) || window;
+  const stickyBitStickyOffset = (o && o.stickyBitStickyOffset) || 0;
+  const verticalPosition = (o && o.verticalPosition) || 'top';
+  const useStickyClasses = (o && o.useStickyClasses) || false;
   const elStyle = el.style;
   const browserPrefix = ['', '-o-', '-webkit-', '-moz-', '-ms-'];
-  const verticalPosition = this.verticalPosition;
   for (let i = 0; i < browserPrefix.length; i += 1) {
     elStyle.position = `${browserPrefix[i]}sticky`;
   }
@@ -21,14 +13,12 @@ function Stickybit(target, o) {
   if (elStyle.position !== '') {
     positionStickyVal = elStyle.position;
     if (verticalPosition === 'top') {
-      elStyle[verticalPosition] = `${this.stickyBitStickyOffset}px`;
+      elStyle[verticalPosition] = `${stickyBitStickyOffset}px`;
     }
-    if (this.useStickyClasses === false) return;
+    if (useStickyClasses === false) return;
   }
-  const stickyBitStickyOffset = this.stickyBitStickyOffset;
   const elClasses = el.classList;
   const elParent = el.parentNode;
-  const scrollTarget = this.scrollTarget;
   const stickyBitClass = 'js-is-sticky';
   const stickyBitIsStuckClass = 'js-is-stuck';
   const stickyBitStart = el.getBoundingClientRect().top;
