@@ -1,26 +1,39 @@
+let positionStickyVal = 'fixed';
+const browserPrefix = ['', '-o-', '-webkit-', '-moz-', '-ms-'];
+const stickyBitClass = 'js-is-sticky';
+const stickyBitIsStuckClass = 'js-is-stuck';
+
 function Stickybit(target, o) {
-  const el = target;
-  const scrollTarget = (o && o.scrollTarget) || window;
-  const stickyBitStickyOffset = (o && o.stickyBitStickyOffset) || 0;
-  const verticalPosition = (o && o.verticalPosition) || 'top';
-  const useStickyClasses = (o && o.useStickyClasses) || false;
-  const elStyle = el.style;
-  const browserPrefix = ['', '-o-', '-webkit-', '-moz-', '-ms-'];
+  this.el = target;
+  this.scrollTarget = (o && o.scrollTarget) || window;
+  this.stickyBitStickyOffset = (o && o.stickyBitStickyOffset) || 0;
+  this.verticalPosition = (o && o.verticalPosition) || 'top';
+  this.useStickyClasses = (o && o.useStickyClasses) || false;
+  this.elStyle = this.el.style;
+}
+
+Stickybit.prototype.setStickyPosition = function setStickyPosition() {
+  const elStyle = this.elStyle;
+  const verticalPosition = this.verticalPosition;
   for (let i = 0; i < browserPrefix.length; i += 1) {
     elStyle.position = `${browserPrefix[i]}sticky`;
   }
-  let positionStickyVal = 'fixed';
   if (elStyle.position !== '') {
     positionStickyVal = elStyle.position;
     if (verticalPosition === 'top') {
-      elStyle[verticalPosition] = `${stickyBitStickyOffset}px`;
+      elStyle[verticalPosition] = `${this.stickyBitStickyOffset}px`;
     }
-    if (useStickyClasses === false) return;
   }
+};
+
+Stickybit.prototype.manageStickiness = function manageStickiness() {
+  const el = this.el;
+  const scrollTarget = this.scrollTarget;
+  const verticalPosition = this.verticalPosition;
+  const stickyBitStickyOffset = this.stickyBitStickyOffset;
+  const elStyle = this.elStyle;
   const elClasses = el.classList;
   const elParent = el.parentNode;
-  const stickyBitClass = 'js-is-sticky';
-  const stickyBitIsStuckClass = 'js-is-stuck';
   const stickyBitStart = el.getBoundingClientRect().top;
   const stickyBitStop = (stickyBitStart + elParent.offsetHeight) - el.offsetHeight;
   elParent.classList.add('js-stickybit-parent');
@@ -31,7 +44,6 @@ function Stickybit(target, o) {
         elClasses.remove(stickyBitClass);
         elStyle.position = '';
       }
-      return;
     } else if (scroll > stickyBitStart && scroll < stickyBitStop) {
       if (!elClasses.contains(stickyBitClass)) elClasses.add(stickyBitClass);
       if (elClasses.contains(stickyBitIsStuckClass)) {
@@ -40,7 +52,6 @@ function Stickybit(target, o) {
       }
       elStyle.position = positionStickyVal;
       elStyle[verticalPosition] = `${stickyBitStickyOffset}px`;
-      return;
     } else if (scroll > stickyBitStop && !elClasses.contains(stickyBitIsStuckClass)) {
       elClasses.remove(stickyBitClass);
       elClasses.add(stickyBitIsStuckClass);
@@ -48,12 +59,22 @@ function Stickybit(target, o) {
       elStyle.top = '';
       elStyle.bottom = '0';
       elStyle.position = 'absolute';
-      return;
     }
-    return;
   }
-  scrollTarget.addEventListener('scroll', () => scrollTarget.requestAnimationFrame(stickiness));
-}
+  let invoked;
+  const fps = 1000 / 60;
+  function setupStickiness() {
+    stickiness();
+    invoked = false;
+  }
+  function checkStickiness() {
+    if (invoked) return;
+    invoked = true;
+    window.setTimeout(setupStickiness, fps);
+  }
+  scrollTarget.addEventListener('scroll', () => scrollTarget.requestAnimationFrame(checkStickiness));
+};
+
 export default function stickybits(target, o) {
   let els = typeof target === 'string' ? document.querySelectorAll(target) : target;
   if (!('length' in els)) els = [els];
@@ -61,6 +82,11 @@ export default function stickybits(target, o) {
   for (let i = 0; i < els.length; i += 1) {
     const el = els[i];
     stickyBit = new Stickybit(el, o);
+    stickyBit.setStickyPosition();
+    if (
+      stickyBit.positionStickyVal === 'fixed' ||
+      stickyBit.useStickyClasses === true) {
+      stickyBit.manageStickiness();
+    }
   }
-  return stickyBit;
 }

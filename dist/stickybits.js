@@ -1,32 +1,45 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (global.stickybits = factory());
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(global.stickybits = factory());
 }(this, (function () { 'use strict';
 
+var positionStickyVal = 'fixed';
+var browserPrefix = ['', '-o-', '-webkit-', '-moz-', '-ms-'];
+var stickyBitClass = 'js-is-sticky';
+var stickyBitIsStuckClass = 'js-is-stuck';
+
 function Stickybit(target, o) {
-  var el = target;
-  var scrollTarget = o && o.scrollTarget || window;
-  var stickyBitStickyOffset = o && o.stickyBitStickyOffset || 0;
-  var verticalPosition = o && o.verticalPosition || 'top';
-  var useStickyClasses = o && o.useStickyClasses || false;
-  var elStyle = el.style;
-  var browserPrefix = ['', '-o-', '-webkit-', '-moz-', '-ms-'];
+  this.el = target;
+  this.scrollTarget = o && o.scrollTarget || window;
+  this.stickyBitStickyOffset = o && o.stickyBitStickyOffset || 0;
+  this.verticalPosition = o && o.verticalPosition || 'top';
+  this.useStickyClasses = o && o.useStickyClasses || false;
+  this.elStyle = this.el.style;
+}
+
+Stickybit.prototype.setStickyPosition = function setStickyPosition() {
+  var elStyle = this.elStyle;
+  var verticalPosition = this.verticalPosition;
   for (var i = 0; i < browserPrefix.length; i += 1) {
     elStyle.position = browserPrefix[i] + 'sticky';
   }
-  var positionStickyVal = 'fixed';
   if (elStyle.position !== '') {
     positionStickyVal = elStyle.position;
     if (verticalPosition === 'top') {
-      elStyle[verticalPosition] = stickyBitStickyOffset + 'px';
+      elStyle[verticalPosition] = this.stickyBitStickyOffset + 'px';
     }
-    if (useStickyClasses === false) return;
   }
+};
+
+Stickybit.prototype.manageStickiness = function manageStickiness() {
+  var el = this.el;
+  var scrollTarget = this.scrollTarget;
+  var verticalPosition = this.verticalPosition;
+  var stickyBitStickyOffset = this.stickyBitStickyOffset;
+  var elStyle = this.elStyle;
   var elClasses = el.classList;
   var elParent = el.parentNode;
-  var stickyBitClass = 'js-is-sticky';
-  var stickyBitIsStuckClass = 'js-is-stuck';
   var stickyBitStart = el.getBoundingClientRect().top;
   var stickyBitStop = stickyBitStart + elParent.offsetHeight - el.offsetHeight;
   elParent.classList.add('js-stickybit-parent');
@@ -37,7 +50,6 @@ function Stickybit(target, o) {
         elClasses.remove(stickyBitClass);
         elStyle.position = '';
       }
-      return;
     } else if (scroll > stickyBitStart && scroll < stickyBitStop) {
       if (!elClasses.contains(stickyBitClass)) elClasses.add(stickyBitClass);
       if (elClasses.contains(stickyBitIsStuckClass)) {
@@ -46,7 +58,6 @@ function Stickybit(target, o) {
       }
       elStyle.position = positionStickyVal;
       elStyle[verticalPosition] = stickyBitStickyOffset + 'px';
-      return;
     } else if (scroll > stickyBitStop && !elClasses.contains(stickyBitIsStuckClass)) {
       elClasses.remove(stickyBitClass);
       elClasses.add(stickyBitIsStuckClass);
@@ -54,14 +65,24 @@ function Stickybit(target, o) {
       elStyle.top = '';
       elStyle.bottom = '0';
       elStyle.position = 'absolute';
-      return;
     }
-    return;
+  }
+  var invoked = void 0;
+  var fps = 1000 / 60;
+  function setupStickiness() {
+    stickiness();
+    invoked = false;
+  }
+  function checkStickiness() {
+    if (invoked) return;
+    invoked = true;
+    window.setTimeout(setupStickiness, fps);
   }
   scrollTarget.addEventListener('scroll', function () {
-    return scrollTarget.requestAnimationFrame(stickiness);
+    return scrollTarget.requestAnimationFrame(checkStickiness);
   });
-}
+};
+
 function stickybits(target, o) {
   var els = typeof target === 'string' ? document.querySelectorAll(target) : target;
   if (!('length' in els)) els = [els];
@@ -69,8 +90,11 @@ function stickybits(target, o) {
   for (var i = 0; i < els.length; i += 1) {
     var el = els[i];
     stickyBit = new Stickybit(el, o);
+    stickyBit.setStickyPosition();
+    if (stickyBit.positionStickyVal === 'fixed' || stickyBit.useStickyClasses === true) {
+      stickyBit.manageStickiness();
+    }
   }
-  return stickyBit;
 }
 
 return stickybits;
