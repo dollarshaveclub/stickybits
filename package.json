@@ -23,6 +23,7 @@
   ],
   "scripts": {
     "test": "gulp test",
+    "lint": "eslint .",
     "rollup": "rollup -c --environment entry:stickybits && rollup -c --environment entry:jquery.stickybits",
     "build": "rollup -c --environment entry:stickybits && rollup -c --environment entry:jquery.stickybits && gulp",
     "postpublish": "git tag $npm_package_version && git push origin --tags"
@@ -43,7 +44,7 @@
     "babel-preset-es2015-rollup": "^3.0.0",
     "bower": "^1.8.0",
     "debug": "^2.2.0",
-    "eslint": "^3.9.0",
+    "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.0.1",
     "gulp": "^3.9.1",

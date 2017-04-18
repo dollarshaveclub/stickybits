@@ -1,0 +1,4 @@
+dist/*
+tests/*
+rollup.config.js
+gulpfile.js

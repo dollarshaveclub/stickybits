@@ -5,7 +5,6 @@ if (typeof window !== 'undefined') {
   if (plugin) {
     plugin.fn.stickybits = function stickybitsPlugin(opts) {
       stickybits(this, opts);
-      return;
     };
   }
 }
