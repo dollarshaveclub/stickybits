@@ -62,15 +62,11 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
     }
   }
   let invoked;
-  const fps = 1000 / 60;
-  function setupStickiness() {
-    stickiness();
-    invoked = false;
-  }
   function checkStickiness() {
     if (invoked) return;
     invoked = true;
-    window.setTimeout(setupStickiness, fps);
+    stickiness();
+    window.setTimeout(() => { invoked = false; }, 0);
   }
   scrollTarget.addEventListener('scroll', () => scrollTarget.requestAnimationFrame(checkStickiness));
 };
