@@ -14,7 +14,6 @@ const banner = ['/**',
 ''].join('\n');
 
 gulp.task('test', () => {
-  console.log('here');
   qunit('tests/index.html');
 });
 
