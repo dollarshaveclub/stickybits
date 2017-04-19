@@ -36,7 +36,7 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
   const elClasses = el.classList;
   const elParent = el.parentNode;
   const stickyBitStart = el.getBoundingClientRect().top;
-  const stickyBitStop = (stickyBitStart + elParent.offsetHeight) - el.offsetHeight;
+  const stickyBitStop = (stickyBitStart + elParent.offsetHeight) - (el.offsetHeight - stickyBitStickyOffset);
   elParent.classList.add('js-stickybit-parent');
   function stickiness() {
     const scroll = scrollTarget.scrollY;
