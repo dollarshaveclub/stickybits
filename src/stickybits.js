@@ -1,4 +1,3 @@
-let positionStickyVal = 'fixed';
 const browserPrefix = ['', '-o-', '-webkit-', '-moz-', '-ms-'];
 const stickyBitClass = 'js-is-sticky';
 const stickyBitIsStuckClass = 'js-is-stuck';
@@ -10,6 +9,7 @@ function Stickybit(target, o) {
   this.verticalPosition = (o && o.verticalPosition) || 'top';
   this.useStickyClasses = (o && o.useStickyClasses) || false;
   this.elStyle = this.el.style;
+  this.positionStickyVal = 'fixed';
 }
 
 Stickybit.prototype.setStickyPosition = function setStickyPosition() {
@@ -19,7 +19,7 @@ Stickybit.prototype.setStickyPosition = function setStickyPosition() {
     elStyle.position = `${browserPrefix[i]}sticky`;
   }
   if (elStyle.position !== '') {
-    positionStickyVal = elStyle.position;
+    this.positionStickyVal = elStyle.position;
     if (verticalPosition === 'top') {
       elStyle[verticalPosition] = `${this.stickyBitStickyOffset}px`;
     }
@@ -29,6 +29,7 @@ Stickybit.prototype.setStickyPosition = function setStickyPosition() {
 Stickybit.prototype.manageStickiness = function manageStickiness() {
   const el = this.el;
   const scrollTarget = this.scrollTarget;
+  const positionStickyVal = this.positionStickyVal;
   const verticalPosition = this.verticalPosition;
   const stickyBitStickyOffset = this.stickyBitStickyOffset;
   const elStyle = this.elStyle;
