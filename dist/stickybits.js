@@ -90,7 +90,6 @@ function stickybits(target, o) {
     var el = els[i];
     stickyBit = new Stickybit(el, o);
     stickyBit.setStickyPosition();
-    console.log(stickyBit.positionStickyVal);
     if (stickyBit.positionStickyVal === 'fixed' || stickyBit.useStickyClasses === true) {
       stickyBit.manageStickiness();
     }

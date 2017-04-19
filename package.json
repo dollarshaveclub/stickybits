@@ -1,6 +1,6 @@
 {
   "name": "stickybits",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "Stickybits is a lightweight (<2KB) alternative to `position: sticky` polyfills",
   "main": "dist/stickybits.js",
   "files": [
