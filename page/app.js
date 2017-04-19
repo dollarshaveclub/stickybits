@@ -4,7 +4,7 @@
   stickybits('#nav');
   if (window.innerWidth < 900) return;
   document.getElementById('wrapper').classList.add('js-has-aside');
-  var stickyItems = ['1', '2', '3', '4', '5', '6', '8', '9', '10'];
+  var stickyItems = ['1', '2', '3', '4'];
   var stickyWrapper = document.getElementById('aside');
   var _iteratorNormalCompletion = true;
   var _didIteratorError = false;

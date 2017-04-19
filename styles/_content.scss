@@ -7,8 +7,8 @@
 }
 .js-has-aside .container--section {
   @media (min-width: #{$width-large}) {
-    padding-right: 2rem;
-    width: 70%;
+    padding-right: 3rem;
+    width: calc(100% - 17rem);
   }
 }
 .aside {
@@ -17,8 +17,7 @@
     @media (min-width: #{$width-large}) {
       display: block;
       margin-top: .5rem;
-      padding-left: 1.5rem;
-      width: 30%;
+      width: 17rem;
     }
   }
 }
@@ -36,7 +35,8 @@
 .sticky-parent {
   @media (min-width: #{$width-large}) {
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .2);
-    min-height: 15rem;
+    min-height: 20rem;
+    position: relative;
   }
 }
 .sticky-element {
@@ -45,6 +45,7 @@
     font-weight: bold;
     padding: 1rem;
     text-shadow: 0 1px 0 white;
+    width: 17rem;
   }
 }
 .stuck {

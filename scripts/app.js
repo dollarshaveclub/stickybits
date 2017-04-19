@@ -2,7 +2,7 @@
   stickybits('#nav');
   if (window.innerWidth < 900) return;
   document.getElementById('wrapper').classList.add('js-has-aside');
-  const stickyItems = ['1', '2', '3', '4', '5', '6', '8', '9', '10'];
+  const stickyItems = ['1', '2', '3', '4'];
   const stickyWrapper = document.getElementById('aside');
   for (let i of stickyItems) {
     const stickyItem = `<div class="sticky-element sticky-element--${i}">StickyBit Item ${i} <span class="stuck">is Stuck! 🔥</span></div>`;
