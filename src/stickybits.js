@@ -36,14 +36,15 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
   const elClasses = el.classList;
   const elParent = el.parentNode;
   const stickyBitStart = el.getBoundingClientRect().top;
-  const stickyBitStop = (stickyBitStart + elParent.offsetHeight) - (el.offsetHeight - stickyBitStickyOffset);
+  const stickyBitStop = (stickyBitStart + elParent.offsetHeight) -
+    (el.offsetHeight - stickyBitStickyOffset);
   elParent.classList.add('js-stickybit-parent');
   function stickiness() {
     const scroll = scrollTarget.scrollY;
     if (scroll < stickyBitStart) {
       if (elClasses.contains(stickyBitClass)) {
         elClasses.remove(stickyBitClass);
-        elStyle.position = '';
+        if (positionStickyVal === 'fixed') elStyle.position = '';
       }
     } else if (scroll > stickyBitStart && scroll < stickyBitStop) {
       if (!elClasses.contains(stickyBitClass)) elClasses.add(stickyBitClass);

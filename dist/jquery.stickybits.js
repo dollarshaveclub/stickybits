@@ -49,7 +49,7 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
     if (scroll < stickyBitStart) {
       if (elClasses.contains(stickyBitClass)) {
         elClasses.remove(stickyBitClass);
-        elStyle.position = '';
+        if (positionStickyVal === 'fixed') elStyle.position = '';
       }
     } else if (scroll > stickyBitStart && scroll < stickyBitStop) {
       if (!elClasses.contains(stickyBitClass)) elClasses.add(stickyBitClass);
