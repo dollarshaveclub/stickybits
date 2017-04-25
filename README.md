@@ -75,7 +75,7 @@ stickybits('selector');
 
 <h2 id="feature"><code>useStickyClasses</code> Feature</h2>
 
-> Stickybits allows costumers to add CSS to elements when they become sticky and when they become stuck at the bottom of their parent element.
+> Stickybits allows customers to add CSS to elements when they become sticky and when they become stuck at the bottom of their parent element.
 
 By default, if `position: sticky` is supported, StickyBits will exit allowing the browser to manage stickiness and avoid adding a `scroll` event listener.
 
