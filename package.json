@@ -45,7 +45,7 @@
     "bower": "^1.8.0",
     "debug": "^2.2.0",
     "eslint": "^3.19.0",
-    "eslint-config-airbnb": "^14.1.0",
+    "eslint-config-airbnb": "^15.0.0",
     "eslint-plugin-import": "^2.0.1",
     "gulp": "^3.9.1",
     "gulp-header": "^1.8.8",
