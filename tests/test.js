@@ -36,4 +36,13 @@ $(window).on('load', function() {
     stickybits('.child-'+ num, {useStickyClasses: true});
     assert.equal($('#parent-'+ num).hasClass('js-stickybit-parent'), true, 'This should work like fixed');
   });
+
+  QUnit.test( "Checks cleanup method", function(assert) {
+    num = 5;
+    content = '<div id="parent-'+ num +'" class="parent parent-'+ num +'"><div id="child-'+ num +'" class="child child-'+ num +'"><p>Child '+ num +'</p></div>';
+    $main.append(content);
+    stickybits('.child-'+ num, {useStickyClasses: true});
+    stickybits('.child-'+ num).cleanup();
+    assert.equal($('#parent-'+ num).hasClass('js-stickybit-parent'), false, 'This should work like fixed');
+  });
 });
