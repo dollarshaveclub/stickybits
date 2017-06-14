@@ -88,7 +88,7 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
 
   // manage stickiness
   function stickiness() {
-    var scroll = st.scrollY;
+    var scroll = st.scrollY || st.scrollTop;
     var hasStickyClass = classes.constains(stickyClass);
     var hasStuckClass = classes.constains(stuckClass);
     if (scroll < stickyBitStart) {
