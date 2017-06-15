@@ -18,8 +18,8 @@ function Stickybit(target, o) {
     - target = el (DOM element)
     - scrolltarget = window || 'dealer's chose'
   */
+  if (typeof window === 'undefined') throw Error('stickybits requires `window`');
   this.el = target;
-  this.st = o && o.scrollTarget || window;
 
   /*
     defaults 🔌
@@ -81,12 +81,12 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
   this.parent.classList.add('js-stickybit-parent');
 
   // optimize vars for managing stickiness
-  var st = this.st;
   var pv = this.positionStickyVal;
   var vp = this.vp;
   var offset = this.offset;
   var styles = this.styles;
   var classes = this.classes;
+  var win = window;
   var stickyBitStart = this.el.getBoundingClientRect().top;
   var stickyBitStop = stickyBitStart + this.parent.offsetHeight - (this.el.offsetHeight - offset);
   var stickyClass = 'js-is-sticky';
@@ -94,7 +94,7 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
 
   // manage stickiness
   function stickiness() {
-    var scroll = st.scrollY || st.scrollTop;
+    var scroll = win.scrollY || win.scrollTop;
     var hasStickyClass = classes.constains(stickyClass);
     var hasStuckClass = classes.constains(stuckClass);
     if (scroll < stickyBitStart) {
@@ -126,13 +126,13 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
     if (invoked) return;
     invoked = true;
     stickiness();
-    window.setTimeout(function () {
+    win.setTimeout(function () {
       invoked = false;
     }, 0);
   };
 
-  st.addEventListener('scroll', function () {
-    return st.requestAnimationFrame(_this.checkStickiness);
+  win.addEventListener('scroll', function () {
+    return win.requestAnimationFrame(_this.checkStickiness);
   });
   return this;
 };
@@ -148,7 +148,7 @@ Stickybit.prototype.cleanup = function cleanup() {
   var el = this.el;
   el.classList.remove('js-is-sticky', 'js-is-stuck');
   el.parentNode.classList.remove('js-stickybit-parent');
-  this.st.removeEventListener('scroll', this.checkStickiness);
+  window.removeEventListener('scroll', this.checkStickiness);
 };
 
 function stickybits(target, o) {
