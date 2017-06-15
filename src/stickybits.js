@@ -29,6 +29,14 @@ function Stickybit(target, o) {
   this.useClasses = (o && o.useStickyClasses) || false;
   this.styles = this.el.style;
   this.positionStickyVal = 'fixed';
+
+  this.setStickyPosition();
+  if (
+    this.positionStickyVal === 'fixed' ||
+    this.useClasses === true) {
+    this.manageStickiness();
+  }
+  return this;
 }
 
 /*
@@ -135,22 +143,17 @@ Stickybit.prototype.cleanup = function cleanup() {
   this.st.removeEventListener('scroll', this.checkStickiness);
 };
 
-Stickybit.prototype.init = function init() {
-  this.setStickyPosition();
-  if (
-    this.positionStickyVal === 'fixed' ||
-    this.useClasses === true) {
-    this.manageStickiness();
-  }
-  return this;
-};
-
 export default function stickybits(target, o) {
   let els = typeof target === 'string' ? document.querySelectorAll(target) : target;
   if (!('length' in els)) els = [els];
+  const instances = [];
   for (let i = 0; i < els.length; i += 1) {
     const el = els[i];
-    return new Stickybit(el, o).init();
+    instances.push(new Stickybit(el, o));
   }
-  return this;
+  function MultiBits(userInstances) {
+    this.privateInstances = userInstances || [];
+    this.cleanup = () => this.privateInstances.forEach(instance => instance.cleanup());
+  }
+  return new MultiBits(instances);
 }

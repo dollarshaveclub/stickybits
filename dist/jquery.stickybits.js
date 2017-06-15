@@ -35,6 +35,12 @@ function Stickybit(target, o) {
   this.useClasses = o && o.useStickyClasses || false;
   this.styles = this.el.style;
   this.positionStickyVal = 'fixed';
+
+  this.setStickyPosition();
+  if (this.positionStickyVal === 'fixed' || this.useClasses === true) {
+    this.manageStickiness();
+  }
+  return this;
 }
 
 /*
@@ -145,22 +151,25 @@ Stickybit.prototype.cleanup = function cleanup() {
   this.st.removeEventListener('scroll', this.checkStickiness);
 };
 
-Stickybit.prototype.init = function init() {
-  this.setStickyPosition();
-  if (this.positionStickyVal === 'fixed' || this.useClasses === true) {
-    this.manageStickiness();
-  }
-  return this;
-};
-
 function stickybits(target, o) {
   var els = typeof target === 'string' ? document.querySelectorAll(target) : target;
   if (!('length' in els)) els = [els];
+  var instances = [];
   for (var i = 0; i < els.length; i += 1) {
     var el = els[i];
-    return new Stickybit(el, o).init();
+    instances.push(new Stickybit(el, o));
   }
-  return this;
+  function MultiBits(userInstances) {
+    var _this2 = this;
+
+    this.privateInstances = userInstances || [];
+    this.cleanup = function () {
+      return _this2.privateInstances.forEach(function (instance) {
+        return instance.cleanup();
+      });
+    };
+  }
+  return new MultiBits(instances);
 }
 
 if (typeof window !== 'undefined') {
