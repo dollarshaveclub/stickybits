@@ -3,33 +3,24 @@
   --------
   a lightweight alternative to `position: sticky` polyfills 🍬
 */
-const browserPrefix = ['', '-o-', '-webkit-', '-moz-', '-ms-'];
-
 function Stickybit(target, o) {
-  /*
-    functionality setup 🔧
-    --------
-    - target = el (DOM element)
-    - scrolltarget = window || 'dealer's chose'
-  */
   if (typeof window === 'undefined') throw Error('stickybits requires `window`');
-  this.el = target;
-
   /*
     defaults 🔌
     --------
+    - target = el (DOM element)
     - offset = 0 || 'dealer's choice'
     - verticalPosition = top || bottom
     - useStickyClasses =
     - elStyles = CSS Styles
     - positionStickyVal = fixed || sticky
   */
+  this.el = target;
   this.offset = (o && o.stickyBitStickyOffset) || 0;
   this.vp = (o && o.verticalPosition) || 'top';
   this.useClasses = (o && o.useStickyClasses) || false;
   this.styles = this.el.style;
   this.positionStickyVal = 'fixed';
-
   this.setStickyPosition();
   if (
     this.positionStickyVal === 'fixed' ||
@@ -47,6 +38,7 @@ function Stickybit(target, o) {
   => stickybits works accordingly
 */
 Stickybit.prototype.setStickyPosition = function setStickyPosition() {
+  const browserPrefix = ['', '-o-', '-webkit-', '-moz-', '-ms-'];
   const styles = this.styles;
   const vp = this.vp;
   for (let i = 0; i < browserPrefix.length; i += 1) {
@@ -69,20 +61,16 @@ Stickybit.prototype.setStickyPosition = function setStickyPosition() {
   => based on window scroll
 */
 Stickybit.prototype.manageStickiness = function manageStickiness() {
-  // set new vars if .manageStickiness method is used
-  this.classes = this.el.classList;
-  this.parent = this.el.parentNode;
-  this.parent.classList.add('js-stickybit-parent');
-
-  // optimize vars for managing stickiness
+  const parent = this.el.parentNode;
   const pv = this.positionStickyVal;
   const vp = this.vp;
   const offset = this.offset;
   const styles = this.styles;
-  const classes = this.classes;
+  const classes = this.el.classList;
   const win = window;
+  parent.classList.add('js-stickybit-parent');
   const stickyBitStart = this.el.getBoundingClientRect().top;
-  const stickyBitStop = (stickyBitStart + this.parent.offsetHeight) -
+  const stickyBitStop = (stickyBitStart + parent.offsetHeight) -
     (this.el.offsetHeight - offset);
   const stickyClass = 'js-is-sticky';
   const stuckClass = 'js-is-stuck';
@@ -90,15 +78,15 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
   // manage stickiness
   function stickiness() {
     const scroll = win.scrollY || win.scrollTop;
-    const hasStickyClass = classes.constains(stickyClass);
-    const hasStuckClass = classes.constains(stuckClass);
+    const hasStickyClass = classes.contains(stickyClass);
+    const hasStuckClass = classes.contains(stuckClass);
     if (scroll < stickyBitStart) {
       if (hasStickyClass) {
         classes.remove(stickyClass);
         if (pv === 'fixed') styles.position = '';
       }
     } else if (scroll > stickyBitStart && scroll < stickyBitStop) {
-      if (hasStickyClass) classes.add(stickyClass);
+      if (!hasStickyClass) classes.add(stickyClass);
       if (hasStuckClass) {
         classes.remove(stuckClass);
         styles.bottom = '';
@@ -120,12 +108,11 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
   this.checkStickiness = function checkStickiness() {
     if (invoked) return;
     invoked = true;
-    stickiness();
+    win.requestAnimationFrame(stickiness);
     win.setTimeout(() => { invoked = false; }, 0);
   };
 
-  win.addEventListener('scroll', () =>
-    win.requestAnimationFrame(this.checkStickiness));
+  win.addEventListener('scroll', this.checkStickiness);
   return this;
 };
 
@@ -138,10 +125,23 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
 */
 Stickybit.prototype.cleanup = function cleanup() {
   const el = this.el;
+  const styles = this.styles;
+  // cleanup styles
+  styles.position = '';
+  styles[this.vp] = '';
+  // cleanup CSS classes
   el.classList.remove('js-is-sticky', 'js-is-stuck');
   el.parentNode.classList.remove('js-stickybit-parent');
+  // remove scroll event listener
   window.removeEventListener('scroll', this.checkStickiness);
+  // turn of sticky invocation
+  this.checkStickiness = false;
 };
+
+function MultiBits(userInstances) {
+  this.privateInstances = userInstances || [];
+  this.cleanup = () => this.privateInstances.forEach(instance => instance.cleanup());
+}
 
 export default function stickybits(target, o) {
   let els = typeof target === 'string' ? document.querySelectorAll(target) : target;
@@ -150,10 +150,6 @@ export default function stickybits(target, o) {
   for (let i = 0; i < els.length; i += 1) {
     const el = els[i];
     instances.push(new Stickybit(el, o));
-  }
-  function MultiBits(userInstances) {
-    this.privateInstances = userInstances || [];
-    this.cleanup = () => this.privateInstances.forEach(instance => instance.cleanup());
   }
   return new MultiBits(instances);
 }
