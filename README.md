@@ -68,6 +68,7 @@ Add **dist/stickybits.min.js**.
 ```javascript
 stickybits('selector');
 ```
+
 #### By default, a selected stickybits element will:
 
 -  Stick elements to the top of the viewport when scrolled to vertically.
@@ -124,15 +125,25 @@ To have a StickyBits element stick with a `20px` offset to its vertical layout p
 stickybits('selector', {stickyBitStickyOffset: 20});
 ```
 
+### StickyBits Cleanup
+
+To _cleanup_ an instance of Stickybits:
+
+```javascript
+const stickybitsInstancetoBeCleanedup = stickbits('selector');
+stickybitsInstancetoBeCleanedup.cleanup();
+````
+
 For jQuery and Zepto support, read in the jQuery notes [below](#jquery).
 
 <h2 id="examples">Examples</h2>
 
 -  [Basic Usage](http://codepen.io/yowainwright/pen/e68dcc768322fef0c72588576bbc1bfa)
 -  [Basic usage but with multiple instances of the same selector](http://codepen.io/yowainwright/pen/8965fb5fd72300b38294b31963b27c68)
--  [Custom vertical top offset](http://codepen.io/yowainwright/pen/eeafd2ab68d468d3cd19a4361aff6aa6) ie: `stickybits('selector', {stickyBitStickyOffset: 20})`
+-  [Custom vertical top offset](https://codepen.io/yowainwright/pen/YQZPqR) ie: `stickybits('selector', {stickyBitStickyOffset: 20})`
 -  [Custom vertical position](http://codepen.io/yowainwright/pen/e32cc7b82907ed9715a0a482ffa57596) ie: `stickybits('selector', {customVerticalPosition: true})`
--  [Monitor Stickiness](http://codepen.io/yowainwright/pen/NpzPGR) ie: `stickybits('selector', {useStickyClasses: true})`
+-  [UseStickyClasses](http://codepen.io/yowainwright/pen/NpzPGR) ie: `stickybits('selector', {useStickyClasses: true})`
+-  [Clean Stickybits](https://codepen.io/yowainwright/pen/470824238eb548e5f308089c0343afbe) ie: `const stickything = stickybits('selector'); stickything.cleanup();`
 -  [As a jQuery or Zepto Plugin](http://codepen.io/yowainwright/pen/57b852e88a644e9d919f843dc7b3b5f1) ie: `$('selector').stickybits();`
 
 -----
