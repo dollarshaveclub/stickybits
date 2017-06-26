@@ -117,7 +117,9 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
     }, 0);
   };
 
-  win.addEventListener('scroll', this.checkStickiness);
+  win.addEventListener('scroll', this.checkStickiness, {
+    passive: true
+  });
   return this;
 };
 
