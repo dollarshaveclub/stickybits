@@ -19,7 +19,10 @@
     "javascript",
     "stuck",
     "waypoint",
-    "scroll"
+    "scroll",
+    "stickyheader",
+    "stickynavigation"
+    "fixedheader"
   ],
   "scripts": {
     "test": "gulp test",
