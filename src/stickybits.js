@@ -112,9 +112,7 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
     win.setTimeout(() => { invoked = false; }, 0);
   };
 
-  win.addEventListener('scroll', this.checkStickiness, {
-    passive: true,
-  });
+  win.addEventListener('scroll', this.checkStickiness);
   return this;
 };
 
