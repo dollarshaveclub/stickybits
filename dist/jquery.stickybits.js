@@ -88,7 +88,10 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
 
   this.manageState = function () {
     var scroll = win.scrollY || win.pageYOffset;
-    if (scroll > stickyStart && scroll < stickyStop && (state === 'default' || state === 'stuck')) {
+    var notSticky = scroll > stickyStart && scroll < stickyStop && (state === 'default' || state === 'stuck');
+    var isSticky = scroll < stickyStart && state === 'sticky';
+    var isStuck = scroll > stickyStop && state === 'sticky';
+    if (notSticky) {
       state = 'sticky';
       rAF(function () {
         classes.add(stickyClass);
@@ -97,13 +100,13 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
         styles.position = pv;
         styles[vp] = offset + 'px';
       });
-    } else if (scroll < stickyStart && state === 'sticky') {
+    } else if (isSticky) {
       state = 'default';
       rAF(function () {
         classes.remove(stickyClass);
         if (pv === 'fixed') styles.position = '';
       });
-    } else if (scroll > stickyStop && state === 'sticky') {
+    } else if (isStuck) {
       state = 'stuck';
       rAF(function () {
         classes.remove(stickyClass);
