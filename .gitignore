@@ -2,3 +2,4 @@ bower_components/*
 node_modules/*
 .tags
 .tags1
+package-lock.json
