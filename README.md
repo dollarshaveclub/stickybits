@@ -30,7 +30,7 @@
 -  it loosely mimics [position: sticky](http://caniuse.com/#search=sticky) to consistently stick elements vertically across multiple platforms 
 -  it does not have the _jumpiness_ that plugins that are built around `position: fixed` have because it tries to support `position: sticky` first.
 -  in its simplest use case, a `scroll` event listener will not be used if `position: sticky` is supported.
--  it is super simple & lightweight (~2.7kb minified)
+-  it is super simple & lightweight
 
 <hr />
   <p align="center">
