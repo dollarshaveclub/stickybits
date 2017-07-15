@@ -160,13 +160,13 @@ Stickybit.prototype.cleanup = function cleanup() {
 };
 
 function MultiBits(userInstances) {
-  var _this = this;
-
   this.privateInstances = userInstances || [];
+  var instances = this.privateInstances;
   this.cleanup = function () {
-    return _this.privateInstances.forEach(function (instance) {
-      return instance.cleanup();
-    });
+    for (var i = 0; i < instances.length; i += 1) {
+      var instance = instances[i];
+      instance.cleanup();
+    }
   };
 }
 

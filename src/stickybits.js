@@ -157,7 +157,13 @@ Stickybit.prototype.cleanup = function cleanup() {
 
 function MultiBits(userInstances) {
   this.privateInstances = userInstances || []
-  this.cleanup = () => this.privateInstances.forEach(instance => instance.cleanup())
+  const instances = this.privateInstances
+  this.cleanup = () => {
+    for (let i = 0; i < instances.length; i += 1) {
+      const instance = instances[i]
+      instance.cleanup()
+    }
+  }
 }
 
 export default function stickybits(target, o) {
