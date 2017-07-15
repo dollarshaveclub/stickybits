@@ -88,14 +88,14 @@
               </a>
             </div>
             <hr />
-            <p>Stickybits is a lightweight (&#60;2KB) alternative to position: sticky polyfills that works perfectly for things like sticky headers.</p>
+            <p>Stickybits is a lightweight alternative to position: sticky polyfills that works perfectly for things like sticky headers.</p>
             <hr />
             <h3>Stickybits is awesome because:</h3>
             <ul>
               <li>it can add a CSS Sticky Class (<code>.js-is-sticky</code>) when <a href="http://caniuse.com/#feat=css-sticky">position: sticky</a> elements become active and a CSS Stuck Class (.js-is-stuck) when they become stuck. See <a href="#usage">useStickyClasses</a></li>
               <li>it loosely mimics <code>position: sticky</code> to consistently stick elements vertically across multiple platforms</li>
               <li>does not have the <em>jumpiness</em> that plugins that are built around <code>position: fixed</code> have because it tries to support <code>position: sticky</code> first</li>
-              <li>it is super simple & lightweight (2kb minified)</li>
+              <li>it is super simple & lightweight</li>
             </ul>
             <hr />
           </section>
@@ -189,6 +189,8 @@
             <div><pre><code>$('selector').stickybits({customVerticalPosition: true});</code></pre></div>
             <p>With stickyBitStickyOffset</p>
             <div><pre><code>$('selector').stickybits({stickyBitStickyOffset: 20});</code></pre></div>
+            <h3>Browser Compatibility</h3>
+            <p>Stickybits works in all modern browsers including Internet Explorer 9 and above. Please file and issue with browser compatibility quirks.</p>
             <h3>Thanks</h3>
             <p>This plugin was heavily influenced by <a href="https://www.filamentgroup.com/">Filament Group</a>'s awesome <a href="https://github.com/filamentgroup/fixed-sticky">Fixed-sticky</a> jQuery plugin. Thanks to them for the ideas.</p>
           </section>
