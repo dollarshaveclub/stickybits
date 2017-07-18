@@ -10,16 +10,17 @@
   a lightweight alternative to `position: sticky` polyfills 🍬
 */
 function Stickybit(target, o) {
-  if (typeof window === 'undefined') throw Error('stickybits requires `window`');
   /*
     defaults 🔌
     --------
     - target = el (DOM element)
+    - se = scroll element (DOM element used for scroll event)
     - offset = 0 || dealer's choice
     - verticalPosition = top || bottom
     - useStickyClasses = boolean
   */
   this.el = target;
+  this.se = o && o.scrollEl || window;
   this.offset = o && o.stickyBitStickyOffset || 0;
   this.vp = o && o.verticalPosition || 'top';
   this.useClasses = o && o.useStickyClasses || false;
@@ -70,8 +71,8 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
   var vp = this.vp;
   var offset = this.offset;
   var styles = this.styles;
-  var win = window;
-  var rAF = typeof win.requestAnimationFrame !== 'undefined' ? win.requestAnimationFrame : function rAFDummy(f) {
+  var se = this.se;
+  var rAF = typeof se.requestAnimationFrame !== 'undefined' ? se.requestAnimationFrame : function rAFDummy(f) {
     f();
   };
 
@@ -95,7 +96,7 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
   var state = 'default';
 
   this.manageState = function () {
-    var scroll = win.scrollY || win.pageYOffset;
+    var scroll = se.scrollY || se.pageYOffset;
     var notSticky = scroll > stickyStart && scroll < stickyStop && (state === 'default' || state === 'stuck');
     var isSticky = scroll < stickyStart && state === 'sticky';
     var isStuck = scroll > stickyStop && state === 'sticky';
@@ -125,7 +126,7 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
     }
   };
 
-  win.addEventListener('scroll', this.manageState);
+  se.addEventListener('scroll', this.manageState);
   return this;
 };
 
@@ -154,7 +155,7 @@ Stickybit.prototype.cleanup = function cleanup() {
   removeClass(el, 'js-is-stuck');
   removeClass(el.parentNode, 'js-stickybit-parent');
   // remove scroll event listener
-  window.removeEventListener('scroll', this.manageState);
+  this.se.removeEventListener('scroll', this.manageState);
   // turn of sticky invocation
   this.manageState = false;
 };
