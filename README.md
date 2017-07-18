@@ -115,6 +115,18 @@ To have a StickyBits element stick to the `bottom`:
 stickybits('selector', {verticalPosition: 'bottom'});
 ```
 
+### Custom Scroll Element
+
+By default, if Stickybits uses a scroll event (if `position: sticky` is not supported or if we use the option `useStickyClasses`) it uses `window`.
+
+To have Stickybit use an selector besides `window`:
+
+```javascript
+const scrollEl = document.getElementById('an-id');
+stickybits('selector', {scrollEl: scrollEl});
+```
+\* **Note:** This selector is not selected automatically so the specific element need to be passed in.
+
 ### StickyBit Sticky Offset
 
 By default, a StickyBits element will have a `0px` sticky layout top offset. This means that the element will stick flush to the top of the viewport.
@@ -171,6 +183,14 @@ Basic
 ```javascript
 $('selector').stickybits();
 ```
+
+With `scrollEl`
+
+```javascript
+const $scrollEl = $('#scrollEl')[0];
+$('selector').stickybits({scrollEl: scrollEl});
+```
+\* **Note:** because StickyBits is _not_ jQuery specific, in order to pass in a selector for `scrollEl`, add a `[0]` to the the selector. 
 
 With `useStickyClasses`
 
