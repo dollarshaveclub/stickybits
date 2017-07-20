@@ -72,6 +72,7 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
   var offset = this.offset;
   var styles = this.styles;
   var se = this.se;
+  var isWin = se === window;
   var rAF = typeof se.requestAnimationFrame !== 'undefined' ? se.requestAnimationFrame : function rAFDummy(f) {
     f();
   };
@@ -91,12 +92,12 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
   }
 
   // manageState
-  var stickyStart = parent.getBoundingClientRect().top;
+  var stickyStart = isWin ? parent.getBoundingClientRect().top : se.getBoundingClientRect().top - parent.getBoundingClientRect().top;
   var stickyStop = stickyStart + parent.offsetHeight - (el.offsetHeight - offset);
   var state = 'default';
 
   this.manageState = function () {
-    var scroll = se.scrollY || se.pageYOffset;
+    var scroll = isWin ? se.scrollY || se.pageYOffset : se.scrollTop;
     var notSticky = scroll > stickyStart && scroll < stickyStop && (state === 'default' || state === 'stuck');
     var isSticky = scroll < stickyStart && state === 'sticky';
     var isStuck = scroll > stickyStop && state === 'sticky';

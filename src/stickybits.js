@@ -68,6 +68,7 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
   const offset = this.offset
   const styles = this.styles
   const se = this.se
+  const isWin = se === window
   const rAF = typeof se.requestAnimationFrame !== 'undefined' ? se.requestAnimationFrame : function rAFDummy(f) { f() }
 
   // setup css classes
@@ -85,13 +86,20 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
   }
 
   // manageState
-  const stickyStart = parent.getBoundingClientRect().top
+  /* stickyStart =>
+    -  checks if stickyBits is using window
+        -  if it is using window, it gets the top offset of the parent
+        -  if it is not using window,
+           -  it gets the top offset of the scrollEl - the top offset of the parent
+  */
+  const stickyStart = isWin ? parent.getBoundingClientRect().top : (se.getBoundingClientRect().top -
+    parent.getBoundingClientRect().top)
   const stickyStop = (stickyStart + parent.offsetHeight) -
       (el.offsetHeight - offset)
   let state = 'default'
 
   this.manageState = () => {
-    const scroll = se.scrollY || se.pageYOffset
+    const scroll = isWin ? (se.scrollY || se.pageYOffset) : se.scrollTop
     const notSticky = (scroll > stickyStart) && (scroll < stickyStop) &&
       (state === 'default' || state === 'stuck')
     const isSticky = (scroll < stickyStart) && state === 'sticky'
