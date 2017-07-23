@@ -69,10 +69,11 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
   var parent = el.parentNode;
   var pv = this.positionVal;
   var vp = this.vp;
-  var offset = this.offset;
   var styles = this.styles;
   var se = this.se;
   var isWin = se === window;
+  var seOffset = this.positionVal !== 'fixed' ? 0 : se.getBoundingClientRect().top;
+  var offset = seOffset + this.offset;
   var rAF = typeof se.requestAnimationFrame !== 'undefined' ? se.requestAnimationFrame : function rAFDummy(f) {
     f();
   };
@@ -92,7 +93,13 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
   }
 
   // manageState
-  var stickyStart = isWin ? parent.getBoundingClientRect().top : se.getBoundingClientRect().top - parent.getBoundingClientRect().top;
+  /* stickyStart =>
+    -  checks if stickyBits is using window
+        -  if it is using window, it gets the top offset of the parent
+        -  if it is not using window,
+           -  it gets the top offset of the scrollEl - the top offset of the parent
+  */
+  var stickyStart = isWin ? parent.getBoundingClientRect().top : parent.getBoundingClientRect().top - seOffset;
   var stickyStop = stickyStart + parent.offsetHeight - (el.offsetHeight - offset);
   var state = 'default';
 
