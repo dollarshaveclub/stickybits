@@ -61,7 +61,9 @@ bower install stickybits --save
 
 <h2 id="setup">Setup</h2>
 
-Add **dist/stickybits.min.js**.
+Add **dist/stickybits.min.js**
+
+Or as a module with `import shave from 'shave'`
 
 <h2 id="usage">Basic Usage</h2>
 
