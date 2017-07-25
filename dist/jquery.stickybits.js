@@ -25,7 +25,6 @@ function Stickybit(target, o) {
   this.vp = o && o.verticalPosition || 'top';
   this.useClasses = o && o.useStickyClasses || false;
   this.styles = this.el.style;
-  this.positionVal = 'fixed';
   this.setStickyPosition();
   if (this.positionVal === 'fixed' || this.useClasses === true) {
     this.manageStickiness();
@@ -52,7 +51,7 @@ Stickybit.prototype.setStickyPosition = function setStickyPosition() {
     if (vp === 'top') {
       styles[vp] = this.offset + 'px';
     }
-  }
+  } else this.positionVal = 'fixed';
   return this;
 };
 
