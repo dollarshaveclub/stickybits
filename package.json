@@ -1,6 +1,6 @@
 {
   "name": "stickybits",
-  "version": "1.4.4",
+  "version": "1.5.0",
   "description": "Stickybits is a lightweight alternative to `position: sticky` polyfills",
   "main": "dist/stickybits.js",
   "files": [
@@ -27,8 +27,9 @@
   "scripts": {
     "test": "gulp test",
     "lint": "eslint .",
-    "rollup": "rollup -c --environment entry:stickybits && rollup -c --environment entry:jquery.stickybits",
-    "build": "rollup -c --environment entry:stickybits && rollup -c --environment entry:jquery.stickybits && gulp",
+    "rollup:umd": "rollup -c --environment entry:stickybits,format:umd; rollup -c --environment entry:jquery.stickybits,format:umd",
+    "rollup:es": "rollup -c --environment entry:stickybits,format:es",
+    "build": "npm run rollup:umd; npm run rollup:es && gulp",
     "postpublish": "git tag $npm_package_version && git push origin --tags"
   },
   "bugs": {

@@ -4,11 +4,13 @@ import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 
 const entry = process.env.entry;
+const format = process.env.format ? process.env.format : 'umd';
+const dest = format === 'es' ? `${entry}.${format}` : `${entry}`;
 
 export default {
   entry: `src/${entry}.js`,
-  dest: `dist/${entry}.js`,
-  format: 'umd',
+  dest: `dist/${dest}.js`,
+  format: format,
   moduleName: entry,
   sourceMap: false, // removes the sourcemap at the bottom of the file
   treeshake: true,
