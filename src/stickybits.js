@@ -93,9 +93,9 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
            -  it gets the top offset of the scrollEl - the top offset of the parent
   */
   const stickyStart = isWin ? parent.getBoundingClientRect().top :
-      (parent.getBoundingClientRect().top - seOffset)
+    (parent.getBoundingClientRect().top - seOffset)
   const stickyStop = (stickyStart + parent.offsetHeight) -
-      (el.offsetHeight - offset)
+    (el.offsetHeight - offset)
   let state = 'default'
 
   this.manageState = () => {
