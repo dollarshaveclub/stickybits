@@ -183,7 +183,15 @@ Have another example or question? Feel free to [comment](https://github.com/doll
 
 ### Not a Polyfill
 
-We strayed away from calling Stickybits a Shim or Polyfill for `position: sticky` because full support would require more code. This plugin simply makes elements vertically sticky very similarly to `position: fixed` but in a `sticky` sort of way. Read more about position sticky [here](https://developer.mozilla.org/en-US/docs/Web/CSS/position) or follow its browser implementation [here](http://caniuse.com/#search=sticky).  
+Stickybits is not a Shim or Polyfill for `position: sticky` because full support would require more code. This plugin makes elements vertically sticky very similarly to `position: fixed` but in a `sticky` sort of way. Read more about position sticky [here](https://developer.mozilla.org/en-US/docs/Web/CSS/position) or follow its browser implementation [here](http://caniuse.com/#search=sticky).  
+
+Stickybits is a no dependency JavaScript plugin. It provides the smallest API possible in both features and kb size to deliver working sticky elements. This means that opinionated featuring is left out as much as possible and that it works with minimal effort in Frameworks. 
+
+### CSS when `position: sticky` is not supported
+
+**Sticky Start and Sticky Stop:** Because Stickybits is minimal, when `position: sticky` is not supported Stickybits will use `position: fixed` which is relative to the browser window. If the StickyBits parent element has a height recognized by the browser, Stickybits will take care of the sticky top and sticky bottom invocation. If the parent's height is not recognized by the browser there will be issues. 
+
+**Left and Right Positioning:** With `position: fixed` the Stickybit element will work relative to the browser window by default. To work with this issue, there are several options. Some are noted [here](https://github.com/dollarshaveclub/stickybits/issues/66). More solutions to come!
 
 <h3 id="jquery">jQuery and Zepto Usage</h3>
 
@@ -226,6 +234,8 @@ Stickybits works in all modern browsers including Internet Explorer 9 and above.
 ### Thanks
 
 This plugin was heavily influenced by [Filament Group](https://www.filamentgroup.com/)'s awesome [Fixed-sticky](https://github.com/filamentgroup/fixed-sticky) jQuery plugin. Thanks to them for getting my mind going on this a while back. Thanks to [Peloton Cycle](https://github.com/pelotoncycle/)'s [Frame Throttle](https://github.com/pelotoncycle/frame-throttle) for an insightful solve for optimizing `frame throttling`. 
+
+**Contributions:** Much browser and documentation debugging has be done by [kvanberendonck](https://github.com/kvanberendonck). Architecture discussions and Pull Request help has been provided by [Jacob Kelley](https://github.com/jakiestfu), [Brian Gonzalez](https://github.com/briangonzalez/), and [Matt Young](https://github.com/someguynamedmatt). It is much appreciated! 
 
 ----
 
