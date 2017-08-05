@@ -67,7 +67,7 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
   const styles = this.styles
   const se = this.se
   const isWin = se === window
-  const seOffset = (!isWin && this.positionVal === 'fixed') ? se.getBoundingClientRect().top : 0
+  const seOffset = (!isWin && pv === 'fixed') ? se.getBoundingClientRect().top : 0
   const offset = seOffset + this.offset
   const rAF = typeof se.requestAnimationFrame !== 'undefined' ? se.requestAnimationFrame : function rAFDummy(f) { f() }
 
