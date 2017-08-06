@@ -18,12 +18,14 @@ function Stickybit(target, o) {
     - offset = 0 || dealer's choice
     - verticalPosition = top || bottom
     - useStickyClasses = boolean
+    - noStyles = boolean
   */
   this.el = target;
   this.se = o && o.scrollEl || window;
   this.offset = o && o.stickyBitStickyOffset || 0;
   this.vp = o && o.verticalPosition || 'top';
   this.useClasses = o && o.useStickyClasses || false;
+  this.ns = o && o.noStyles || false;
   this.styles = this.el.style;
   this.setStickyPosition();
   if (this.positionVal === 'fixed' || this.useClasses === true) {
@@ -48,7 +50,7 @@ Stickybit.prototype.setStickyPosition = function setStickyPosition() {
   }
   if (styles.position !== '') {
     this.positionVal = styles.position;
-    if (vp === 'top') {
+    if (vp === 'top' && !this.ns) {
       styles[vp] = this.offset + 'px';
     }
   } else this.positionVal = 'fixed';
@@ -69,6 +71,7 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
   var pv = this.positionVal;
   var vp = this.vp;
   var styles = this.styles;
+  var ns = this.ns;
   var se = this.se;
   var isWin = se === window;
   var seOffset = !isWin && pv === 'fixed' ? se.getBoundingClientRect().top : 0;
@@ -111,8 +114,9 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
       state = 'sticky';
       rAF(function () {
         toggleClasses(stuckClass, stickyClass);
-        styles.bottom = '';
         styles.position = pv;
+        if (ns) return;
+        styles.bottom = '';
         styles[vp] = offset + 'px';
       });
     } else if (isSticky) {
@@ -125,7 +129,7 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
       state = 'stuck';
       rAF(function () {
         toggleClasses(stickyClass, stuckClass);
-        if (pv !== 'fixed') return;
+        if (pv !== 'fixed' || ns) return;
         styles.top = '';
         styles.bottom = '0';
         styles.position = 'absolute';

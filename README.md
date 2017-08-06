@@ -148,7 +148,15 @@ const stickybitsInstancetoBeCleanedup = stickbits('selector');
 stickybitsInstancetoBeCleanedup.cleanup();
 ````
 
-For jQuery and Zepto support, read in the jQuery notes [below](#jquery).
+### StickyBits NoStyles
+
+To use StickyBits without inline styles except for `position: sticky` or `position: fixed`:
+
+```javascript
+stickbits('selector', {noStyles: true});
+````
+
+\* For jQuery and Zepto support, read the jQuery notes [below](#jquery).
 
 <h2 id="examples">Examples</h2>
 
@@ -158,6 +166,7 @@ For jQuery and Zepto support, read in the jQuery notes [below](#jquery).
 -  [UseStickyClasses](http://codepen.io/yowainwright/pen/NpzPGR) ie: `stickybits('selector', {useStickyClasses: true})`
 -  [ScrollEl](https://codepen.io/yowainwright/pen/EXzJeb) ie: `stickybits('selector', {scrollEl: document.querySelectorAll('a-custom-scroll-el')})`
 -  [Clean Stickybits](https://codepen.io/yowainwright/pen/470824238eb548e5f308089c0343afbe) ie: `const stickything = stickybits('selector'); stickything.cleanup();`
+-  [NoStyles Stickybits]() ie: `stickybits('selector', {noStyles: true});`
 -  [As a jQuery or Zepto Plugin](http://codepen.io/yowainwright/pen/57b852e88a644e9d919f843dc7b3b5f1) ie: `$('selector').stickybits();`
 
 ----
