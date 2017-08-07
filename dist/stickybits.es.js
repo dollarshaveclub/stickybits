@@ -73,6 +73,7 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
   var rAF = typeof se.requestAnimationFrame !== 'undefined' ? se.requestAnimationFrame : function rAFDummy(f) {
     f();
   };
+  var listener = se.addEventListener ? se.addEventListener : se.attachEvent;
 
   // setup css classes
   parent.className += ' js-stickybit-parent';
@@ -131,7 +132,7 @@ Stickybit.prototype.manageStickiness = function manageStickiness() {
     }
   };
 
-  se.addEventListener('scroll', this.manageState);
+  listener('scroll', this.manageState);
   return this;
 };
 
@@ -160,7 +161,9 @@ Stickybit.prototype.cleanup = function cleanup() {
   removeClass(el, 'js-is-stuck');
   removeClass(el.parentNode, 'js-stickybit-parent');
   // remove scroll event listener
-  this.se.removeEventListener('scroll', this.manageState);
+  var se = this.se;
+  var removeListener = se.removeEventListener ? se.removeEventListener : se.detachEvent;
+  removeListener('scroll', this.manageState);
   // turn of sticky invocation
   this.manageState = false;
 };
