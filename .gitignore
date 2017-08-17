@@ -3,3 +3,6 @@ node_modules/*
 .tags
 .tags1
 package-lock.json
+.DS_Store
+tests/.DS_Store
+.nyc_output/
