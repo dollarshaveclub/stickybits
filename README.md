@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="StickyBits banner" src="http://imgh.us/stickybits.svg" width="400" />
+  <img alt="StickyBits banner" src="https://yowainwright.imgix.net/gh/stickybits.svg" width="400" />
 </p>
 <p align="center">Make things get sticky &hellip;in a good way</p>
 <hr />
@@ -249,4 +249,3 @@ This plugin was heavily influenced by [Filament Group](https://www.filamentgroup
 ----
 
 Created and maintained by [Jeff Wainwright](https://github.com/yowainwright) with [Dollar Shave Club Engineering](https://github.com/dollarshaveclub).
-

@@ -1,0 +1,164 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+body {
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 300;
+}
+header {
+  height: 100vh;
+  padding-top: 4rem;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 1;
+  @media (min-width: #{$width-medium}) {
+    padding-top: 6rem;
+  }
+}
+figure {
+  margin: 0 auto;
+  @include vertical-align;
+  @media (min-width: #{$width-medium}) {
+  }
+}
+img {
+  display: block;
+  margin: 0 auto;
+  max-width: 25rem;
+  @media (min-width: #{$width-medium}) {
+    max-width: 30rem;
+  }
+}
+hr {
+  border: 0;
+  border-top: 3px solid #f9f9f9;
+  margin-bottom: 1rem;
+  max-width: calc(100% - 2rem);
+  @media (min-width: #{$width-large}) {
+    margin-bottom: 2rem;
+    max-width: $width-medium;
+  }
+}
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 600;
+}
+h2,
+h3,
+p,
+ul,
+ol,
+section div {
+  color: #333;
+  max-width: calc(100% - 2rem);
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  text-shadow: 0 1px 1px white;
+  @media (min-width: #{$width-large}) {
+    max-width: $width-medium;
+  }
+}
+p,
+ul,
+ol {
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+h1 {
+  color: transparent;
+  height: 0;
+  width: 0;
+}
+h2 {
+  border-bottom: 1px solid #eee;
+  font-family: $font-headline;
+  font-size: 1.5rem;
+  padding-bottom: .5rem;
+  margin-bottom: 1.5rem;
+}
+li {
+  margin-bottom: 1rem;
+}
+code {
+  background-color: #f9f9f9;
+  border-radius: .5rem;
+  padding: 0 .15rem;
+}
+pre {
+  background-color: #f9f9f9;
+  border-radius: .5rem;
+  overflow-x: auto;
+  padding: .5rem 1rem;
+  code {
+    border: none;
+    border-radius: 0;
+    display: block;
+    float: left;
+    font-size: 1rem;
+    margin: 0;
+    padding: 0;
+  }
+}
+p > code {
+  font-size: 1.25rem;
+  line-height: 1.5;}
+a {
+  color: black;
+  text-decoration: underline;
+}
+footer {
+  margin-top: 2rem;
+  min-height: 3rem;
+  @media (min-width: #{$width-large}) {
+    min-height: 4rem;
+  }
+}
+.content {
+  background-color: white;
+  margin-top: calc(100vh - 3rem);
+  position: relative;
+  z-index: 11;
+}
+.wrapper {
+  p,
+  ul,
+  ol {
+    a {
+      @include text-underline(white, pink, 100%, 1.4rem);
+    }
+  }
+}
+.button {
+  bottom: 1rem;
+  right: 1rem;
+  position: fixed;
+  text-decoration: none;
+  z-index: 11;
+}
+.footer {
+  padding: 1rem 0;
+  text-align: center;
+
+  &__description,
+  &--horizontal-rule {
+    @media (min-width: #{$width-large}) {
+      max-width: $width-large;
+    }
+  }
+  p {
+    font-weight: bold;
+  }
+  a {
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

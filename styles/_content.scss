@@ -1,0 +1,58 @@
+.wrapper {
+  @media (min-width: #{$width-large}) {
+    display: flex;
+    margin: 2rem auto;
+    max-width: $width-large;
+  }
+}
+.js-has-aside .container--section {
+  @media (min-width: #{$width-large}) {
+    padding-right: 3rem;
+    width: calc(100% - 17rem);
+  }
+}
+.aside {
+  display: none;
+  .js-has-aside & {
+    @media (min-width: #{$width-large}) {
+      display: block;
+      margin-top: .5rem;
+      width: 17rem;
+    }
+  }
+}
+.aside--title {
+  @media (min-width: #{$width-large}) {
+    margin-bottom: .5rem;
+  }
+}
+.aside--text {
+  @media (min-width: #{$width-large}) {
+    font-size: .8rem;
+    margin-top: 0;
+  }
+}
+.sticky-parent {
+  @media (min-width: #{$width-large}) {
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .2);
+    min-height: 20rem;
+    position: relative;
+  }
+}
+.sticky-element {
+  @media (min-width: #{$width-large}) {
+    background-color: #f9f9f9;
+    font-weight: bold;
+    padding: 1rem;
+    text-shadow: 0 1px 0 white;
+    width: 17rem;
+  }
+}
+.stuck {
+  @media (min-width: #{$width-large}) {
+    display: none;
+    .js-is-sticky & {
+      display: inline;
+    }
+  }
+}

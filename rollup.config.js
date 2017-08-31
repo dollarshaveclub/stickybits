@@ -11,11 +11,13 @@ export default {
   entry: `src/${entry}.js`,
   dest: `dist/${dest}.js`,
   format: format,
+  format: 'umd',
   moduleName: entry,
   sourceMap: false, // removes the sourcemap at the bottom of the file
   treeshake: true,
   plugins: [
     resolve({
+      jsnext: true,
       main: true,
       browser: true,
     }),
@@ -28,3 +30,4 @@ export default {
     }),
   ],
 }
+

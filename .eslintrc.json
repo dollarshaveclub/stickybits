@@ -10,6 +10,10 @@
   },
   "rules": {
     "indent": 2,
-    "semi": [2, "never"]
+    "semi": [2, "never"],
+    "foo": true
+  },
+  "rules": {
+    "indent": 2
   }
 }

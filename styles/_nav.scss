@@ -1,0 +1,47 @@
+.nav {
+  background-color: white;
+  border-bottom: 1px solid #eee;
+  border-top: 1px solid #eee;
+  bottom: 0;
+  box-shadow: inset 0 0 1px 2px rgba(0, 0, 0, .02);
+  height: 3rem;
+  padding: .5rem 0;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 111;
+  &__items {
+    list-style-type: none;
+    display: flex;
+    margin: 0 auto;
+    max-width: calc(100% - 2rem);
+    padding: 0;
+    justify-content: space-around;
+    text-decoration: none;
+    width: 100%;
+    @media (min-width: #{$width-large}) {
+      max-width: $width-medium;
+    }
+  }
+  &__item {
+    margin-bottom: 0;
+    a {
+      color: black;
+      font-family: $font-headline;
+      font-size: .8rem;
+      font-weight: bold;
+      text-decoration: none;
+      text-shadow: 0 1px 1px white;
+      text-transform: uppercase;
+      @media (min-width: #{$width-medium}) {
+         font-size: 1rem;
+      }
+    }
+    &__issues {
+      display: none;
+      @media (min-width: #{$width-medium}) {
+        display: block;
+      }
+    }
+  }
+}
