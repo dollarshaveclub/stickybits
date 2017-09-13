@@ -18,7 +18,18 @@
 import ManageSticky from './managesticky'
 
 
-function Stickybits(target, o) {
+function Stickybits(target, o = {
+  interval: 250,
+  scrollEl: window,
+  offset: 0,
+  verticalPosition: 'top',
+  useStickyClasses: false,
+  noStyles: false,
+  off: false,
+  stickyClass: 'js-is-sticky',
+  stuckClass: 'js-is-stuck',
+  parentClass: 'js-stickybit-parent',
+}) {
   /*
     defaults 🔌
     --------
@@ -30,50 +41,31 @@ function Stickybits(target, o) {
     -  useStickyClasses = boolean
     -  noStyles = boolean
     -  off = boolean
+    -  stickyClass = 'string'
+    -  stuckClass = 'string'
+    -  parentClass = 'string'
   */
-  this.props = typeof o !== 'undefined' ? o : {}
-  const p = this.props
-  p.interval = o.intnerval || 250
-  p.scrollEl = o.scrollEl || window
-  p.offset = o.stickyBitStickyOffset || 0
-  p.verticalPosition = o.verticalPosition || 'top'
-  p.useStickyClasses = o.useStickyClasses || false
-  p.noStyles = o.noStyles || false
-  p.off = o.off || false
+  // assign and cache props
+  const p = this.props = o
   /*
     define positionVal
     ----
-    -  uses a computed (`.setStickyPosition()`)
+    -  uses a computed (`.definePosition()`)
     -  defined the position
   */
-  p.positionVal = this.setStickyPosition()
+  p.positionVal = this.definePosition()
+  const vp = p.verticalPosition
+  const ns = p.noStyles
   const pv = p.positionVal
   this.els = typeof target === 'string' ? document.querySelectorAll(target) : target
   if (!('length' in this.els)) this.els = [this.els]
   this.instances = []
   for (let i = 0; i < this.els.length; i += 1) {
-    const vp = p.verticalPosition
-    const ns = p.noStyles
     const el = this.els[i]
     const styles = el.style
     if (vp === 'top' && !ns) styles[vp] = `${this.offset}px`
-    if (pv !== 'fixed' || p.useStickyClasses === false) {
-      styles.position = pv
-    } else {
-      const elProps = {
-        noStyles: ns,
-        off: p.off,
-        offset: p.offset,
-        positionVal: pv,
-        scrollEl: p.scrollEl,
-        verticalPosition: vp,
-        // stickyClass definitions are added here as they're potentially not needed
-        stickyClass: p.stickyClass || 'js-is-sticky',
-        stuckClass: p.stuckClass || 'js-is-stuck',
-        parentClass: p.parentClass || 'js-stickybit-parent',
-      }
-      this.instances.push(new ManageSticky(el, elProps))
-    }
+    if (pv !== 'fixed' || p.useStickyClasses === false) styles.position = pv
+    else this.instances.push(new ManageSticky(el, p))
   }
   return this
 }
@@ -87,13 +79,12 @@ function Stickybits(target, o) {
   => stickybits works accordingly
 */
 Stickybits.prototype.definePosition = () => {
-  const test = document.createElement('test')
   const prefix = ['', '-o-', '-webkit-', '-moz-', '-ms-']
-  const styles = test.styles
+  const test = document.head.style
   for (let i = 0; i < prefix.length; i += 1) {
-    styles.position = `${prefix[i]}sticky`
+    test.position = `${prefix[i]}sticky`
   }
-  return styles.position !== '' ? styles.position : 'fixed'
+  return typeof test.position !== 'undefined' ? test.position : 'fixed'
 }
 
 export default function stickybits(target, o) {
