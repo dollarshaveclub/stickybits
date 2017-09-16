@@ -4,8 +4,7 @@
   "description": "Stickybits is a lightweight alternative to `position: sticky` polyfills",
   "main": "dist/stickybits.js",
   "scripts": {
-    "build": "npm run rollup && npm run headers",
-    "headers": "echo > /*\n  $npm_package_name\n  $npm_package_version\n  $npm_package_description\n $npm_package_author\n  $npm_package_license\n*/ ./dist/*.js",
+    "build": "npm run rollup && gulp minify",
     "lint": "eslint . --fix",
     "rollup": "npm run rollup:jquery && npm run rollup:umd && npm run rollup:es",
     "rollup:jquery": "npm run transpile && rollup ./tmp/jquery.stickybits.js --o ./dist/stickbits.js --f umd",
@@ -68,5 +67,8 @@
     "stickyheader",
     "stickynavigation",
     "fixedheader"
-  ]
+  ],
+  "dependencies": {
+    "gulp": "^3.9.1"
+  }
 }

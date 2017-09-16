@@ -18,18 +18,7 @@
 import ManageSticky from './managesticky'
 
 
-function Stickybits(target, o = {
-  interval: 250,
-  scrollEl: window,
-  offset: 0,
-  verticalPosition: 'top',
-  useStickyClasses: false,
-  noStyles: false,
-  off: false,
-  stickyClass: 'js-is-sticky',
-  stuckClass: 'js-is-stuck',
-  parentClass: 'js-stickybit-parent',
-}) {
+function Stickybits(target, o) {
   /*
     defaults 🔌
     --------
@@ -46,7 +35,19 @@ function Stickybits(target, o = {
     -  parentClass = 'string'
   */
   // assign and cache props
-  const p = this.props = o
+  this.props = {
+    interval: (o && o.interval) || 250,
+    scrollEl: (o && o.scrollEl) || window,
+    offset: (o && o.offset) || 0,
+    verticalPosition: (o && o.verticalPosition) || 'top',
+    useStickyClasses: (o && o.useStickyClasses) || false,
+    noStyles: (o && o.noStyles) || false,
+    off: (o && o.off) || false,
+    stickyClass: (o && o.stickyClass) || 'js-is-sticky',
+    stuckClass: (o && o.stuckClass) || 'js-is-stuck',
+    parentClass: (o && o.parentClass) || 'js-stickybit-parent',
+  }
+  const p = this.props
   /*
     define positionVal
     ----
@@ -65,7 +66,10 @@ function Stickybits(target, o = {
     const styles = el.style
     if (vp === 'top' && !ns) styles[vp] = `${this.offset}px`
     if (pv !== 'fixed' || p.useStickyClasses === false) styles.position = pv
-    else this.instances.push(new ManageSticky(el, p))
+    else {
+      const stickyManager = new ManageSticky(el, p)
+      this.instances.push(stickyManager)
+    }
   }
   return this
 }

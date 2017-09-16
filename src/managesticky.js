@@ -1,3 +1,13 @@
+/* 
+  getParent
+  ---
+  a helper function that ensure the target element's parent is selected
+*/
+const getParent = (t, s) => {
+  const e = document.querySelector(s)
+  while (e !== t.parentElement) return e
+}
+
 /*
   ManageSticky ✔️
   --------
@@ -21,14 +31,14 @@ function ManageSticky(target, o) {
   */
   this.el = target
   this.props = o
-
-  // check if Stickybits is using the `window`
   const el = this.el
   const p = this.props
-  const se = p.scrollEl
+  // select the parent
+  const se = p.scrollEl === window ? window : getParent(el, p.scrollEl)
   const isWin = se === window
   this.parent = el.parentNode
   this.parent.className += ` ${p.parentClass}`
+  const parent = this.parent
 
 
   if (!p.off) {
@@ -46,7 +56,7 @@ function ManageSticky(target, o) {
       this.offset = scrollElOffset + o.offset
       this.stickyStart = isWin ? parent.getBoundingClientRect().top :
         (parent.getBoundingClientRect().top - this.scrollElOffset)
-      this.stickyStop = (this.stickyStart + this.parent.offsetHeight) -
+      this.stickyStop = (this.stickyStart + parent.offsetHeight) -
       (el.offsetHeight - this.offset)
     }
     computeScrollOffsets()
@@ -106,6 +116,7 @@ ManageSticky.prototype.manageState = () => {
 
   if (notSticky) {
     this.state = 'sticky'
+
     rAF(() => {
       toggleClasses(stuckClass, stickyClass)
       styles.position = pv
@@ -160,3 +171,5 @@ ManageSticky.prototype.cleanup = function cleanup() {
   removeClass(el, p.stuckClass)
   removeClass(el.parentNode, p.parentClass)
 }
+
+export default ManageSticky
