@@ -38,7 +38,7 @@ test('Test the managesticky custom w/o custom scrollEl', () => {
     off: false,
     stickyClass: 'sticky',
     stuckClass: 'stuck',
-    parentClass: 'parent'
+    parentClass: 'parent',
   }
   const manage = new ManageSticky(e, o)
   // test the element
@@ -54,8 +54,41 @@ test('Test the managesticky custom w/o custom scrollEl', () => {
 })
 
 // test fixed/sticky
+test('Test the managesticky fixed/sticky', () => {
+  // Set up our document body
+  document.body.innerHTML = '<div id="manage-sticky"></div>'
+  const e = document.getElementById('manage-sticky')
+  const o = {
+    scrollEl: window,
+    positionVal: 'fixed',
+  }
+  const manage = new ManageSticky(e, o)
+  // test the element
+  expect(manage.el.id).toBe('manage-sticky')
+  expect(manage.el.id).toBe('manage-sticky')
+  expect(manage.props.positionVal).toBe('fixed')
+  manage.props.positionVal = 'sticky'
+  expect(manage.props.positionVal).toBe('sticky')
+})
 
 // test custom/scroll
+test('Test the managesticky custom scroll', () => {
+  // Set up our document body
+  document.body.innerHTML = '<div id="custom-scroll"><div class="js-stickybit-parent"><div id="manage-sticky"></div></div></div>'
+  const e = document.getElementById('manage-sticky')
+  const o = {
+    scrollEl: '#custom-scroll',
+    positionVal: 'fixed',
+    stickyClass: 'js-is-sticky',
+    stuckClass: 'js-is-stuck',
+    parentClass: 'js-stickybit-parent',
+  }
+  const manage = new ManageSticky(e, o)
+  // test the element
+  expect(manage.props.scrollEl).toBe('#custom-scroll')
+  expect(manage.el.id).toBe('manage-sticky')
+  expect(manage.props.positionVal).toBe('fixed')
+})
 
 // test no styles
 

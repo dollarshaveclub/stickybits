@@ -1,13 +1,3 @@
-/* 
-  getParent
-  ---
-  a helper function that ensure the target element's parent is selected
-*/
-const getParent = (t, s) => {
-  const e = document.querySelector(s)
-  while (e !== t.parentElement) return e
-}
-
 /*
   ManageSticky ✔️
   --------
@@ -29,13 +19,28 @@ function ManageSticky(target, o) {
        -  
 
   */
+
   this.el = target
   this.props = o
+
+  /* 
+    getParent
+    ---
+    a helper function that ensure the target element's parent is selected
+  */
+  const getClosest = (t, s) => {
+    const e = document.querySelector(s)
+    if (t.parentElement === e) return e
+    while (t.parentElement !== e) {
+      return e
+    }
+  }
+  let se = window
+  if (this.props.scrollEl !== window) se = getClosest(this.el, this.props.scrollEl)
   const el = this.el
   const p = this.props
-  // select the parent
-  const se = p.scrollEl === window ? window : getParent(el, p.scrollEl)
   const isWin = se === window
+  // select the parent
   this.parent = el.parentNode
   this.parent.className += ` ${p.parentClass}`
   const parent = this.parent
