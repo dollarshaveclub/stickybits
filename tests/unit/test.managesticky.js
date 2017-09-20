@@ -90,8 +90,70 @@ test('Test the managesticky custom scroll', () => {
   expect(manage.props.positionVal).toBe('fixed')
 })
 
+// test calculations
+test('Test calculations', () => {
+  // Set up our document body
+  document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
+  const e = document.getElementById('manage-sticky')
+  const o = {
+    interval: 250,
+    scrollEl: window,
+    offset: 0,
+    verticalPosition: 'top',
+    useStickyClasses: false,
+    noStyles: false,
+    off: false,
+    stickyClass: 'js-is-sticky',
+    stuckClass: 'js-is-stuck',
+    parentClass: 'js-stickybit-parent',
+  }
+  const manage = new ManageSticky(e, o)
+  // test the element
+  expect(manage.offset).toBe(0)
+  expect(manage.stickyStart).toBe(0)
+  expect(manage.stickyStop).toBe(0)
+})
+
 // test no styles
+test('Test calculations', () => {
+  // Set up our document body
+  document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
+  const e = document.getElementById('manage-sticky')
+  const o = {
+    interval: 250,
+    scrollEl: window,
+    offset: 0,
+    verticalPosition: 'top',
+    useStickyClasses: false,
+    noStyles: true,
+    off: false,
+    stickyClass: 'js-is-sticky',
+    stuckClass: 'js-is-stuck',
+    parentClass: 'js-stickybit-parent',
+  }
+  const manage = new ManageSticky(e, o)
+  // test the element
+  expect(manage.props.noStyles).toBe(true)
+})
 
 // test off
-
-// test calculations
+test('Test calculations', () => {
+  // Set up our document body
+  document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
+  const e = document.getElementById('manage-sticky')
+  const o = {
+    interval: 250,
+    scrollEl: window,
+    offset: 0,
+    verticalPosition: 'top',
+    useStickyClasses: false,
+    noStyles: false,
+    off: true,
+    stickyClass: 'js-is-sticky',
+    stuckClass: 'js-is-stuck',
+    parentClass: 'js-stickybit-parent',
+  }
+  const manage = new ManageSticky(e, o)
+  // test the element
+  expect(manage.props.off).toBe(true)
+})
