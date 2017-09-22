@@ -16,8 +16,6 @@ function ManageSticky(target, o) {
        -  parentClass
        -  stickyClass
        -  stuckClass
-       -  
-
   */
 
   this.el = target
@@ -28,15 +26,17 @@ function ManageSticky(target, o) {
     ---
     a helper function that ensure the target element's parent is selected
   */
-  const getClosest = (t, s) => {
-    const e = document.querySelector(s)
-    if (t.parentElement === e) return e
-    while (t.parentElement !== e) {
-      return e
-    }
+  const getClosestParent = (t, s) => {
+    // parent element
+    const p = document.querySelector(s)
+    // initial target
+    let el = t
+    if (el.parentElement === p) return p
+    while (el.parentElement !== p) el = el.parentElement
+    return p
   }
   let se = window
-  if (this.props.scrollEl !== window) se = getClosest(this.el, this.props.scrollEl)
+  if (this.props.scrollEl !== window) se = getClosestParent(this.el, this.props.scrollEl)
   const el = this.el
   const p = this.props
   const isWin = se === window
@@ -95,7 +95,8 @@ ManageSticky.prototype.toggleClasses = function toggleClasses(r, a) {
       -  if it is not using window,
          -  it gets the top offset of the scrollEl - the top offset of the parent
 */
-ManageSticky.prototype.manageState = () => {
+// is chain required?
+ManageSticky.prototype.manageState = function manageState() {
   // cached variables
   const p = this.props
   const ns = this.noStyles
@@ -145,7 +146,6 @@ ManageSticky.prototype.manageState = () => {
       styles.position = 'absolute'
     })
   }
-  return this
 }
 
 ManageSticky.prototype.removeClass = function removeClass(selector, c) {

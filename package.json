@@ -4,17 +4,15 @@
   "description": "Stickybits is a lightweight alternative to `position: sticky` polyfills",
   "main": "dist/stickybits.js",
   "scripts": {
-    "build": "npm run rollup && gulp minify",
-    "lint": "eslint . --fix",
-    "rollup": "npm run rollup:jquery && npm run rollup:umd && npm run rollup:es",
-    "rollup:jquery": "npm run transpile && rollup ./tmp/jquery.stickybits.js --o ./dist/stickbits.js --f umd",
-    "rollup:umd": "npm run transpile && rollup ./tmp/stickybits.js --o ./dist/jquery.stickybits.js --f umd",
-    "rollup:es": "npm run transpile && rollup ./tmp/stickybits.js --o ./dist/stickybits.es.js --f es",
+    "build": "gulp build",
+    "build:umd": "gulp build:umd && gulp build:umd:jquery",
+    "build:es": "gulp build:es",
+    "lint": "eslint .src/*.js --fix",
     "postpublish": "git tag $npm_package_version && git push origin --tags",
+    "release": "npm run lint && npm run build && npm test && npm run minify",
     "test:unit": "jest",
-    "test:acceptance": "node-qunit-phantomjs ./tests/acceptance/index.html",
-    "test": "npm run test:unit && npm run test:acceptance",
-    "transpile": "babel src -d tmp"
+    "test:acceptance": "gulp test",
+    "test": "npm run test:unit && npm run test:acceptance"
   },
   "jest": {
     "testRegex": "./tests/unit/.*.js$"
@@ -36,7 +34,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.18.0",
-    "babel-minify": "^0.2.0",
+    "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-minify": "^0.2.0",
     "bower": "^1.8.0",
@@ -47,10 +45,13 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.3.0",
     "gulp": "^3.9.1",
+    "gulp-header": "^1.8.9",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0",
     "jest": "^21.0.1",
     "node-qunit-phantomjs": "^1.5.0",
     "qunit": "^1.0.0",
-    "rollup": "^0.50.0",
+    "rollup": "0.46.0",
     "rollup-plugin-babel": "^3.0.0",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-eslint": "^4.0.0",
