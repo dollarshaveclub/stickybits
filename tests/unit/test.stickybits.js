@@ -35,7 +35,7 @@ test('basic stickybits interface', () => {
   expect(stickybit.props.stickyClass).toBe('js-is-sticky')
   expect(stickybit.props.stuckClass).toBe('js-is-stuck')
   expect(stickybit.props.parentClass).toBe('js-stickybit-parent')
-  expect(stickybit.props.positionVal).toBe('fixed')
+  expect(stickybit.props.positionVal).toBe('-ms-sticky')
 })
 
 test('basic stickybits interface with positionVal equalling sticky', () => {
@@ -48,8 +48,8 @@ test('basic stickybits interface with positionVal equalling sticky', () => {
   // stickybit should be sticky
   expect(stickybit.props.positionVal).toBe('sticky')
   stickybit.props.positionVal = stickybit.definePosition()
-  // stickybit should be fixed
-  expect(stickybit.props.positionVal).toBe('fixed')
+  // stickybit should be `-ms-sticky`
+  expect(stickybit.props.positionVal).toBe('-ms-sticky')
 })
 
 test('stickybits interface with an updated object properties', () => {
@@ -77,7 +77,7 @@ test('stickybits interface with an updated object properties', () => {
   expect(stickybit.props.stickyClass).toBe('sticky')
   expect(stickybit.props.stuckClass).toBe('stuck')
   expect(stickybit.props.parentClass).toBe('parent')
-  expect(stickybit.props.positionVal).toBe('fixed')
+  expect(stickybit.props.positionVal).toBe('-ms-sticky')
 })
 
 test('stickybits interface w/o custom scrollEl', () => {

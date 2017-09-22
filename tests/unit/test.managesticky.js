@@ -85,7 +85,7 @@ test('Test the managesticky custom scroll', () => {
   }
   const manage = new ManageSticky(e, o)
   // test the element
-  expect(manage.props.scrollEl).toBe('#custom-scroll')
+  expect(manage.props.scrollEl.id).toBe('custom-scroll')
   expect(manage.el.id).toBe('manage-sticky')
   expect(manage.props.positionVal).toBe('fixed')
 })

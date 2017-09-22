@@ -17,55 +17,15 @@ function ManageSticky(target, o) {
        -  stickyClass
        -  stuckClass
   */
-
   this.el = target
   this.props = o
-
-  /* 
-    getParent
-    ---
-    a helper function that ensure the target element's parent is selected
-  */
-  const getClosestParent = (t, s) => {
-    // parent element
-    const p = document.querySelector(s)
-    // initial target
-    let el = t
-    if (el.parentElement === p) return p
-    while (el.parentElement !== p) el = el.parentElement
-    return p
-  }
-  let se = window
-  if (this.props.scrollEl !== window) se = getClosestParent(this.el, this.props.scrollEl)
-  const el = this.el
-  const p = this.props
-  const isWin = se === window
-  // select the parent
-  this.parent = el.parentNode
-  this.parent.className += ` ${p.parentClass}`
-  const parent = this.parent
-
-
-  if (!p.off) {
-    // compute scroll offsets
-    let i = 0
-    let interval
-    const computeScrollOffsets = () => {
-      i += 1
-      if (i > 12) {
-        clearInterval(interval)
-        return
-      }
-      const scrollElOffset = (!isWin && this.positionVal === 'fixed') ?
-        se.getBoundingClientRect().top : 0
-      this.offset = scrollElOffset + o.offset
-      this.stickyStart = isWin ? parent.getBoundingClientRect().top :
-        (parent.getBoundingClientRect().top - this.scrollElOffset)
-      this.stickyStop = (this.stickyStart + parent.offsetHeight) -
-      (el.offsetHeight - this.offset)
-    }
-    computeScrollOffsets()
-    interval = setInterval(computeScrollOffsets, 250)
+  this.parent = this.el.parentNode
+  this.parent.className += ` ${this.props.parentClass}`
+  this.isWin = this.props.scrollEl === window
+  if (!this.isWin) this.props.scrollEl = this.getClosestParent(this.el, this.props.scrollEl)
+  const se = this.props.scrollEl
+  if (!this.props.off) {
+    this.computeScrollOffsets()
     this.state = 'default'
     se.addEventListener('scroll', this.manageState)
   } else {
@@ -77,27 +37,92 @@ function ManageSticky(target, o) {
   return this
 }
 
-// r arg = removeClass
-// a arg = addClass
+/* 
+  getParent
+  ---
+  - a helper function that ensure the target element's parent is selected
+  - only used for non `window` scroll elements
+  - supports older browsers
+*/
+ManageSticky.prototype.getClosestParent = function getClosestParent(t, s) {
+  // parent element
+  const p = document.querySelector(s)
+  // initial target
+  let el = t
+  if (el.parentElement === p) return p
+  // traverse up the dom tree until we get to the parent
+  while (el.parentElement !== p) el = el.parentElement
+  // return parent element
+  return p
+}
+
+
+/* 
+  computeScrollOffsets
+  ---
+  computeScrollOffsets for Stickybits
+  - defines
+    - offset
+    - start
+    - stop
+*/
+ManageSticky.prototype.computeScrollOffsets = function computeScrollOffsets() {
+  let i = 0
+  let interval
+  let scrollElOffset = 0
+  /*
+    checkOffset
+    ---
+    insures the:
+    - offset 
+    - stickyStart
+    - stickyStop
+  */
+  const checkOffset = () => {
+    i += 1
+    if (i > 12) {
+      clearInterval(interval) 
+      return
+    }
+    let stickyStart = this.parent.getBoundingClientRect().top
+    if (!this.isWin && this.positionVal === 'fixed') {
+      scrollElOffset = se.getBoundingClientRect().top
+      stickyStart = (this.parent.getBoundingClientRect().top - scrollElOffset)
+    }
+    this.offset = scrollElOffset + this.props.offset
+    this.stickyStart = stickyStart
+    this.stickyStop = (this.stickyStart + this.parent.offsetHeight) -
+      (this.el.offsetHeight - this.offset)
+  }
+  checkOffset()
+  interval = setInterval(checkOffset, this.props.interval)
+}
+
+/* 
+  toggleClasses
+  ---
+  toggles classes (for older browser support)
+*/
 ManageSticky.prototype.toggleClasses = function toggleClasses(r, a) {
-  const el = this.el
-  const cArray = el.className.split(' ')
+
+  const cArray = this.el.className.split(' ')
   if (a && cArray.indexOf(a) === -1) cArray.push(a)
   const rItem = cArray.indexOf(r)
   if (rItem !== -1) cArray.splice(rItem, 1)
-  el.className = cArray.join(' ')
+  this.el.className = cArray.join(' ')
 }
 
-// manageState
-/* stickyStart =>
-  -  checks if stickyBits is using window
-      -  if it is using window, it gets the top offset of the parent
-      -  if it is not using window,
-         -  it gets the top offset of the scrollEl - the top offset of the parent
+/* 
+  manageState
+  ---
+  stickyStart =>
+  - checks if stickyBits is using window
+    - if it is using window, it gets the top offset of the parent
+    - if it is not using window,
+    - it gets the top offset of the scrollEl - the top offset of the parent
 */
-// is chain required?
 ManageSticky.prototype.manageState = function manageState() {
-  // cached variables
+  // cache variables
   const p = this.props
   const ns = this.noStyles
   const pv = this.positionVal
@@ -112,17 +137,14 @@ ManageSticky.prototype.manageState = function manageState() {
   const toggleClasses = this.toggleClasses
   const vp = this.verticalPosition
   // define scroll
-  // todo computed
   const scroll = this.isWin ? (se.scrollY || se.pageYOffset) : se.scrollTop
-  // define stick type
+  // define sticky state
   const notSticky = (scroll > stickyStart) && (scroll < stickyStop) &&
     (state === 'default' || state === 'stuck')
   const isSticky = (scroll < stickyStart) && state === 'sticky'
   const isStuck = (scroll > stickyStop) && state === 'sticky'
-
   if (notSticky) {
     this.state = 'sticky'
-
     rAF(() => {
       toggleClasses(stuckClass, stickyClass)
       styles.position = pv
@@ -148,6 +170,11 @@ ManageSticky.prototype.manageState = function manageState() {
   }
 }
 
+/*
+  removeClass 
+  --------
+  - removes classes (for older browser support)
+*/
 ManageSticky.prototype.removeClass = function removeClass(selector, c) {
   const s = selector
   const cArray = s.className.split(' ')
@@ -165,12 +192,11 @@ ManageSticky.prototype.removeClass = function removeClass(selector, c) {
 */
 ManageSticky.prototype.cleanup = function cleanup() {
   const el = this.el
-  const styles = el.styles
   const removeClass = this.removeClass
   const p = this.props
   // cleanup styles
-  styles.position = ''
-  styles[this.vp] = ''
+  el.styles.position = ''
+  el.styles[this.vp] = ''
   // cleanup CSS classes
   removeClass(el, p.stickyClass)
   removeClass(el, p.stuckClass)
