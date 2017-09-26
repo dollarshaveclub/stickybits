@@ -1,8 +1,7 @@
 /*
   QUnit Tests
   ----
-  -  Acceptance test oriented
-
+  -  tests multiples
 */
 
 // ensure QUnit is working
@@ -13,26 +12,31 @@ QUnit.test('hello test', function(assert) {
 var main = document.getElementById('main');
 
 // generateContentBlock
-var numbers = [1, 2, 3];
 var content;
 var num;
 var generateTestContent = function(num) {
-  content = '<div id="parent-'+ num +'" class="parent parent-'+ num +'"><div id="child-'+ num +'" class="child child-'+ num +'"><p>Child '+ num +'</p></div>';
-  return main.innerHTML = content;
+  content = '<div id="parent-'+ num +'" class="parent parent-'+ num +'"><div id="child-'+ num +'" class="child child-'+ num +'"><p>Child '+ num +'</p></div></div>';
+  return content;
 };
-
-for (var i = 0; numbers.length < i; i += 1) {
-  num = numbers[i];
-  generateTestContent(num);
-}
 
 
 window.addEventListener('load', function() {
   // default StickyBits test
   // ensures StickyBits is working 
   QUnit.test('Test multiple stickbits', function(assert) {
-    stickybits('.child');
-    var stickyItems = document.querySelectorAll('[styles=*"sticky"]');
-    assert.equal(stickyItems, 3, 'There are 3 stick items');
+    var numbers = ['1', '2', '3'];
+    var content = [];
+    for (var i = 0; numbers.length > i; i += 1) {
+      console.log('here')
+      num = numbers[i];
+      var el = generateTestContent(num);
+      content.push(el);
+    }
+    main.innerHTML = content.join('');
+
+    var stickies = stickybits('.child');
+    console.log(stickies);
+    var stickyItems = document.querySelectorAll('[style*="position"]');
+    assert.equal(stickyItems.length, 3, 'There are 3 stick items');
   });
 })

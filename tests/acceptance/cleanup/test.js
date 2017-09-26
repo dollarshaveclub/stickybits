@@ -22,8 +22,9 @@ window.addEventListener('load', function() {
   QUnit.test('Checks cleanup method', function(assert) {
     generateTestContent(num)
     const selector = document.querySelector('.child-1');
-    stickybits(selector, {useStickyClasses: true});
-    stickybits(selector).cleanup();
+    var stickybit = stickybits(selector, {useStickyClasses: true});
+    console.log(stickybit);
+    stickybit.cleanup();
     assert.equal(selector.parentNode.classList.contains('js-stickybit-parent'), false, 'This should work like fixed');
   });
 });

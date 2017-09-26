@@ -5,18 +5,24 @@
   => checks to see if the element is sticky or stuck
   => based on window scroll
   => provide an interface for users to monitor the state of Stickybits
+  ---
+  - target = Stickybits item instance
+  - o = {object}
+    - scrollEl = 'string'
+    - verticalPosition = number
+    - off = boolean
+    - parentClass = 'string'
+    - stickyClass = 'string'
+    - stuckClass = 'string'
+  ---
+  - defined later
+    - parent = dom element
+    - state = 'string'
+    - offset = number
+    - stickyStart = number
+    - stickyStop = number
 */
 function ManageSticky(target, o) {
-  /*
-    -  target = Stickybits item instance
-    -  o = {object}
-       -  scrollEl
-       -  verticalPosition
-       -  off
-       -  parentClass
-       -  stickyClass
-       -  stuckClass
-  */
   this.el = target
   this.props = o
   this.parent = this.el.parentNode
@@ -38,7 +44,7 @@ function ManageSticky(target, o) {
 }
 
 /* 
-  getParent
+  getParent 👨‍
   ---
   - a helper function that ensure the target element's parent is selected
   - only used for non `window` scroll elements
@@ -58,7 +64,7 @@ ManageSticky.prototype.getClosestParent = function getClosestParent(t, s) {
 
 
 /* 
-  computeScrollOffsets
+  computeScrollOffsets 📊
   ---
   computeScrollOffsets for Stickybits
   - defines
@@ -81,12 +87,12 @@ ManageSticky.prototype.computeScrollOffsets = function computeScrollOffsets() {
   const checkOffset = () => {
     i += 1
     if (i > 12) {
-      clearInterval(interval) 
+      clearInterval(interval)
       return
     }
     let stickyStart = this.parent.getBoundingClientRect().top
     if (!this.isWin && this.positionVal === 'fixed') {
-      scrollElOffset = se.getBoundingClientRect().top
+      scrollElOffset = this.scrollEl.getBoundingClientRect().top
       stickyStart = (this.parent.getBoundingClientRect().top - scrollElOffset)
     }
     this.offset = scrollElOffset + this.props.offset
@@ -99,12 +105,11 @@ ManageSticky.prototype.computeScrollOffsets = function computeScrollOffsets() {
 }
 
 /* 
-  toggleClasses
+  toggleClasses ⚖️
   ---
   toggles classes (for older browser support)
 */
 ManageSticky.prototype.toggleClasses = function toggleClasses(r, a) {
-
   const cArray = this.el.className.split(' ')
   if (a && cArray.indexOf(a) === -1) cArray.push(a)
   const rItem = cArray.indexOf(r)
@@ -113,7 +118,7 @@ ManageSticky.prototype.toggleClasses = function toggleClasses(r, a) {
 }
 
 /* 
-  manageState
+  manageState 📝
   ---
   stickyStart =>
   - checks if stickyBits is using window
@@ -171,7 +176,7 @@ ManageSticky.prototype.manageState = function manageState() {
 }
 
 /*
-  removeClass 
+  removeClass ❎
   --------
   - removes classes (for older browser support)
 */

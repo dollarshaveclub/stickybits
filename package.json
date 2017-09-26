@@ -47,6 +47,7 @@
     "gulp": "^3.9.1",
     "gulp-header": "^1.8.9",
     "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.6.1",
     "gulp-uglify": "^3.0.0",
     "jest": "^21.0.1",
     "node-qunit-phantomjs": "^1.5.0",

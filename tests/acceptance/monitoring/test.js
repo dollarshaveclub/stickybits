@@ -1,7 +1,7 @@
 /*
   QUnit Tests
   ----
-  -  Acceptance test oriented
+  - monitors `useStickyClasses` 
 
 */
 
@@ -26,9 +26,9 @@ window.addEventListener('load', function() {
   // ensures StickyBits offset is working 
   QUnit.test('different stickyOffset test', function(assert) {
     generateTestContent(num)
-
     var selector = document.querySelector('.child-1')
-    stickybits(selector, {stickyBitStickyOffset: 10})
-    assert.equal(selector.style.top, '10px', 'top should be set to 10px')
+    stickybits(selector, {useStickyClasses: true})
+    window.scrollTo(0, 400)
+    assert.equal(selector.classList.contains('js-is-sticky'), true, 'The stickybit should have a sticky class')
   })
 })
