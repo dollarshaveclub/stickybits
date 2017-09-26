@@ -21,7 +21,6 @@
   - userAgent = viewer browser agent
   - target = DOM element selector
   - noStyles = boolean
-  - off = boolean
   - offset = number
   - parentClass = 'string'
   - scrollEl = window || DOM element selector
@@ -255,8 +254,6 @@ Stickybits.prototype.toggleClasses = function toggleClasses(el, r, a) {
     - stuck
 */
 Stickybits.prototype.manageState = function manageState(item) {
-  var _this2 = this;
-
   // cache object
   var it = item;
   var e = it.el;
@@ -295,6 +292,13 @@ Stickybits.prototype.manageState = function manageState(item) {
   var notSticky = scroll > start && scroll < stop && (state === 'default' || state === 'stuck');
   var isSticky = scroll < start && state === 'sticky';
   var isStuck = scroll > stop && state === 'sticky';
+  /*
+    Unnamed arrow functions within this block
+    ---
+    - help wanted or discussion
+    - view test.stickybits.js 
+      - `stickybits .manageState  `position: fixed` interface` for more awareness 👀
+  */
   if (notSticky) {
     it.state = 'sticky';
     rAF(function () {
@@ -302,7 +306,7 @@ Stickybits.prototype.manageState = function manageState(item) {
       stl.position = pv;
       if (ns) return;
       stl.bottom = '';
-      stl[vp] = _this2.offset + 'px';
+      stl[vp] = p.stickyBitStickyOffset + 'px';
     });
   } else if (isSticky) {
     it.state = 'default';

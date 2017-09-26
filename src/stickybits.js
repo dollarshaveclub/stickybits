@@ -15,7 +15,6 @@
   - userAgent = viewer browser agent
   - target = DOM element selector
   - noStyles = boolean
-  - off = boolean
   - offset = number
   - parentClass = 'string'
   - scrollEl = window || DOM element selector
@@ -273,6 +272,13 @@ Stickybits.prototype.manageState = function manageState(item) {
     (state === 'default' || state === 'stuck')
   const isSticky = (scroll < start) && state === 'sticky'
   const isStuck = (scroll > stop) && state === 'sticky'
+  /*
+    Unnamed arrow functions within this block
+    ---
+    - help wanted or discussion
+    - view test.stickybits.js 
+      - `stickybits .manageState  `position: fixed` interface` for more awareness 👀
+  */
   if (notSticky) {
     it.state = 'sticky'
     rAF(() => {
@@ -280,7 +286,7 @@ Stickybits.prototype.manageState = function manageState(item) {
       stl.position = pv
       if (ns) return
       stl.bottom = ''
-      stl[vp] = `${this.offset}px`
+      stl[vp] = `${p.stickyBitStickyOffset}px`
     })
   } else if (isSticky) {
     it.state = 'default'
