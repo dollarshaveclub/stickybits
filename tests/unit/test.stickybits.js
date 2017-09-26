@@ -90,3 +90,68 @@ test('stickybits interface w/o custom scrollEl', () => {
   // interface results for custom scrollEl
   expect(stickybit.props.scrollEl).toBe('#parent')
 })
+
+test('Test the managesticky defaults', () => {
+  // Set up our document body
+  document.body.innerHTML = '<div id="manage-sticky"></div>'
+  const e = document.getElementById('manage-sticky')
+  const o = {
+    scrollEl: window,
+    offset: 0,
+    verticalPosition: 'top',
+    useStickyClasses: false,
+    noStyles: false,
+    stickyClass: 'js-is-sticky',
+    stuckClass: 'js-is-stuck',
+    parentClass: 'js-stickybit-parent',
+  }
+  const manage = new ManageSticky(e, o)
+  // test the element
+  expect(typeof manage).toBe('object')
+  expect(manage.props.interval).toBe(250)
+})
+
+test('Test the managesticky custom w/o custom scrollEl', () => {
+  // Set up our document body
+  document.body.innerHTML = '<div id="manage-sticky"></div>'
+  const e = document.getElementById('manage-sticky')
+  const o = {
+    scrollEl: window,
+    offset: 10,
+    verticalPosition: 'bottom',
+    useStickyClasses: true,
+    noStyles: true,
+    stickyClass: 'sticky',
+    stuckClass: 'stuck',
+    parentClass: 'parent',
+  }
+  const manage = new ManageSticky(e, o)
+  // test the element
+  expect(manage.props.interval).toBe(300)
+  expect(manage.props.offset).toBe(10)
+  expect(manage.props.verticalPosition).toBe('bottom')
+  expect(manage.props.useStickyClasses).toBe(true)
+  expect(manage.props.noStyles).toBe(true)
+  expect(manage.props.off).toBe(false)
+  expect(manage.props.stickyClass).toBe('sticky')
+  expect(manage.props.stuckClass).toBe('stuck')
+  expect(manage.props.parentClass).toBe('parent')
+})
+
+// test fixed/sticky
+test('Test the managesticky fixed/sticky', () => {
+  // Set up our document body
+  document.body.innerHTML = '<div id="manage-sticky"></div>'
+  const e = document.getElementById('manage-sticky')
+  const o = {
+    scrollEl: window,
+    positionVal: 'fixed',
+  }
+  const manage = new ManageSticky(e, o)
+  // test the element
+  expect(manage.el.id).toBe('manage-sticky')
+  expect(manage.el.id).toBe('manage-sticky')
+  expect(manage.props.positionVal).toBe('fixed')
+  manage.props.positionVal = 'sticky'
+  expect(manage.props.positionVal).toBe('sticky')
+})

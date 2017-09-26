@@ -28,7 +28,7 @@ window.addEventListener('load', function() {
     generateTestContent(num)
     var selector = document.querySelector('.child-1')
     stickybits(selector, {useStickyClasses: true})
-    window.scrollTo(0, 400)
+    window.scrollTo(window.scrollX, window.scrollY + 400);
     assert.equal(selector.classList.contains('js-is-sticky'), true, 'The stickybit should have a sticky class')
   })
 })
