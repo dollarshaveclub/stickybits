@@ -104,7 +104,7 @@ function Stickybits(target) {
   for (var i = 0; i < this.els.length; i += 1) {
     var el = this.els[i];
     var styles = el.style;
-    if (vp === 'top' && !ns) styles[vp] = p.offset + 'px';
+    if (vp === 'top' && !ns) styles[vp] = p.stickyBitStickyOffset + 'px';
     if (pv !== 'fixed' && p.useStickyClasses === false) {
       styles.position = pv;
     } else {

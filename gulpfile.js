@@ -75,7 +75,7 @@ gulp.task('build:jquery', ['generate'], () => {
   })
 })
 
-gulp.task('build', ['build:standard', 'build:es', 'build:jquery'])
+gulp.task('build', ['generate', 'build:standard', 'build:es', 'build:jquery'])
 
 const banner = ['/**',
   ' * <%= pkg.name %> - <%= pkg.description %>',
@@ -90,7 +90,10 @@ gulp.task('test', () => {
   qunit('tests/acceptance/cleanup/index.html')
   qunit('tests/acceptance/monitoring/index.html')
   qunit('tests/acceptance/multiple/index.html')
+  qunit('tests/acceptance/multiple-sticky-classes/index.html')
   qunit('tests/acceptance/offset/index.html')
+  qunit('tests/acceptance/scrollTo/index.html')
+  qunit('tests/acceptance/stacked/index.html')
 })
 
 gulp.task('minify', ['generate', 'build'], () => {

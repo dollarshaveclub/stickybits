@@ -22,13 +22,26 @@ var generateTestContent = function(num) {
 
 
 window.addEventListener('load', function() {
-  // tests StickyBits test
-  // ensures StickyBits offset is working 
-  QUnit.test('different stickyOffset test', function(assert) {
-    generateTestContent(num)
-    var selector = document.querySelector('.child-1')
-    stickybits(selector, {useStickyClasses: true})
-    window.scrollTo(window.scrollX, window.scrollY + 400);
-    assert.equal(selector.classList.contains('js-is-sticky'), true, 'The stickybit should have a sticky class')
-  })
-})
+  generateTestContent(num);
+  var selector = document.querySelector('.child-1');
+  stickybits(selector, {useStickyClasses: true});
+  $('html, body').animate({scrollTop: '+=500px'}, 300);
+  setTimeout(function() {
+    QUnit.test('stickbits adds `js-is-sticky`', function(assert) {
+      assert.equal(selector.classList.contains('js-is-sticky'), true, 'The stickybit should have a sticky class');
+    })
+    $('html, body').animate({scrollTop: '0px'}, 0);
+    setTimeout(function() {
+      QUnit.test('stickbits removes `js-is-sticky`', function(assert) {
+        assert.equal(selector.classList.contains('js-is-sticky'), false, 'The stickybit should not have a sticky class');
+      })
+      $('html, body').animate({scrollTop: '+=1000px'}, 300);
+      setTimeout(function() {
+        QUnit.test('stickbits adds `js-is-stuck`', function(assert) {
+          assert.equal(selector.classList.contains('js-is-stuck'), true, 'The stickybit should have a stuck class');
+        })
+        $('html, body').animate({scrollTop: '0px'}, 0);
+      }, 300);
+    }, 100);
+  }, 300);
+});
