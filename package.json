@@ -9,9 +9,9 @@
     "build:es": "gulp build:es",
     "lint": "eslint .src/*.js --fix",
     "postpublish": "git tag $npm_package_version && git push origin --tags",
-    "release": "npm run lint && npm run build && npm test && gulp minify",
+    "release": "npm run lint && npm run build && npm test && gulp minify && npm run report:coverage",
     "report:coverage": "nyc report --reporter=lcov > coverage.lcov && codecov",
-    "test:unit": "jest --coverage",
+    "test:unit": "nyc jest --coverage",
     "test:acceptance": "gulp test --coverage",
     "test": "npm run test:unit && npm run test:acceptance"
   },

@@ -27,7 +27,6 @@ window.addEventListener('load', function() {
     var numbers = ['1', '2', '3'];
     var content = [];
     for (var i = 0; numbers.length > i; i += 1) {
-      console.log('here')
       num = numbers[i];
       var el = generateTestContent(num);
       content.push(el);
@@ -35,7 +34,6 @@ window.addEventListener('load', function() {
     main.innerHTML = content.join('');
 
     var stickies = stickybits('.child');
-    console.log(stickies);
     var stickyItems = document.querySelectorAll('[style*="position"]');
     assert.equal(stickyItems.length, 3, 'There are 3 stick items');
   });

@@ -19,7 +19,4 @@ before_script:
   - npm install -g gulp
   - npm install node-qunit-phantomjs
 
-script: 
-  - npm run release
-  - npm run report:coverage
-  - ./node_modules/.bin/codecov
+script: npm run release

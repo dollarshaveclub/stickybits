@@ -20,7 +20,6 @@ var generateTestContent = function(num) {
   return content;
 };
 
-
 window.addEventListener('load', function() {
   // default StickyBits test
   // ensures StickyBits is working 
@@ -33,9 +32,7 @@ window.addEventListener('load', function() {
       content.push(el);
     }
     main.innerHTML = content.join('');
-
     var stickies = stickybits('.child', {useStickyClasses: true});
-    console.log(stickies);
     var stickyItems = document.querySelectorAll('[style*="position"]');
     assert.equal(stickyItems.length, 3, 'There are 3 sticky items');
   });
