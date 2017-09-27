@@ -9,6 +9,7 @@
     "build:es": "gulp build:es",
     "lint": "eslint .src/*.js --fix",
     "postpublish": "git tag $npm_package_version && git push origin --tags",
+    "pre-commit-msg": "Echo 'Running pre-commit checks...' && exit 0",
     "release": "npm run lint && npm run build && npm test && gulp minify && npm run report:coverage",
     "report:coverage": "nyc report --reporter=lcov > coverage.lcov && codecov",
     "test:unit": "nyc jest --coverage",
@@ -17,6 +18,14 @@
   },
   "jest": {
     "testRegex": "./tests/unit/.*.js$"
+  },
+  "pre-commit": {
+    "run": [
+      "pre-commit-msg",
+      "lint",
+      "test"
+    ],
+    "silent": true
   },
   "bugs": {
     "url": "https://github.com/dollarshaveclub/stickybits/issues"
@@ -56,6 +65,7 @@
     "jquery": "^3.2.1",
     "node-qunit-phantomjs": "^1.5.0",
     "nyc": "^11.2.1",
+    "pre-commit": "^1.2.2",
     "qunit": "^1.0.0",
     "rollup": "0.46.0",
     "rollup-plugin-babel": "^3.0.0",

@@ -23,7 +23,7 @@ var generateTestContent = function(num) {
 window.addEventListener('load', function() {
   // default StickyBits test
   // ensures StickyBits is working 
-  QUnit.test('Test multiple stickbits', function(assert) {
+  QUnit.test('Test multiple stickybits', function(assert) {
     var numbers = ['1', '2', '3'];
     var content = [];
     for (var i = 0; numbers.length > i; i += 1) {
