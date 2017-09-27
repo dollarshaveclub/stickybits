@@ -274,13 +274,3 @@ test('stickybits .cleanup interface', () => {
   expect(stickybit.stateManager).toBe(false)
   expect(stickybit.instances).toEqual([])
 })
-
-
-
-
-
-
-
-
-
-
