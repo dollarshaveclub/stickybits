@@ -45,6 +45,7 @@
     <a href="#options">Options</a>&nbsp;&nbsp;
     <a href="#examples">Examples</a>&nbsp;&nbsp;
     <a href="#notes">Notes</a>&nbsp;&nbsp;
+    <a href="#contributing">Contributing</a>&nbsp;&nbsp;
     <a href="https://github.com/dollarshaveclub/stickybits/wiki">Wiki</a>
   </p>
 <hr />
@@ -244,6 +245,12 @@ $('selector').stickybits({stickyBitStickyOffset: 20});
 ## Browser Compatibility
 
 Stickybits works in all modern browsers including Internet Explorer 9 and above. Please file and [issue](https://github.com/dollarshaveclub/stickybits/issues) with browser compatibility quirks. 
+
+## Contributing
+
+Please contribute to Stickybits by filing an [issue](https://github.com/dollarshaveclub/stickybits/issues), responding to [issues](https://github.com/dollarshaveclub/stickybits/issues), adding to the [wiki](https://github.com/dollarshaveclub/stickybits/wiki), or reaching out socially—etc. 
+
+Stickybits is a utility. It may often not be needed! With shared understanding of `position: sticky` and `position: fixed` along with product awareness, Stickybits can improve as can a shared understanding of the "sticky element issue". Is this paragraph over-reaching? Yes! Help improve it. 
 
 ### Thanks
 
