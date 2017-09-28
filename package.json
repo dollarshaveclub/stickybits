@@ -1,12 +1,78 @@
 {
   "name": "stickybits",
-  "version": "1.6.2",
+  "version": "2.0.0",
   "description": "Stickybits is a lightweight alternative to `position: sticky` polyfills",
   "main": "dist/stickybits.js",
+  "scripts": {
+    "build": "gulp build",
+    "build:umd": "gulp build:umd && gulp build:umd:jquery",
+    "build:es": "gulp build:es",
+    "lint": "eslint .src/*.js --fix",
+    "postpublish": "git tag $npm_package_version && git push origin --tags",
+    "pre-commit-msg": "Echo 'Running pre-commit checks...' && exit 0",
+    "release": "npm run lint && npm run build && npm test && gulp minify && npm run report:coverage",
+    "report:coverage": "nyc report --reporter=lcov > coverage.lcov && codecov",
+    "test:unit": "nyc jest --coverage",
+    "test:acceptance": "gulp test --coverage",
+    "test": "npm run test:unit && npm run test:acceptance"
+  },
+  "jest": {
+    "testRegex": "./tests/unit/.*.js$"
+  },
+  "pre-commit": {
+    "run": [
+      "pre-commit-msg",
+      "lint",
+      "test"
+    ],
+    "silent": true
+  },
+  "bugs": {
+    "url": "https://github.com/dollarshaveclub/stickybits/issues"
+  },
+  "homepage": "https://github.com/dollarshaveclub/stickybits#readme",
+  "repository": {
+    "url": "https://github.com/dollarshaveclub/stickybits.git",
+    "type": "git"
+  },
+  "author": "Jeff Wainwright <jjwainwright2@gmail.com>",
+  "license": "MIT",
   "files": [
     "dist",
     "src"
   ],
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.18.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-minify": "^0.2.0",
+    "bower": "^1.8.0",
+    "codecov": "^2.3.0",
+    "debug": "^3.0.0",
+    "eslint": "^4.1.0",
+    "eslint-config-airbnb": "^15.0.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.3.0",
+    "gulp": "^3.9.1",
+    "gulp-codecov": "^3.0.1",
+    "gulp-header": "^1.8.9",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.6.1",
+    "gulp-uglify": "^3.0.0",
+    "jest": "^21.0.1",
+    "jquery": "^3.2.1",
+    "node-qunit-phantomjs": "^1.5.0",
+    "nyc": "^11.2.1",
+    "pre-commit": "^1.2.2",
+    "qunit": "^1.0.0",
+    "rollup": "0.46.0",
+    "rollup-plugin-babel": "^3.0.0",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-eslint": "^4.0.0",
+    "rollup-plugin-node-resolve": "^2.0.0"
+  },
   "keywords": [
     "stick",
     "fixed",
@@ -23,44 +89,5 @@
     "stickyheader",
     "stickynavigation",
     "fixedheader"
-  ],
-  "scripts": {
-    "test": "gulp test",
-    "lint": "eslint .",
-    "rollup:umd": "rollup -c --environment entry:stickybits,format:umd; rollup -c --environment entry:jquery.stickybits,format:umd",
-    "rollup:es": "rollup -c --environment entry:stickybits,format:es",
-    "build": "npm run rollup:umd; npm run rollup:es && gulp",
-    "postpublish": "git tag $npm_package_version && git push origin --tags"
-  },
-  "bugs": {
-    "url": "https://github.com/dollarshaveclub/stickybits/issues"
-  },
-  "homepage": "https://github.com/dollarshaveclub/stickybits#readme",
-  "repository": {
-    "url": "https://github.com/dollarshaveclub/stickybits.git",
-    "type": "git"
-  },
-  "author": "Jeff Wainwright <jjwainwright2@gmail.com>",
-  "license": "MIT",
-  "devDependencies": {
-    "babel-core": "^6.18.0",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-es2015-rollup": "^3.0.0",
-    "bower": "^1.8.0",
-    "debug": "^3.0.0",
-    "eslint": "^4.1.0",
-    "eslint-config-airbnb": "^15.0.0",
-    "eslint-plugin-import": "^2.3.0",
-    "gulp": "^3.9.1",
-    "gulp-header": "^1.8.8",
-    "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^3.0.0",
-    "node-qunit-phantomjs": "^1.5.0",
-    "qunit": "^1.0.0",
-    "rollup": "^0.50.0",
-    "rollup-plugin-babel": "^3.0.0",
-    "rollup-plugin-commonjs": "^8.0.2",
-    "rollup-plugin-eslint": "^4.0.0",
-    "rollup-plugin-node-resolve": "^2.0.0"
-  }
+  ]
 }

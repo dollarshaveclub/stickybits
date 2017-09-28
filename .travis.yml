@@ -3,8 +3,7 @@ sudo: false
 language: node_js
 
 node_js:
-  - 6
-  - 4
+  - 8
 
 before_install:
   - npm install -g npm
@@ -20,4 +19,4 @@ before_script:
   - npm install -g gulp
   - npm install node-qunit-phantomjs
 
-script: npm run build
+script: npm run release
