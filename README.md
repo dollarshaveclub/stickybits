@@ -26,7 +26,7 @@
 <hr />
 <h1 align="center">StickyBits 🍬</h1>
 
-> Stickybits is a lightweight alternative to `position: sticky` polyfills. It works perfectly for things like sticky headers.
+> Stickybits is a lightweight alternative to `position: sticky` polyfills. It works perfectly for things like sticky headers. 
 
 **Stickybits is awesome because:**
 -  it can add a CSS Sticky Class (`.js-is-sticky`) when [position: sticky](http://caniuse.com/#search=sticky) elements become active and a CSS Stuck Class (`.js-is-stuck`) when they become stuck. See [useStickyClasses](#feature).
@@ -34,6 +34,7 @@
 -  it does not have the _jumpiness_ that plugins that are built around `position: fixed` have because it tries to support `position: sticky` first.
 -  in its simplest use case, a `scroll` event listener will not be used if `position: sticky` is supported.
 -  it is super simple & lightweight
+-  it provides a [wiki](https://github.com/dollarshaveclub/stickybits/wiki) that digs deeply into fundementals of `position: sticky` and `position: fixed` and it works with them. 
 
 <hr />
   <p align="center">
@@ -44,7 +45,7 @@
     <a href="#options">Options</a>&nbsp;&nbsp;
     <a href="#examples">Examples</a>&nbsp;&nbsp;
     <a href="#notes">Notes</a>&nbsp;&nbsp;
-    <a herf="https://github.com/dollarshaveclub/stickybits/wiki">Wiki</a>
+    <a href="https://github.com/dollarshaveclub/stickybits/wiki">Wiki</a>
   </p>
 <hr />
 
