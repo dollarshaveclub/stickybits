@@ -43,7 +43,8 @@
     <a href="#feature">Feature</a>&nbsp;&nbsp;
     <a href="#options">Options</a>&nbsp;&nbsp;
     <a href="#examples">Examples</a>&nbsp;&nbsp;
-    <a href="#notes">Notes</a>
+    <a href="#notes">Notes</a>&nbsp;&nbsp;
+    <a herf="https://github.com/dollarshaveclub/stickybits/wiki">Wiki</a>
   </p>
 <hr />
 
