@@ -13,7 +13,7 @@
   <a href="https://github.com/dollarshaveclub/stickybits"> 
     <img alt="bower version" src="https://badge.fury.io/bo/stickybits.svg" />
   </a>
-  <a href="https://greenkeeper.io/">™@
+  <a href="https://greenkeeper.io/">
     <img alt="Greenkeeper" src="https://badges.greenkeeper.io/dollarshaveclub/stickybits.svg" />
   </a>
   <a href="https://codecov.io/gh/dollarshaveclub/stickybits">
@@ -298,7 +298,8 @@ These utility properties can be accessed as direct child properties of the insta
 
 ```javascript
 var stickybit = stickybits('a selection')
-stickybit.version // will rpo
+stickybit.version // will show the version of stickybits being used
+stickybit.userAgent // will show which userAgent stickybits is detecting
 ```
 
 ## Browser Compatibility
