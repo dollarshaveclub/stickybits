@@ -44,6 +44,7 @@
     <a href="#feature">Feature</a>&nbsp;&nbsp;
     <a href="#options">Options</a>&nbsp;&nbsp;
     <a href="#examples">Examples</a>&nbsp;&nbsp;
+    <a href="#debugging">Debugging</a>&nbsp;&nbsp;
     <a href="#notes">Notes</a>&nbsp;&nbsp;
     <a href="#contributing">Contributing</a>&nbsp;&nbsp;
     <a href="https://github.com/dollarshaveclub/stickybits/wiki">Wiki</a>
@@ -54,15 +55,15 @@
 
 yarn
 ```sh
-yarn add stickybits
+yarn add stickybits --save
 ```
 npm
 ```sh
-npm install stickybits --save
+npm i stickybits --save-dev
 ```
 bower
 ```sh
-bower install stickybits --save
+bower i stickybits --save
 ```
 
 <h2 id="setup">Setup</h2>
@@ -152,7 +153,7 @@ To _cleanup_ an instance of Stickybits:
 ```javascript
 const stickybitsInstancetoBeCleanedup = stickbits('selector');
 stickybitsInstancetoBeCleanedup.cleanup();
-````
+```
 
 ### StickyBits NoStyles
 
@@ -160,19 +161,49 @@ To use StickyBits without inline styles except for `position: sticky` or `positi
 
 ```javascript
 stickbits('selector', {noStyles: true});
-````
+```
+
+### StickyBits Custom CSS Classes
+
+To use custom CSS classes for Stickybits, add the appropriate properties and values.
+
+parentClass:
+
+```javascript
+stickbits('selector', {parentClass: 'new-parent-classname'});
+```
+
+stickyClass:
+
+```javascript
+stickbits('selector', {stickyClass: 'new-sticky-classname'});
+```
+
+stuckClass:
+
+```javascript
+stickbits('selector', {stuckClass: 'new-stuck-classname'});
+```
+
+
+To change all of the CSS classes
+```javascript
+stickbits('selector', {
+  parentClass: 'new-parent-classname',
+  stickyClass: 'new-sticky-classname',
+  stuckClass: 'new-stuck-classname'
+});
+```
 
 \* For jQuery and Zepto support, read the jQuery notes [below](#jquery).
 
 <h2 id="examples">Examples</h2>
 
--  [Basic Usage](http://codepen.io/yowainwright/pen/e68dcc768322fef0c72588576bbc1bfa)
--  [Basic usage but with multiple instances of the same selector](http://codepen.io/yowainwright/pen/8965fb5fd72300b38294b31963b27c68)
+-  [Basic Usage](https://codepen.io/yowainwright/pen/QdedaO)
+-  [Basic usage but with multiple instances of the same selector](https://codepen.io/yowainwright/pen/VPogaX)
 -  [Custom vertical top offset](https://codepen.io/yowainwright/pen/YQZPqR) ie: `stickybits('selector', {stickyBitStickyOffset: 20})`
 -  [UseStickyClasses](http://codepen.io/yowainwright/pen/NpzPGR) ie: `stickybits('selector', {useStickyClasses: true})`
--  [ScrollEl](https://codepen.io/yowainwright/pen/EXzJeb) ie: `stickybits('selector', {scrollEl: document.querySelectorAll('a-custom-scroll-el')})`
--  [Clean Stickybits](https://codepen.io/yowainwright/pen/470824238eb548e5f308089c0343afbe) ie: `const stickything = stickybits('selector'); stickything.cleanup();`
--  [NoStyles Stickybits]() ie: `stickybits('selector', {noStyles: true});`
+-  [Clean Stickybits](https://codepen.io/yowainwright/pen/gRgdep) ie: `const stickything = stickybits('selector'); stickything.cleanup();`
 -  [As a jQuery or Zepto Plugin](http://codepen.io/yowainwright/pen/57b852e88a644e9d919f843dc7b3b5f1) ie: `$('selector').stickybits();`
 
 ----
@@ -180,6 +211,9 @@ stickbits('selector', {noStyles: true});
 ### Examples extended
 
 -  [Custom vertical position (at bottom of parent element)](http://codepen.io/yowainwright/pen/e32cc7b82907ed9715a0a482ffa57596)
+-  [NoStyles Stickybits](https://codepen.io/yowainwright/pen/YrQpQj) ie: `stickybits('selector', {noStyles: true});`
+-  [With Custom Classes](https://codepen.io/yowainwright/pen/rGwWyW/) ie: `stickybits('selector', {parentClass: 'js-parent-test'})`
+-  [ScrollEl](https://codepen.io/yowainwright/pen/EXzJeb) ie: `stickybits('selector', {scrollEl: document.querySelectorAll('a-custom-scroll-el')})`
 -  If you have Stickybits examples, please submit an [issue](https://github.com/dollarshaveclub/stickybits/issues) with a link to it. 🙏
 
 -----
@@ -190,7 +224,7 @@ Have another example or question? Feel free to [comment](https://github.com/doll
 
 ### CSS Class Usage
 
-3 CSS classes will be added and removed by Stickybits if `position: sticky` is not supported or if the `useStickyClasses: true` option is added to the plugin call.
+3 CSS classes will be added and removed by Stickybits if `position: sticky` is not supported or if the `useStickyClasses: true` option is added to the plugin call. These Classes can be modified as desired. See the _With Custom Classes_ example above.
 
 -  `js-is-sticky` if the selected element is sticky.
 -  `js-is-stuck` if the selected element is stopped at the bottom of its parent.
@@ -242,6 +276,32 @@ With `stickyBitStickyOffset`
 $('selector').stickybits({stickyBitStickyOffset: 20});
 ```
 
+## Debugging
+
+Stickybits 2.0 provides the same API but with more debugging feedback.
+
+To view the Stickybits API in it's simpliest form:
+```javascript
+var stickybit = stickybits('a selection')
+console.log(stickbit)
+```
+
+For more debugging and managing Stickbits, view the [wiki]](https://github.com/dollarshaveclub/stickybits/wiki).
+
+---
+
+### Utility properties
+
+Stickybits provides both `version` and `userAgent` properties which were added to offer insight into the browser and Stickybits.
+
+These utility properties can be accessed as direct child properties of the instantiated Stickybits item.
+
+```javascript
+var stickybit = stickybits('a selection')
+stickybit.version // will show the version of stickybits being used
+stickybit.userAgent // will show which userAgent stickybits is detecting
+```
+
 ## Browser Compatibility
 
 Stickybits works in all modern browsers including Internet Explorer 9 and above. Please file and [issue](https://github.com/dollarshaveclub/stickybits/issues) with browser compatibility quirks. 
@@ -252,7 +312,7 @@ Please contribute to Stickybits by filing an [issue](https://github.com/dollarsh
 
 Stickybits is a utility. It may often not be needed! With shared understanding of `position: sticky` and `position: fixed` along with product awareness, Stickybits can improve as can a shared understanding of the "sticky element issue". Is this paragraph over-reaching? Yes! Help improve it. 
 
-### Thanks
+## Thanks
 
 This plugin was heavily influenced by [Filament Group](https://www.filamentgroup.com/)'s awesome [Fixed-sticky](https://github.com/filamentgroup/fixed-sticky) jQuery plugin. Thanks to them for getting my mind going on this a while back. Thanks to [Peloton Cycle](https://github.com/pelotoncycle/)'s [Frame Throttle](https://github.com/pelotoncycle/frame-throttle) for an insightful solve for optimizing `frame throttling`. 
 

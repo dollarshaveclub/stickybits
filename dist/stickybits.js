@@ -57,35 +57,19 @@
   - .cleanup = removes all Stickybits instances and cleans up dom from stickybits
 */
 function Stickybits(target) {
-  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-      _ref$noStyles = _ref.noStyles,
-      noStyles = _ref$noStyles === undefined ? false : _ref$noStyles,
-      _ref$stickyBitStickyO = _ref.stickyBitStickyOffset,
-      stickyBitStickyOffset = _ref$stickyBitStickyO === undefined ? 0 : _ref$stickyBitStickyO,
-      _ref$parentClass = _ref.parentClass,
-      parentClass = _ref$parentClass === undefined ? 'js-stickybit-parent' : _ref$parentClass,
-      _ref$scrollEl = _ref.scrollEl,
-      scrollEl = _ref$scrollEl === undefined ? window : _ref$scrollEl,
-      _ref$stickyClass = _ref.stickyClass,
-      stickyClass = _ref$stickyClass === undefined ? 'js-is-sticky' : _ref$stickyClass,
-      _ref$stuckClass = _ref.stuckClass,
-      stuckClass = _ref$stuckClass === undefined ? 'js-is-stuck' : _ref$stuckClass,
-      _ref$useStickyClasses = _ref.useStickyClasses,
-      useStickyClasses = _ref$useStickyClasses === undefined ? false : _ref$useStickyClasses,
-      _ref$verticalPosition = _ref.verticalPosition,
-      verticalPosition = _ref$verticalPosition === undefined ? 'top' : _ref$verticalPosition;
+  var o = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-  this.version = '2.0.0';
-  this.userAgent = window.navigator.userAgent;
+  this.version = '2.0.1';
+  this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
   this.props = {
-    noStyles: noStyles,
-    stickyBitStickyOffset: stickyBitStickyOffset,
-    parentClass: parentClass,
-    scrollEl: scrollEl,
-    stickyClass: stickyClass,
-    stuckClass: stuckClass,
-    useStickyClasses: useStickyClasses,
-    verticalPosition: verticalPosition
+    noStyles: o.noStyles || false,
+    stickyBitStickyOffset: o.stickyBitStickyOffset || 0,
+    parentClass: o.parentClass || 'js-stickybit-parent',
+    scrollEl: o.scrollEl || window,
+    stickyClass: o.stickyClass || 'js-is-sticky',
+    stuckClass: o.stuckClass || 'js-is-stuck',
+    useStickyClasses: o.useStickyClasses || false,
+    verticalPosition: o.verticalPosition || 'top'
   };
   var p = this.props;
   /*
@@ -351,7 +335,7 @@ Stickybits.prototype.removeInstance = function removeInstance(instance) {
   var p = instance.props;
   var rC = this.removeClass;
   e.style.position = '';
-  e.style[this.vp] = '';
+  e.style[p.verticalPosition] = '';
   rC(e, p.stickyClass);
   rC(e, p.stuckClass);
   rC(e.parentNode, p.parentClass);
@@ -366,9 +350,11 @@ Stickybits.prototype.removeInstance = function removeInstance(instance) {
 Stickybits.prototype.cleanup = function cleanup() {
   for (var i = 0; i < this.instances.length; i += 1) {
     var instance = this.instances[i];
+    instance.props.scrollEl.removeEventListener('scroll', this.stateContainer);
     this.removeInstance(instance);
   }
-  this.stateManager = false;
+  this.stateContainer = false;
+  this.manageState = false;
   this.instances = [];
 };
 

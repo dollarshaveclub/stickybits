@@ -50,27 +50,18 @@
   - .removeInstance = removes an instance
   - .cleanup = removes all Stickybits instances and cleans up dom from stickybits
 */
-function Stickybits(target, {
-  noStyles = false,
-  stickyBitStickyOffset = 0,
-  parentClass = 'js-stickybit-parent',
-  scrollEl = window,
-  stickyClass = 'js-is-sticky',
-  stuckClass = 'js-is-stuck',
-  useStickyClasses = false,
-  verticalPosition = 'top',
-} = {}) {
+function Stickybits(target, o = {}) {
   this.version = '__VERSION__'
-  this.userAgent = window.navigator.userAgent
+  this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser'
   this.props = {
-    noStyles,
-    stickyBitStickyOffset,
-    parentClass,
-    scrollEl,
-    stickyClass,
-    stuckClass,
-    useStickyClasses,
-    verticalPosition,
+    noStyles: o.noStyles || false,
+    stickyBitStickyOffset: o.stickyBitStickyOffset || 0,
+    parentClass: o.parentClass || 'js-stickybit-parent',
+    scrollEl: o.scrollEl || window,
+    stickyClass: o.stickyClass || 'js-is-sticky',
+    stuckClass: o.stuckClass || 'js-is-stuck',
+    useStickyClasses: o.useStickyClasses || false,
+    verticalPosition: o.verticalPosition || 'top',
   }
   const p = this.props
   /*
@@ -331,7 +322,7 @@ Stickybits.prototype.removeInstance = function removeInstance(instance) {
   const p = instance.props
   const rC = this.removeClass
   e.style.position = ''
-  e.style[this.vp] = ''
+  e.style[p.verticalPosition] = ''
   rC(e, p.stickyClass)
   rC(e, p.stuckClass)
   rC(e.parentNode, p.parentClass)
@@ -346,9 +337,11 @@ Stickybits.prototype.removeInstance = function removeInstance(instance) {
 Stickybits.prototype.cleanup = function cleanup() {
   for (let i = 0; i < this.instances.length; i += 1) {
     const instance = this.instances[i]
+    instance.props.scrollEl.removeEventListener('scroll', this.stateContainer)
     this.removeInstance(instance)
   }
-  this.stateManager = false
+  this.stateContainer = false
+  this.manageState = false
   this.instances = []
 }
 
