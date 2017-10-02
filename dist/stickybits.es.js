@@ -50,10 +50,9 @@
   - .removeInstance = removes an instance
   - .cleanup = removes all Stickybits instances and cleans up dom from stickybits
 */
-function Stickybits(target) {
-  var o = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-  this.version = '2.0.1';
+function Stickybits(target, obj) {
+  var o = typeof obj !== 'undefined' ? obj : {};
+  this.version = '2.0.2';
   this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
   this.props = {
     noStyles: o.noStyles || false,
@@ -72,7 +71,7 @@ function Stickybits(target) {
     -  uses a computed (`.definePosition()`)
     -  defined the position
   */
-  p.positionVal = this.definePosition();
+  p.positionVal = this.definePosition() || 'fixed';
   var vp = p.verticalPosition;
   var ns = p.noStyles;
   var pv = p.positionVal;
@@ -110,7 +109,8 @@ Stickybits.prototype.definePosition = function () {
   for (var i = 0; i < prefix.length; i += 1) {
     test.position = prefix[i] + 'sticky';
   }
-  var stickyProp = typeof test.position !== 'undefined' ? test.position : 'fixed';
+  var stickyProp = 'fixed';
+  if (typeof test.position !== 'undefined') stickyProp = test.position;
   test.position = '';
   return stickyProp;
 };
@@ -161,7 +161,7 @@ Stickybits.prototype.addInstance = function addInstance(el, props) {
   return item;
 };
 
-/* 
+/*
   --------
   getParent 👨‍
   --------
@@ -181,7 +181,7 @@ Stickybits.prototype.getClosestParent = function getClosestParent(el, matchSelec
   return p;
 };
 
-/* 
+/*
   computeScrollOffsets 📊
   ---
   computeScrollOffsets for Stickybits
@@ -207,7 +207,7 @@ Stickybits.prototype.computeScrollOffsets = function computeScrollOffsets(item) 
   return it;
 };
 
-/* 
+/*
   toggleClasses ⚖️
   ---
   toggles classes (for older browser support)
@@ -223,7 +223,7 @@ Stickybits.prototype.toggleClasses = function toggleClasses(el, r, a) {
   e.className = cArray.join(' ');
 };
 
-/* 
+/*
   manageState 📝
   ---
   - defines the state
@@ -247,16 +247,18 @@ Stickybits.prototype.manageState = function manageState(item) {
   var sticky = p.stickyClass;
   var stuck = p.stuckClass;
   var vp = p.verticalPosition;
-  /* 
-    requestAnimationFrame 
+  /*
+    requestAnimationFrame
     ---
     - use rAF
     - or stub rAF
   */
   var rAF = se.requestAnimationFrame;
-  if (typeof rAF !== 'undefined') rAF = function rAFDummy(f) {
-    f();
-  };
+  if (typeof rAF !== 'undefined') {
+    rAF = function rAFDummy(f) {
+      f();
+    };
+  }
   /*
     define scroll vars
     ---
@@ -274,7 +276,7 @@ Stickybits.prototype.manageState = function manageState(item) {
     Unnamed arrow functions within this block
     ---
     - help wanted or discussion
-    - view test.stickybits.js 
+    - view test.stickybits.js
       - `stickybits .manageState  `position: fixed` interface` for more awareness 👀
   */
   if (notSticky) {
@@ -308,7 +310,7 @@ Stickybits.prototype.manageState = function manageState(item) {
 /*
   removeClass ❎
   --------
-  - removes classes 
+  - removes classes
   - older browser support
 */
 Stickybits.prototype.removeClass = function removeClass(el, className) {
@@ -322,7 +324,7 @@ Stickybits.prototype.removeClass = function removeClass(el, className) {
 /*
   removes an instance 👋
   --------
-  - cleanup instance 
+  - cleanup instance
 */
 Stickybits.prototype.removeInstance = function removeInstance(instance) {
   var e = instance.el;
@@ -353,7 +355,7 @@ Stickybits.prototype.cleanup = function cleanup() {
 };
 
 /*
-  export 
+  export
   --------
   exports StickBits to be used 🏁
 */
