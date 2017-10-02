@@ -50,7 +50,8 @@
   - .removeInstance = removes an instance
   - .cleanup = removes all Stickybits instances and cleans up dom from stickybits
 */
-function Stickybits(target, o = {}) {
+function Stickybits(target, obj) {
+  const o = typeof obj !== 'undefined' ? obj : {}
   this.version = '__VERSION__'
   this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser'
   this.props = {
@@ -70,7 +71,7 @@ function Stickybits(target, o = {}) {
     -  uses a computed (`.definePosition()`)
     -  defined the position
   */
-  p.positionVal = this.definePosition()
+  p.positionVal = this.definePosition() || 'fixed'
   const vp = p.verticalPosition
   const ns = p.noStyles
   const pv = p.positionVal
@@ -108,7 +109,8 @@ Stickybits.prototype.definePosition = () => {
   for (let i = 0; i < prefix.length; i += 1) {
     test.position = `${prefix[i]}sticky`
   }
-  const stickyProp = typeof test.position !== 'undefined' ? test.position : 'fixed'
+  let stickyProp = 'fixed'
+  if (typeof test.position !== 'undefined') stickyProp = test.position
   test.position = ''
   return stickyProp
 }
@@ -150,12 +152,14 @@ Stickybits.prototype.addInstance = function addInstance(el, props) {
   if (!item.isWin) se = this.getClosestParent(item.el, se)
   this.computeScrollOffsets(item)
   item.state = 'default'
-  this.stateContainer = () => { this.manageState(item) }
+  this.stateContainer = () => {
+    this.manageState(item)
+  }
   se.addEventListener('scroll', this.stateContainer)
   return item
 }
 
-/* 
+/*
   --------
   getParent 👨‍
   --------
@@ -174,7 +178,7 @@ Stickybits.prototype.getClosestParent = function getClosestParent(el, matchSelec
   return p
 }
 
-/* 
+/*
   computeScrollOffsets 📊
   ---
   computeScrollOffsets for Stickybits
@@ -192,16 +196,15 @@ Stickybits.prototype.computeScrollOffsets = function computeScrollOffsets(item) 
   let stickyStart = parent.getBoundingClientRect().top
   if (!iw && p.positionVal === 'fixed') {
     scrollElOffset = p.scrollEl.getBoundingClientRect().top
-    stickyStart = (parent.getBoundingClientRect().top - scrollElOffset)
+    stickyStart = parent.getBoundingClientRect().top - scrollElOffset
   }
   it.offset = scrollElOffset + p.stickyBitStickyOffset
   it.stickyStart = stickyStart
-  it.stickyStop = (it.stickyStart + parent.offsetHeight) -
-    (it.el.offsetHeight - it.offset)
+  it.stickyStop = (it.stickyStart + parent.offsetHeight) - (it.el.offsetHeight - it.offset)
   return it
 }
 
-/* 
+/*
   toggleClasses ⚖️
   ---
   toggles classes (for older browser support)
@@ -217,7 +220,7 @@ Stickybits.prototype.toggleClasses = function toggleClasses(el, r, a) {
   e.className = cArray.join(' ')
 }
 
-/* 
+/*
   manageState 📝
   ---
   - defines the state
@@ -241,14 +244,18 @@ Stickybits.prototype.manageState = function manageState(item) {
   const sticky = p.stickyClass
   const stuck = p.stuckClass
   const vp = p.verticalPosition
-  /* 
-    requestAnimationFrame 
+  /*
+    requestAnimationFrame
     ---
     - use rAF
     - or stub rAF
   */
   let rAF = se.requestAnimationFrame
-  if (typeof rAF !== 'undefined') rAF = function rAFDummy(f) { f() }
+  if (typeof rAF !== 'undefined') {
+    rAF = function rAFDummy(f) {
+      f()
+    }
+  }
   /*
     define scroll vars
     ---
@@ -258,16 +265,15 @@ Stickybits.prototype.manageState = function manageState(item) {
     - isStuck
   */
   const tC = this.toggleClasses
-  const scroll = it.isWin ? (se.scrollY || se.pageYOffset) : se.scrollTop
-  const notSticky = (scroll > start) && (scroll < stop) &&
-    (state === 'default' || state === 'stuck')
-  const isSticky = (scroll < start) && state === 'sticky'
-  const isStuck = (scroll > stop) && state === 'sticky'
+  const scroll = it.isWin ? se.scrollY || se.pageYOffset : se.scrollTop
+  const notSticky = scroll > start && scroll < stop && (state === 'default' || state === 'stuck')
+  const isSticky = scroll < start && state === 'sticky'
+  const isStuck = scroll > stop && state === 'sticky'
   /*
     Unnamed arrow functions within this block
     ---
     - help wanted or discussion
-    - view test.stickybits.js 
+    - view test.stickybits.js
       - `stickybits .manageState  `position: fixed` interface` for more awareness 👀
   */
   if (notSticky) {
@@ -301,7 +307,7 @@ Stickybits.prototype.manageState = function manageState(item) {
 /*
   removeClass ❎
   --------
-  - removes classes 
+  - removes classes
   - older browser support
 */
 Stickybits.prototype.removeClass = function removeClass(el, className) {
@@ -315,7 +321,7 @@ Stickybits.prototype.removeClass = function removeClass(el, className) {
 /*
   removes an instance 👋
   --------
-  - cleanup instance 
+  - cleanup instance
 */
 Stickybits.prototype.removeInstance = function removeInstance(instance) {
   const e = instance.el
@@ -346,7 +352,7 @@ Stickybits.prototype.cleanup = function cleanup() {
 }
 
 /*
-  export 
+  export
   --------
   exports StickBits to be used 🏁
 */
