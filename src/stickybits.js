@@ -57,10 +57,10 @@ function Stickybits(target, obj) {
   this.props = {
     noStyles: o.noStyles || false,
     stickyBitStickyOffset: o.stickyBitStickyOffset || 0,
-    parentClass: o.parentClass || 'js-stickybit-parent',
+    parentClass: o.parentClass != null ? o.parentClass : 'js-stickybit-parent',
     scrollEl: o.scrollEl || window,
-    stickyClass: o.stickyClass || 'js-is-sticky',
-    stuckClass: o.stuckClass || 'js-is-stuck',
+    stickyClass: o.stickyClass != null ? o.stickyClass : 'js-is-sticky',
+    stuckClass: o.stuckClass != null ? o.stuckClass : 'js-is-stuck',
     useStickyClasses: o.useStickyClasses || false,
     verticalPosition: o.verticalPosition || 'top',
   }
