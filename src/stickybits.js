@@ -81,7 +81,7 @@ function Stickybits(target, obj) {
   for (let i = 0; i < this.els.length; i += 1) {
     const el = this.els[i]
     const styles = el.style
-    if (vp === 'top' && !ns) styles[vp] = `${p.stickyBitStickyOffset}px`
+    if ((vp === 'top' || vp === 'bottom') && !ns) styles[vp] = `${p.stickyBitStickyOffset}px`
     if (pv !== 'fixed' && p.useStickyClasses === false) {
       styles.position = pv
     } else {
