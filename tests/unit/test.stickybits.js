@@ -36,7 +36,7 @@ test('basic stickybits interface', () => {
 })
 
 test('basic stickybits interface with positionVal equalling sticky', () => {
-  
+
   document.body.innerHTML = '<div id="stickybit"></div>'
   const stickybit = stickybits('#stickybit')
 
@@ -50,7 +50,7 @@ test('basic stickybits interface with positionVal equalling sticky', () => {
 })
 
 test('stickybits interface with an updated object properties', () => {
-  
+
   document.body.innerHTML = '<div id="stickybit"></div>'
   const stickybit = stickybits('#stickybit', {
     stickyBitStickyOffset: 10,
@@ -74,7 +74,7 @@ test('stickybits interface with an updated object properties', () => {
 })
 
 test('stickybits interface w/o custom scrollEl', () => {
-  
+
   document.body.innerHTML = '<div id="parent"><div id="stickybit"></div></div>'
   const stickybit = stickybits('#stickybit', {
     scrollEl: '#parent'
@@ -85,7 +85,7 @@ test('stickybits interface w/o custom scrollEl', () => {
 })
 
 test('stickybits .addInstance interface', () => {
-  // Set up our document 
+  // Set up our document
   document.body.innerHTML = '<div id="manage-sticky"></div>'
   const e = document.getElementById('manage-sticky')
   const stickybit = stickybits('#manage-sticky', { useStickyClasses: true })
@@ -103,7 +103,7 @@ test('stickybits .addInstance interface', () => {
 })
 
 test('stickybits .getClosestParent interface', () => {
-  // Set up our document 
+  // Set up our document
   document.body.innerHTML = '<div id="parent"><div><div id="child"><div id="manage-sticky"></div></div></div></div>'
   const child = document.getElementById('child')
   const stickybit = stickybits('#manage-sticky')
@@ -112,7 +112,7 @@ test('stickybits .getClosestParent interface', () => {
 })
 
 test('stickybits .computeScrollOffsets interface', () => {
-  // Set up our document 
+  // Set up our document
   document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
   const stickybit = stickybits('#manage-sticky', { useStickyClasses: true })
   const instance = stickybit.instances[0]
@@ -130,7 +130,7 @@ test('stickybits .computeScrollOffsets interface', () => {
 })
 
 test('stickybits .toggleClasses interface', () => {
-  // Set up our document 
+  // Set up our document
   document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
   const stickybit = stickybits('#manage-sticky', { useStickyClasses: true })
   const el = document.getElementById('parent')
@@ -140,7 +140,7 @@ test('stickybits .toggleClasses interface', () => {
 })
 
 test('stickybits .manageState `notSticky` interface', () => {
-  // Set up our document 
+  // Set up our document
   document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
   const stickybit = stickybits('#manage-sticky', { useStickyClasses: true })
   // test instance setup
@@ -150,7 +150,7 @@ test('stickybits .manageState `notSticky` interface', () => {
   instance.props.scrollTop = 500;
   instance.state = 'default'
   instance.stickyStart = 0;
-  stickybit.manageState(instance);
+  stickybit.manageState(instance)
   // test instance setup
   expect(typeof instance).toBe('object')
   // test results
@@ -161,38 +161,38 @@ test('stickybits .manageState `notSticky` interface', () => {
 })
 
 test('stickybits .manageState `isSticky` interface', () => {
-  // Set up our document 
+  // Set up our document
   document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
   const stickybit = stickybits('#manage-sticky', { useStickyClasses: true })
   // test instance setup
   const instance = stickybit.instances[0]
 
   // test notSticky
-  instance.props.scrollTop = 500;
-  instance.state = 'sticky'
-  instance.stickyStart = 0;
+  instance.props.scrollTop = 500
+  instance.state = 'stuck'
+  instance.stickyStart = 1
   stickybit.manageState(instance);
   // test instance setup
   expect(typeof instance).toBe('object')
   // test results
   expect(instance.el.style.position).toBe('-ms-sticky')
-  expect(instance.state).toBe('sticky')
+  expect(instance.state).toBe('stuck')
   expect(instance.props.scrollTop).toBe(500)
-  expect(instance.stickyStart).toBe(0)
+  expect(instance.stickyStart).toBe(1)
 })
 
-test('stickybits .manageState `isStucky` interface', () => {
-  // Set up our document 
+test('stickybits .manageState `isStuck` interface', () => {
+  // Set up our document
   document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
   const stickybit = stickybits('#manage-sticky', { useStickyClasses: true })
   // test instance setup
   const instance = stickybit.instances[0]
 
   // test notSticky
-  instance.props.scrollTop = 500;
+  instance.props.scrollTop = 500
   instance.state = 'stuck'
-  instance.stickyStart = 0;
-  instance.stickyStop = 200;
+  instance.stickyStart = 0
+  instance.stickyStop = 200
   stickybit.manageState(instance);
   // test instance setup
   expect(typeof instance).toBe('object')
@@ -212,7 +212,7 @@ test('stickybits .manageState `isStucky` interface', () => {
   - help/discussion wanted
 */
 test('stickybits .manageState  `position: fixed` interface', () => {
-  // Set up our document 
+  // Set up our document
   document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
   const stickybit = stickybits('#manage-sticky', { useStickyClasses: true })
   // test instance setup
@@ -234,7 +234,7 @@ test('stickybits .manageState  `position: fixed` interface', () => {
 })
 
 test('stickybits .removeClass interface', () => {
-  // Set up our document 
+  // Set up our document
   document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
   const stickybit = stickybits('#manage-sticky', { useStickyClasses: true })
   const el = document.getElementById('parent')
@@ -244,7 +244,7 @@ test('stickybits .removeClass interface', () => {
 })
 
 test('stickybits .removeInstance interface', () => {
-  // Set up our document 
+  // Set up our document
   document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
   const stickybit = stickybits('#manage-sticky', { useStickyClasses: true })
   const instance = stickybit.instances[0]
@@ -266,7 +266,7 @@ test('stickybits .removeInstance interface', () => {
 })
 
 test('stickybits .cleanup interface', () => {
-  // Set up our document 
+  // Set up our document
   document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
   const stickybit = stickybits('#manage-sticky', { useStickyClasses: true })
   // invoke .cleanup
