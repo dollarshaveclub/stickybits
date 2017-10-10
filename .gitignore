@@ -8,5 +8,6 @@ tests/.DS_Store
 .nyc_output/
 coverage
 coverage/
+coverage.lcov
 coverage_*/
 tmp
