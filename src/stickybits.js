@@ -152,10 +152,10 @@ Stickybits.prototype.addInstance = function addInstance(el, props) {
   if (!item.isWin) se = this.getClosestParent(item.el, se)
   this.computeScrollOffsets(item)
   item.state = 'default'
-  this.stateContainer = () => {
+  item.stateContainer = () => {
     this.manageState(item)
   }
-  se.addEventListener('scroll', this.stateContainer)
+  se.addEventListener('scroll', item.stateContainer)
   return item
 }
 
@@ -329,10 +329,9 @@ Stickybits.prototype.removeInstance = function removeInstance(instance) {
 Stickybits.prototype.cleanup = function cleanup() {
   for (let i = 0; i < this.instances.length; i += 1) {
     const instance = this.instances[i]
-    instance.props.scrollEl.removeEventListener('scroll', this.stateContainer)
+    instance.props.scrollEl.removeEventListener('scroll', instance.stateContainer)
     this.removeInstance(instance)
   }
-  this.stateContainer = false
   this.manageState = false
   this.instances = []
 }
