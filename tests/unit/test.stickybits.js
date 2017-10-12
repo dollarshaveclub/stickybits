@@ -271,7 +271,6 @@ test('stickybits .cleanup interface', () => {
   const stickybit = stickybits('#manage-sticky', { useStickyClasses: true })
   // invoke .cleanup
   stickybit.cleanup()
-  expect(stickybit.stateContainer).toBe(false)
   expect(stickybit.manageState).toBe(false)
   expect(stickybit.instances).toEqual([])
 })
