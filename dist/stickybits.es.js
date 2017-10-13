@@ -308,20 +308,6 @@ Stickybits.prototype.manageState = function manageState(item) {
 };
 
 /*
-  removeClass ❎
-  --------
-  - removes classes
-  - older browser support
-*/
-Stickybits.prototype.removeClass = function removeClass(el, className) {
-  var e = el;
-  var cArray = e.className.split(' ');
-  var cItem = cArray.indexOf(className);
-  if (cItem !== -1) cArray.splice(cItem, 1);
-  e.className = cArray.join(' ');
-};
-
-/*
   removes an instance 👋
   --------
   - cleanup instance
@@ -329,12 +315,12 @@ Stickybits.prototype.removeClass = function removeClass(el, className) {
 Stickybits.prototype.removeInstance = function removeInstance(instance) {
   var e = instance.el;
   var p = instance.props;
-  var rC = this.removeClass;
+  var tC = this.toggleClasses;
   e.style.position = '';
   e.style[p.verticalPosition] = '';
-  rC(e, p.stickyClass);
-  rC(e, p.stuckClass);
-  rC(e.parentNode, p.parentClass);
+  tC(e, p.stickyClass);
+  tC(e, p.stuckClass);
+  tC(e.parentNode, p.parentClass);
 };
 
 /*

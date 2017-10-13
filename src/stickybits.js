@@ -305,20 +305,6 @@ Stickybits.prototype.manageState = function manageState(item) {
 }
 
 /*
-  removeClass ❎
-  --------
-  - removes classes
-  - older browser support
-*/
-Stickybits.prototype.removeClass = function removeClass(el, className) {
-  const e = el
-  const cArray = e.className.split(' ')
-  const cItem = cArray.indexOf(className)
-  if (cItem !== -1) cArray.splice(cItem, 1)
-  e.className = cArray.join(' ')
-}
-
-/*
   removes an instance 👋
   --------
   - cleanup instance
@@ -326,12 +312,12 @@ Stickybits.prototype.removeClass = function removeClass(el, className) {
 Stickybits.prototype.removeInstance = function removeInstance(instance) {
   const e = instance.el
   const p = instance.props
-  const rC = this.removeClass
+  const tC = this.toggleClasses
   e.style.position = ''
   e.style[p.verticalPosition] = ''
-  rC(e, p.stickyClass)
-  rC(e, p.stuckClass)
-  rC(e.parentNode, p.parentClass)
+  tC(e, p.stickyClass)
+  tC(e, p.stuckClass)
+  tC(e.parentNode, p.parentClass)
 }
 
 /*
