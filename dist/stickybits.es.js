@@ -52,7 +52,7 @@
 */
 function Stickybits(target, obj) {
   var o = typeof obj !== 'undefined' ? obj : {};
-  this.version = '2.0.4';
+  this.version = '2.0.5';
   this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
   this.props = {
     noStyles: o.noStyles || false,
@@ -154,10 +154,10 @@ Stickybits.prototype.addInstance = function addInstance(el, props) {
   if (!item.isWin) se = this.getClosestParent(item.el, se);
   this.computeScrollOffsets(item);
   item.state = 'default';
-  this.stateContainer = function () {
+  item.stateContainer = function () {
     _this.manageState(item);
   };
-  se.addEventListener('scroll', this.stateContainer);
+  se.addEventListener('scroll', item.stateContainer);
   return item;
 };
 
@@ -332,10 +332,9 @@ Stickybits.prototype.removeInstance = function removeInstance(instance) {
 Stickybits.prototype.cleanup = function cleanup() {
   for (var i = 0; i < this.instances.length; i += 1) {
     var instance = this.instances[i];
-    instance.props.scrollEl.removeEventListener('scroll', this.stateContainer);
+    instance.props.scrollEl.removeEventListener('scroll', instance.stateContainer);
     this.removeInstance(instance);
   }
-  this.stateContainer = false;
   this.manageState = false;
   this.instances = [];
 };
