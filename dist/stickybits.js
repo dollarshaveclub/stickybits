@@ -58,7 +58,7 @@
 */
 function Stickybits(target, obj) {
   var o = typeof obj !== 'undefined' ? obj : {};
-  this.version = '2.0.5';
+  this.version = '2.0.6';
   this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
   this.props = {
     noStyles: o.noStyles || false,
@@ -260,7 +260,7 @@ Stickybits.prototype.manageState = function manageState(item) {
     - or stub rAF
   */
   var rAF = se.requestAnimationFrame;
-  if (!it.isWin || typeof rAF !== 'undefined') {
+  if (!it.isWin || typeof rAF === 'undefined') {
     rAF = function rAFDummy(f) {
       f();
     };

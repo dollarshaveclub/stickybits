@@ -251,7 +251,7 @@ Stickybits.prototype.manageState = function manageState(item) {
     - or stub rAF
   */
   let rAF = se.requestAnimationFrame
-  if (!it.isWin || typeof rAF !== 'undefined') {
+  if (!it.isWin || typeof rAF === 'undefined') {
     rAF = function rAFDummy(f) {
       f()
     }
