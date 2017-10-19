@@ -316,7 +316,7 @@ Stickybits is a utility. It may often not be needed! With shared understanding o
 
 This plugin was heavily influenced by [Filament Group](https://www.filamentgroup.com/)'s awesome [Fixed-sticky](https://github.com/filamentgroup/fixed-sticky) jQuery plugin. Thanks to them for getting my mind going on this a while back. Thanks to [Peloton Cycle](https://github.com/pelotoncycle/)'s [Frame Throttle](https://github.com/pelotoncycle/frame-throttle) for an insightful solve for optimizing `frame throttling`. 
 
-**Contributions:** Much browser and documentation debugging has be done by [kvanberendonck](https://github.com/kvanberendonck). Architecture discussions and Pull Request help has been provided by [Jacob Kelley](https://github.com/jakiestfu), [Brian Gonzalez](https://github.com/briangonzalez/), and [Matt Young](https://github.com/someguynamedmatt). It is much appreciated! 
+**Contributions:** Much browser and documentation debugging has be done by [K. Vanberendonck](https://github.com/donkeybonks). Architecture discussions and Pull Request help has been provided by [Jacob Kelley](https://github.com/jakiestfu), [Brian Gonzalez](https://github.com/briangonzalez/), and [Matt Young](https://github.com/someguynamedmatt). It is much appreciated! 
 
 ----
 
