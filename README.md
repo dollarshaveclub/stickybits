@@ -70,7 +70,7 @@ bower i stickybits --save-dev
 
 Add **dist/stickybits.min.js**
 
-Or as a module with `import shave from 'shave'`
+Or as a module with `import stickybits from 'stickybits'`
 
 <h2 id="usage">Basic Usage</h2>
 
