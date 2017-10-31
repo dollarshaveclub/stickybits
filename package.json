@@ -3,6 +3,7 @@
   "version": "2.0.8",
   "description": "Stickybits is a lightweight alternative to `position: sticky` polyfills",
   "main": "dist/stickybits.js",
+  "module": "dist/stickybits.es.js",
   "scripts": {
     "build": "gulp build",
     "build:umd": "gulp build:umd && gulp build:umd:jquery",
