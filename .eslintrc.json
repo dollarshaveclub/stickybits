@@ -9,7 +9,7 @@
     "window": true
   },
   "rules": {
-    "indent": 2,
+    "indent": 1,
     "semi": [2, "never"]
   }
 }
