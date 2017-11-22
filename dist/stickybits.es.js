@@ -192,17 +192,18 @@ Stickybits.prototype.getClosestParent = function getClosestParent(el, matchSelec
 */
 Stickybits.prototype.computeScrollOffsets = function computeScrollOffsets(item) {
   var it = item;
-  var p = it.props;
-  var parent = it.parent;
-  var iw = it.isWin;
+  var p = it.props,
+      parent = it.parent,
+      iw = it.isWin;
+
   var scrollElOffset = 0;
   var stickyStart = parent.getBoundingClientRect().top;
   if (!iw && p.positionVal === 'fixed') {
     scrollElOffset = p.scrollEl.getBoundingClientRect().top;
     stickyStart = parent.getBoundingClientRect().top - scrollElOffset;
   }
-  it.offset = scrollElOffset + p.stickyBitStickyOffset;
-  it.stickyStart = stickyStart;
+  it.offset = scrollElOffset;
+  it.stickyStart = stickyStart - p.stickyBitStickyOffset;
   it.stickyStop = it.stickyStart + parent.offsetHeight - (it.el.offsetHeight - it.offset);
   return it;
 };
@@ -234,11 +235,12 @@ Stickybits.prototype.toggleClasses = function toggleClasses(el, r, a) {
 Stickybits.prototype.manageState = function manageState(item) {
   // cache object
   var it = item;
-  var e = it.el;
-  var p = it.props;
-  var state = it.state;
-  var start = it.stickyStart;
-  var stop = it.stickyStop;
+  var e = it.el,
+      p = it.props,
+      stop = it.stickyStop,
+      start = it.stickyStart,
+      state = it.state;
+
   var stl = e.style;
   // cache props
   var ns = p.noStyles;
