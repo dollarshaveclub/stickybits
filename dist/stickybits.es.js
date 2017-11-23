@@ -272,7 +272,7 @@ Stickybits.prototype.manageState = function manageState(item) {
   var tC = this.toggleClasses;
   var scroll = it.isWin ? se.scrollY || se.pageYOffset : se.scrollTop;
   var notSticky = scroll > start && scroll < stop && (state === 'default' || state === 'stuck');
-  var isSticky = scroll <= start && (state === 'sticky' || state === 'stuck');
+  var isSticky = scroll <= start && (state === 'sticky' || state === 'stuck' || state === 'default');
   var isStuck = scroll >= stop && (state === 'default' || state === 'sticky');
 
   /*
