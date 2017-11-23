@@ -189,17 +189,15 @@ Stickybits.prototype.getClosestParent = function getClosestParent(el, matchSelec
 */
 Stickybits.prototype.computeScrollOffsets = function computeScrollOffsets(item) {
   const it = item
-  const p = it.props
-  const parent = it.parent
-  const iw = it.isWin
+  const { props: p, parent, isWin: iw } = it
   let scrollElOffset = 0
-  let stickyStart = parent.getBoundingClientRect().top
+  let stickyStart = parent.offsetTop
   if (!iw && p.positionVal === 'fixed') {
     scrollElOffset = p.scrollEl.getBoundingClientRect().top
     stickyStart = parent.getBoundingClientRect().top - scrollElOffset
   }
-  it.offset = scrollElOffset + p.stickyBitStickyOffset
-  it.stickyStart = stickyStart
+  it.offset = scrollElOffset
+  it.stickyStart = stickyStart - p.stickyBitStickyOffset
   it.stickyStop = (it.stickyStart + parent.offsetHeight) - (it.el.offsetHeight - it.offset)
   return it
 }
@@ -231,11 +229,13 @@ Stickybits.prototype.toggleClasses = function toggleClasses(el, r, a) {
 Stickybits.prototype.manageState = function manageState(item) {
   // cache object
   const it = item
-  const e = it.el
-  const p = it.props
-  const state = it.state
-  const start = it.stickyStart
-  const stop = it.stickyStop
+  const {
+    el: e,
+    props: p,
+    stickyStop: stop,
+    stickyStart: start,
+    state,
+  } = it
   const stl = e.style
   // cache props
   const ns = p.noStyles
@@ -267,8 +267,9 @@ Stickybits.prototype.manageState = function manageState(item) {
   const tC = this.toggleClasses
   const scroll = it.isWin ? se.scrollY || se.pageYOffset : se.scrollTop
   const notSticky = scroll > start && scroll < stop && (state === 'default' || state === 'stuck')
-  const isSticky = scroll <= start && state === 'sticky'
-  const isStuck = scroll >= stop && state === 'sticky'
+  const isSticky = scroll <= start && (state === 'sticky' || state === 'stuck' || state === 'default')
+  const isStuck = scroll >= stop && (state === 'default' || state === 'sticky')
+
   /*
     Unnamed arrow functions within this block
     ---
@@ -288,6 +289,7 @@ Stickybits.prototype.manageState = function manageState(item) {
   } else if (isSticky) {
     it.state = 'default'
     rAF(() => {
+      tC(e, stuck)
       tC(e, sticky)
       if (pv === 'fixed') stl.position = ''
     })

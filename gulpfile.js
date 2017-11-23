@@ -36,10 +36,10 @@ gulp.task('build:standard', ['generate'], () => {
     plugins: [ commonjs(), eslint(), babel(babelSetup) ],
   }).then((bundle) => {
     bundle.write({
-      dest: 'dist/stickybits.js',
+      file: 'dist/stickybits.js',
       format: 'umd',
-      moduleName: 'stickybits',
-      sourceMap: false, 
+      name: 'stickybits',
+      sourcemap: false,
       treeshake: false
     })
   })
@@ -51,10 +51,10 @@ gulp.task('build:es', ['generate'], () => {
     plugins: [ commonjs(), eslint(), babel(babelSetup) ],
   }).then((bundle) => {
     bundle.write({
-      dest: 'dist/stickybits.es.js',
+      file: 'dist/stickybits.es.js',
       format: 'es',
-      moduleName: 'stickybits',
-      sourceMap: false, 
+      name: 'stickybits',
+      sourcemap: false,
       treeshake: false
     })
   })
@@ -66,10 +66,10 @@ gulp.task('build:jquery', ['generate'], () => {
     plugins: [ commonjs(), eslint(), babel(babelSetup) ],
   }).then((bundle) => {
     bundle.write({
-      dest: 'dist/jquery.stickybits.js',
+      file: 'dist/jquery.stickybits.js',
       format: 'umd',
-      moduleName: 'stickybits',
-      sourceMap: false, 
+      name: 'stickybits',
+      sourcemap: false,
       treeshake: false
     })
   })
