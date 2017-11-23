@@ -191,7 +191,7 @@ Stickybits.prototype.computeScrollOffsets = function computeScrollOffsets(item) 
   const it = item
   const { props: p, parent, isWin: iw } = it
   let scrollElOffset = 0
-  let stickyStart = parent.getBoundingClientRect().top
+  let stickyStart = parent.offsetTop
   if (!iw && p.positionVal === 'fixed') {
     scrollElOffset = p.scrollEl.getBoundingClientRect().top
     stickyStart = parent.getBoundingClientRect().top - scrollElOffset
