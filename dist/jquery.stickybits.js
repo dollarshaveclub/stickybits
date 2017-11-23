@@ -203,7 +203,7 @@ Stickybits.prototype.computeScrollOffsets = function computeScrollOffsets(item) 
       iw = it.isWin;
 
   var scrollElOffset = 0;
-  var stickyStart = parent.getBoundingClientRect().top;
+  var stickyStart = parent.offsetTop;
   if (!iw && p.positionVal === 'fixed') {
     scrollElOffset = p.scrollEl.getBoundingClientRect().top;
     stickyStart = parent.getBoundingClientRect().top - scrollElOffset;
