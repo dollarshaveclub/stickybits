@@ -5,7 +5,6 @@ const rename = require('gulp-rename')
 const qunit = require('node-qunit-phantomjs')
 const rollup = require('rollup')
 const babel = require('rollup-plugin-babel')
-const eslint = require('rollup-plugin-eslint')
 const commonjs = require('rollup-plugin-commonjs')
 const config = require('gulp-replace')
 
@@ -33,13 +32,13 @@ const babelSetup = {
 gulp.task('build:standard', ['generate'], () => {
   rollup.rollup({
     entry: 'tmp/stickybits.js',
-    plugins: [ commonjs(), eslint(), babel(babelSetup) ],
+    plugins: [ commonjs(), babel(babelSetup) ],
   }).then((bundle) => {
     bundle.write({
       dest: 'dist/stickybits.js',
       format: 'umd',
       moduleName: 'stickybits',
-      sourceMap: false, 
+      sourceMap: false,
       treeshake: false
     })
   })
@@ -48,14 +47,14 @@ gulp.task('build:standard', ['generate'], () => {
 gulp.task('build:es', ['generate'], () => {
   rollup.rollup({
     entry: `tmp/stickybits.js`,
-    plugins: [ commonjs(), eslint(), babel(babelSetup) ],
+    plugins: [ commonjs(), babel(babelSetup) ],
+    treeshake: false,
   }).then((bundle) => {
     bundle.write({
       dest: 'dist/stickybits.es.js',
       format: 'es',
       moduleName: 'stickybits',
-      sourceMap: false, 
-      treeshake: false
+      sourceMap: false,
     })
   })
 })
@@ -63,14 +62,14 @@ gulp.task('build:es', ['generate'], () => {
 gulp.task('build:jquery', ['generate'], () => {
   rollup.rollup({
     entry: `tmp/jquery.stickybits.js`,
-    plugins: [ commonjs(), eslint(), babel(babelSetup) ],
+    plugins: [ commonjs(), babel(babelSetup) ],
+    treeshake: false,
   }).then((bundle) => {
     bundle.write({
       dest: 'dist/jquery.stickybits.js',
       format: 'umd',
       moduleName: 'stickybits',
-      sourceMap: false, 
-      treeshake: false
+      sourceMap: false,
     })
   })
 })

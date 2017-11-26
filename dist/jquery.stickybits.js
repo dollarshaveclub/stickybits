@@ -208,13 +208,8 @@ Stickybits.prototype.computeScrollOffsets = function computeScrollOffsets(item) 
     stickyStart = parent.getBoundingClientRect().top - scrollElOffset;
   }
   it.offset = scrollElOffset + p.stickyBitStickyOffset;
-  var stickyStop = stickyStart + parent.offsetHeight - (it.el.offsetHeight - it.offset);
-  if (iw) {
-    stickyStart = stickyStart - it.offset;
-    stickyStop = stickyStart + parent.offsetHeight - it.el.offsetHeight;
-  }
   it.stickyStart = stickyStart;
-  it.stickyStop = stickyStop;
+  it.stickyStop = it.stickyStart + parent.offsetHeight - (it.el.offsetHeight - it.offset);
   return it;
 };
 
