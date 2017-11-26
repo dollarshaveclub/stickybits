@@ -58,7 +58,7 @@
 */
 function Stickybits(target, obj) {
   var o = typeof obj !== 'undefined' ? obj : {};
-  this.version = '2.0.11';
+  this.version = '2.0.12';
   this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
   this.props = {
     noStyles: o.noStyles || false,
@@ -208,8 +208,8 @@ Stickybits.prototype.computeScrollOffsets = function computeScrollOffsets(item) 
     stickyStart = parent.getBoundingClientRect().top - scrollElOffset;
   }
   it.offset = scrollElOffset + p.stickyBitStickyOffset;
-  it.stickyStart = stickyStart;
-  it.stickyStop = it.stickyStart + parent.offsetHeight - (it.el.offsetHeight - it.offset);
+  it.stickyStart = stickyStart - it.offset;
+  it.stickyStop = stickyStart + parent.offsetHeight - (it.el.offsetHeight + it.offset);
   return it;
 };
 
