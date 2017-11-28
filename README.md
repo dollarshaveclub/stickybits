@@ -100,10 +100,10 @@ stickybits('selector', {useStickyClasses: true});
 Then, in css you can do:
 
 ```css
-.some-sticky-element .js-is-sticky {
+.some-sticky-element.js-is-sticky {
   background-color: red;
 }
-.some-sticky-element .js-is-stuck {
+.some-sticky-element.js-is-stuck {
   background-color: green;
 }
 ```
