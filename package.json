@@ -1,6 +1,6 @@
 {
   "name": "stickybits",
-  "version": "2.0.12",
+  "version": "2.0.13",
   "description": "Stickybits is a lightweight alternative to `position: sticky` polyfills",
   "main": "dist/stickybits.js",
   "module": "dist/stickybits.es.js",
@@ -13,7 +13,7 @@
     "pre-commit-msg": "Echo 'Running pre-commit checks...' && exit 0",
     "release": "npm run lint && npm run build && npm test && gulp minify && npm run report:coverage",
     "report:coverage": "nyc report --reporter=lcov > coverage.lcov && codecov",
-    "test:es-check": "es-check check es5 dist/stickybits.min.js dist/stickybits.js dist/jquery.stickybits.js dist/jquery.stickybits.min.js",
+    "test:es-check": "es-check es5 dist/stickybits.min.js dist/stickybits.js dist/jquery.stickybits.js dist/jquery.stickybits.min.js",
     "test:unit": "nyc jest --coverage",
     "test:acceptance": "gulp test --coverage",
     "test": "npm run test:unit && npm run test:acceptance"
