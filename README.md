@@ -55,7 +55,7 @@
 
 yarn
 ```sh
-yarn add stickybits
+yarn add stickybits 
 ```
 npm
 ```sh
@@ -63,7 +63,7 @@ npm i stickybits
 ```
 bower
 ```sh
-bower i stickybits
+bower i stickybits --save
 ```
 
 <h2 id="setup">Setup</h2>

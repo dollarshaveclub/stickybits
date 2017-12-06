@@ -4,10 +4,25 @@ All notable changes to `dollarshaveclub/stickybits` will be documented in this f
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## [UNRELEASED]
+## [2.0.15] - [2.0.7] - 2017-06-17
 
-### Changed
+> Sorry if this is incorrect. I'm not update to date on changelogs.
+
+### Updated
 - Updated K. Vanberendonck's Github username. ([282f622](https://github.com/dollarshaveclub/stickybits/commit/282f62265628a1b47f4a51cc5cdd13f6b3981422))
+- Updated dependencies _things_.
+  - chore(package): update rollup to version 0.52.1 (#170)
+  - chore(package): update rollup to version 0.52.0 (#163) 
+  - chore(package): update rollup to version 0.51.8 (#158)
+  - chore(package): update rollup to version 0.51.6 (#157)
+
+### Fixed 
+- Fixed offset issue.
+  - Rosivanov master (#164)
+
+### Added 
+- Added Module
+  - Add "module" property (#147)
 
 ## [2.0.6] - 2017-10-17
 
