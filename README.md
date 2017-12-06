@@ -286,7 +286,7 @@ var stickybit = stickybits('a selection')
 console.log(stickbit)
 ```
 
-For more debugging and managing Stickbits, view the [wiki]](https://github.com/dollarshaveclub/stickybits/wiki).
+For more debugging and managing Stickbits, view the [wiki](https://github.com/dollarshaveclub/stickybits/wiki).
 
 ---
 
