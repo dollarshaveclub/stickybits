@@ -1,6 +1,6 @@
 {
   "name": "stickybits",
-  "version": "2.0.13",
+  "version": "2.0.15",
   "description": "Stickybits is a lightweight alternative to `position: sticky` polyfills",
   "main": "dist/stickybits.js",
   "module": "dist/stickybits.es.js",
