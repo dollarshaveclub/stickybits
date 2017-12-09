@@ -320,5 +320,5 @@ This plugin was heavily influenced by [Filament Group](https://www.filamentgroup
 
 ----
 
-Created and maintained by [Jeff Wainwright](https://github.com/yowainwright) with [Dollar Shave Club Engineering](https://github.com/dollarshaveclub).
+[Created](https://github.com/yowainwright/sticky-bits) and maintained by [Jeff Wainwright](https://github.com/yowainwright) with [Dollar Shave Club Engineering](https://github.com/dollarshaveclub).
 
