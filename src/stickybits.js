@@ -199,8 +199,13 @@ Stickybits.prototype.computeScrollOffsets = function computeScrollOffsets(item) 
     stickyStart = parent.getBoundingClientRect().top - scrollElOffset
   }
   it.offset = scrollElOffset + p.stickyBitStickyOffset
-  it.stickyStart = stickyStart - it.offset
-  it.stickyStop = (stickyStart + parent.offsetHeight) - (it.el.offsetHeight + it.offset)
+  if (p.verticalPosition !== 'bottom') {
+    it.stickyStart = stickyStart - it.offset
+    it.stickyStop = (stickyStart + parent.offsetHeight) - (it.el.offsetHeight + it.offset)
+  } else {
+    it.stickyStart = 0
+    it.stickyStop = stickyStart + parent.offsetHeight
+  }
   return it
 }
 
