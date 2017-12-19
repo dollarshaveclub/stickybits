@@ -52,7 +52,7 @@
 */
 function Stickybits(target, obj) {
   var o = typeof obj !== 'undefined' ? obj : {};
-  this.version = '2.0.14';
+  this.version = '2.1.0';
   this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
   this.props = {
     noStyles: o.noStyles || false,
@@ -202,8 +202,13 @@ Stickybits.prototype.computeScrollOffsets = function computeScrollOffsets(item) 
     stickyStart = parent.getBoundingClientRect().top - scrollElOffset;
   }
   it.offset = scrollElOffset + p.stickyBitStickyOffset;
-  it.stickyStart = stickyStart - it.offset;
-  it.stickyStop = stickyStart + parent.offsetHeight - (it.el.offsetHeight + it.offset);
+  if (p.verticalPosition !== 'bottom') {
+    it.stickyStart = stickyStart - it.offset;
+    it.stickyStop = stickyStart + parent.offsetHeight - (it.el.offsetHeight + it.offset);
+  } else {
+    it.stickyStart = 0;
+    it.stickyStop = stickyStart + parent.offsetHeight;
+  }
   return it;
 };
 
