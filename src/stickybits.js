@@ -187,14 +187,14 @@ Stickybits.prototype.getClosestParent = function getClosestParent(el, matchSelec
   - from the top level of the DOM
 */
 Stickybits.prototype.getOffsetTop = function getOffsetTop(elem) {
-    var offsetTop = 0;
+    var offsetTop = 0
     do {
         if (!isNaN(elem.offsetTop)) {
-            offsetTop += elem.offsetTop;
+            offsetTop += elem.offsetTop
         }
-    } while ((elem = elem.offsetParent));
-    return offsetTop;
-};
+    } while ((elem = elem.offsetParent))
+    return offsetTop
+}
 
 /*
   computeScrollOffsets 📊
