@@ -43,6 +43,7 @@
   - .definePosition = defines sticky or fixed
   - .addInstance = an array of objects for each Stickybits Target
   - .getClosestParent = gets the parent for non-window scroll
+  - .getOffsetTop = gets the element offsetTop from the top level of the DOM
   - .computeScrollOffsets = computes scroll position
   - .toggleClasses = older browser toggler
   - .manageState = manages sticky state
@@ -179,6 +180,23 @@ Stickybits.prototype.getClosestParent = function getClosestParent(el, matchSelec
 }
 
 /*
+  --------
+  getOffsetTop
+  --------
+  - a helper function that gets the offsetTop of the element
+  - from the top level of the DOM
+*/
+Stickybits.prototype.getOffsetTop = function getOffsetTop(elem) {
+    var offsetTop = 0;
+    do {
+        if (!isNaN(elem.offsetTop)) {
+            offsetTop += elem.offsetTop;
+        }
+    } while ((elem = elem.offsetParent));
+    return offsetTop;
+};
+
+/*
   computeScrollOffsets 📊
   ---
   computeScrollOffsets for Stickybits
@@ -193,10 +211,10 @@ Stickybits.prototype.computeScrollOffsets = function computeScrollOffsets(item) 
   const parent = it.parent
   const iw = it.isWin
   let scrollElOffset = 0
-  let stickyStart = parent.getBoundingClientRect().top
+    var stickyStart = this.getOffsetTop(parent)
   if (!iw && p.positionVal === 'fixed') {
-    scrollElOffset = p.scrollEl.getBoundingClientRect().top
-    stickyStart = parent.getBoundingClientRect().top - scrollElOffset
+      scrollElOffset = this.getOffsetTop(p.scrollEl)
+      stickyStart = stickyStart - scrollElOffset
   }
   it.offset = scrollElOffset + p.stickyBitStickyOffset
   if (p.verticalPosition !== 'bottom') {
