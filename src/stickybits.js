@@ -211,10 +211,10 @@ Stickybits.prototype.computeScrollOffsets = function computeScrollOffsets(item) 
   const parent = it.parent
   const iw = it.isWin
   let scrollElOffset = 0
-    var stickyStart = this.getOffsetTop(parent)
+  let stickyStart = this.getOffsetTop(parent)
   if (!iw && p.positionVal === 'fixed') {
-      scrollElOffset = this.getOffsetTop(p.scrollEl)
-      stickyStart = stickyStart - scrollElOffset
+    scrollElOffset = this.getOffsetTop(p.scrollEl)
+    stickyStart = stickyStart - scrollElOffset
   }
   it.offset = scrollElOffset + p.stickyBitStickyOffset
   if (p.verticalPosition !== 'bottom') {
