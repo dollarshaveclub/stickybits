@@ -279,7 +279,7 @@ Stickybits.prototype.manageState = function manageState(item) {
   if (notSticky) {
     it.state = 'sticky'
     rAF(() => {
-      tC(e, stuck, sticky)
+      if (!p.useStickyClasses === false) tC(e, stuck, sticky)
       stl.position = pv
       if (ns) return
       stl.bottom = ''
@@ -288,13 +288,13 @@ Stickybits.prototype.manageState = function manageState(item) {
   } else if (isSticky) {
     it.state = 'default'
     rAF(() => {
-      tC(e, sticky)
+      if (!p.useStickyClasses === false) tC(e, sticky)
       if (pv === 'fixed') stl.position = ''
     })
   } else if (isStuck) {
     it.state = 'stuck'
     rAF(() => {
-      tC(e, sticky, stuck)
+      if (!p.useStickyClasses === false) tC(e, sticky, stuck)
       if (pv !== 'fixed' || ns) return
       stl.top = ''
       stl.bottom = '0'
