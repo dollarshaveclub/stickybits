@@ -82,12 +82,7 @@ function Stickybits(target, obj) {
     const el = this.els[i]
     const styles = el.style
     if (vp === 'top' && !ns) styles[vp] = `${p.stickyBitStickyOffset}px`
-    if (pv !== 'fixed' && p.useStickyClasses === false) {
-      styles.position = pv
-    } else if (pv !== 'fixed') {
-      // const stickyManager = new ManageSticky(el, p)
-      styles.position = pv
-    }
+    if (pv !== 'fixed') styles.position = pv
     const instance = this.addInstance(el, p)
     // instances are an array of objects
     this.instances.push(instance)
