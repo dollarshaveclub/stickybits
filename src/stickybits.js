@@ -71,7 +71,7 @@ function Stickybits(target, obj) {
     -  uses a computed (`.definePosition()`)
     -  defined the position
   */
-  p.positionVal = this.definePosition() || 'fixed'
+  p.positionVal = this.definePosition()
   const vp = p.verticalPosition
   const ns = p.noStyles
   const pv = p.positionVal
