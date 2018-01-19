@@ -52,7 +52,7 @@
 */
 function Stickybits(target, obj) {
   var o = typeof obj !== 'undefined' ? obj : {};
-  this.version = '2.1.1';
+  this.version = '2.1.2';
   this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
   this.props = {
     noStyles: o.noStyles || false,
@@ -71,7 +71,7 @@ function Stickybits(target, obj) {
     -  uses a computed (`.definePosition()`)
     -  defined the position
   */
-  p.positionVal = this.definePosition() || 'fixed';
+  p.positionVal = this.definePosition();
   var vp = p.verticalPosition;
   var ns = p.noStyles;
   var pv = p.positionVal;
@@ -82,12 +82,7 @@ function Stickybits(target, obj) {
     var el = this.els[i];
     var styles = el.style;
     if (vp === 'top' && !ns) styles[vp] = p.stickyBitStickyOffset + 'px';
-    if (pv !== 'fixed' && p.useStickyClasses === false) {
-      styles.position = pv;
-    } else if (pv !== 'fixed') {
-      // const stickyManager = new ManageSticky(el, p)
-      styles.position = pv;
-    }
+    if (pv !== 'fixed') styles.position = pv;
     var instance = this.addInstance(el, p);
     // instances are an array of objects
     this.instances.push(instance);
@@ -287,7 +282,7 @@ Stickybits.prototype.manageState = function manageState(item) {
   if (notSticky) {
     it.state = 'sticky';
     rAF(function () {
-      tC(e, stuck, sticky);
+      if (!p.useStickyClasses === false) tC(e, stuck, sticky);
       stl.position = pv;
       if (ns) return;
       stl.bottom = '';
@@ -296,13 +291,13 @@ Stickybits.prototype.manageState = function manageState(item) {
   } else if (isSticky) {
     it.state = 'default';
     rAF(function () {
-      tC(e, sticky);
+      if (!p.useStickyClasses === false) tC(e, sticky);
       if (pv === 'fixed') stl.position = '';
     });
   } else if (isStuck) {
     it.state = 'stuck';
     rAF(function () {
-      tC(e, sticky, stuck);
+      if (!p.useStickyClasses === false) tC(e, sticky, stuck);
       if (pv !== 'fixed' || ns) return;
       stl.top = '';
       stl.bottom = '0';
