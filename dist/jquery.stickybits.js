@@ -58,7 +58,7 @@
 */
 function Stickybits(target, obj) {
   var o = typeof obj !== 'undefined' ? obj : {};
-  this.version = '2.1.1';
+  this.version = '2.1.2';
   this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
   this.props = {
     noStyles: o.noStyles || false,
@@ -90,13 +90,13 @@ function Stickybits(target, obj) {
     if (vp === 'top' && !ns) styles[vp] = p.stickyBitStickyOffset + 'px';
     if (pv !== 'fixed' && p.useStickyClasses === false) {
       styles.position = pv;
-    } else if (pv !== 'fixed') {
+    } else {
       // const stickyManager = new ManageSticky(el, p)
-      styles.position = pv;
+      if (pv !== 'fixed') styles.position = pv;
+      var instance = this.addInstance(el, p);
+      // instances are an array of objects
+      this.instances.push(instance);
     }
-    var instance = this.addInstance(el, p);
-    // instances are an array of objects
-    this.instances.push(instance);
   }
   return this;
 }
