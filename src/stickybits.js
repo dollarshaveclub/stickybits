@@ -84,13 +84,13 @@ function Stickybits(target, obj) {
     if (vp === 'top' && !ns) styles[vp] = `${p.stickyBitStickyOffset}px`
     if (pv !== 'fixed' && p.useStickyClasses === false) {
       styles.position = pv
-    } else if (pv !== 'fixed') {
+    } else {
       // const stickyManager = new ManageSticky(el, p)
-      styles.position = pv
+      if (pv !== 'fixed') styles.position = pv
+      const instance = this.addInstance(el, p)
+      // instances are an array of objects
+      this.instances.push(instance)
     }
-    const instance = this.addInstance(el, p)
-    // instances are an array of objects
-    this.instances.push(instance)
   }
   return this
 }
