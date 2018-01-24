@@ -283,7 +283,7 @@ Stickybits 2.0 provides the same API but with more debugging feedback.
 To view the Stickybits API in it's simpliest form:
 ```javascript
 var stickybit = stickybits('a selection')
-console.log(stickbit)
+console.log(stickybit)
 ```
 
 For more debugging and managing Stickbits, view the [wiki](https://github.com/dollarshaveclub/stickybits/wiki).
