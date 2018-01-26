@@ -6,14 +6,14 @@
   "module": "dist/stickybits.es.js",
   "scripts": {
     "build": "gulp build",
-    "build:umd": "gulp build:umd && gulp build:umd:jquery",
+    "build:umd": "gulp build:umd && gulp build:umd:jquery && gulp build:umd:umbrella",
     "build:es": "gulp build:es",
     "lint": "eslint .src/*.js --fix",
     "postpublish": "git tag $npm_package_version && git push origin --tags",
     "pre-commit-msg": "Echo 'Running pre-commit checks...' && exit 0",
     "release": "npm run lint && npm run build && npm test && gulp minify && npm run report:coverage",
     "report:coverage": "nyc report --reporter=lcov > coverage.lcov && codecov",
-    "test:es-check": "es-check es5 dist/stickybits.min.js dist/stickybits.js dist/jquery.stickybits.js dist/jquery.stickybits.min.js",
+    "test:es-check": "es-check es5 dist/stickybits.min.js dist/stickybits.js dist/jquery.stickybits.js dist/jquery.stickybits.min.js dist/umbrella.stickybits.js dist/umbrella.stickybits.min.js",
     "test:unit": "nyc jest --coverage",
     "test:acceptance": "gulp test --coverage",
     "test": "npm run test:unit && npm run test:acceptance"
