@@ -10,15 +10,17 @@ const config = require('gulp-replace')
 
 const pkg = require('./package.json')
 
-gulp.task('generate:version', () => {
+gulp.task('generate:version', (done) => {
   gulp.src(['src/stickybits.js'], { base: '' })
     .pipe(config('__VERSION__', pkg.version))
     .pipe(gulp.dest('tmp/'))
+    .on('end', function () { done() })
 })
 
-gulp.task('generate:copy', () => {
+gulp.task('generate:copy', (done) => {
   gulp.src(['src/*.js', '!src/stickybits.js'])
     .pipe(gulp.dest('tmp/'))
+    .on('end', function () { done() })
 })
 
 gulp.task('generate', ['generate:version', 'generate:copy'])
@@ -31,7 +33,7 @@ const babelSetup = {
 
 gulp.task('build:standard', ['generate'], () => {
   rollup.rollup({
-    entry: 'tmp/stickybits.js',
+    input: 'tmp/stickybits.js',
     plugins: [ commonjs(), babel(babelSetup) ],
     treeshake: false,
   }).then((bundle) => {
@@ -46,7 +48,7 @@ gulp.task('build:standard', ['generate'], () => {
 
 gulp.task('build:es', ['generate'], () => {
   rollup.rollup({
-    entry: `tmp/stickybits.js`,
+    input: `tmp/stickybits.js`,
     plugins: [ commonjs(), babel(babelSetup) ],
     treeshake: false,
   }).then((bundle) => {
@@ -61,7 +63,7 @@ gulp.task('build:es', ['generate'], () => {
 
 gulp.task('build:jquery', ['generate'], () => {
   rollup.rollup({
-    entry: `tmp/jquery.stickybits.js`,
+    input: `tmp/jquery.stickybits.js`,
     plugins: [ commonjs(), babel(babelSetup) ],
     treeshake: false,
   }).then((bundle) => {

@@ -11,3 +11,4 @@ coverage/
 coverage.lcov
 coverage_*/
 tmp
+.idea
