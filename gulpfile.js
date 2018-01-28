@@ -74,7 +74,22 @@ gulp.task('build:jquery', ['generate'], () => {
   })
 })
 
-gulp.task('build', ['generate', 'build:standard', 'build:es', 'build:jquery'])
+gulp.task('build:umbrella', ['generate'], () => {
+  rollup.rollup({
+    entry: `tmp/umbrella.stickybits.js`,
+    plugins: [ commonjs(), babel(babelSetup) ],
+    treeshake: false,
+  }).then((bundle) => {
+    bundle.write({
+      file: 'dist/umbrella.stickybits.js',
+      format: 'umd',
+      name: 'stickybits',
+      sourcemap: false,
+    })
+  })
+})
+
+gulp.task('build', ['generate', 'build:standard', 'build:es', 'build:jquery', 'build:umbrella'])
 
 const banner = ['/**',
   ' * <%= pkg.name %> - <%= pkg.description %>',
@@ -102,6 +117,11 @@ gulp.task('minify', ['generate', 'build'], () => {
     .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest('dist/'))
   gulp.src('dist/jquery.stickybits.js')
+    .pipe(uglify())
+    .pipe(head(banner, { pkg }))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(gulp.dest('dist/'))
+  gulp.src('dist/umbrella.stickybits.js')
     .pipe(uglify())
     .pipe(head(banner, { pkg }))
     .pipe(rename({ suffix: '.min' }))
