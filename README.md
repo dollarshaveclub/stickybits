@@ -131,8 +131,7 @@ By default, if Stickybits uses a scroll event (if `position: sticky` is not supp
 To have Stickybit use an selector besides `window`:
 
 ```javascript
-const scrollEl = document.getElementById('an-id');
-stickybits('selector', {scrollEl: scrollEl});
+stickybits('selector', {scrollEl: 'an-id'});
 ```
 \* **Note:** This selector is not selected automatically so the specific element need to be passed in.
 
@@ -213,7 +212,7 @@ stickbits('selector', {
 -  [Custom vertical position (at bottom of parent element)](http://codepen.io/yowainwright/pen/e32cc7b82907ed9715a0a482ffa57596)
 -  [NoStyles Stickybits](https://codepen.io/yowainwright/pen/YrQpQj) ie: `stickybits('selector', {noStyles: true});`
 -  [With Custom Classes](https://codepen.io/yowainwright/pen/rGwWyW/) ie: `stickybits('selector', {parentClass: 'js-parent-test'})`
--  [ScrollEl](https://codepen.io/yowainwright/pen/EXzJeb) ie: `stickybits('selector', {scrollEl: document.querySelectorAll('a-custom-scroll-el')})`
+-  [ScrollEl](https://codepen.io/yowainwright/pen/EXzJeb) ie: `stickybits('selector', {scrollEl: 'a-custom-scroll-el'})`
 -  If you have Stickybits examples, please submit an [issue](https://github.com/dollarshaveclub/stickybits/issues) with a link to it. 🙏
 
 -----
@@ -253,10 +252,8 @@ $('selector').stickybits();
 With `scrollEl`
 
 ```javascript
-const $scrollEl = $('#scrollEl')[0];
-$('selector').stickybits({scrollEl: scrollEl});
+$('selector').stickybits({scrollEl: '#scrollEl'});
 ```
-\* **Note:** because StickyBits is _not_ jQuery specific, in order to pass in a selector for `scrollEl`, add a `[0]` to the the selector. 
 
 With `useStickyClasses`
 
