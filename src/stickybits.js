@@ -256,31 +256,35 @@ Stickybits.prototype.manageState = function manageState(item) {
     - use rAF
     - or stub rAF
   */
-  
+
   var lastTime = 0;
   window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
   window.cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame
-  
-  let rAF = window.requestAnimationFrame
 
-  if (!window.requestAnimationFrame) {
-    window.requestAnimationFrame = function(callback, element) {
-      let currTime = new Date().getTime()
-      let timeToCall = Math.max(0, 16 - (currTime - lastTime))
-      let id = window.setTimeout(function() {
-        callback(currTime + timeToCall)
-      }, timeToCall)
+  let rAF = function rAFDummy(f) { f() }
+  if (it.isWin) {
+    rAF = window.requestAnimationFrame
 
-      lastTime = currTime + timeToCall
-      return id
-    };
-  }
+    if (!window.requestAnimationFrame) {
+      window.requestAnimationFrame = function(callback, element) {
+        let currTime = new Date().getTime()
+        let timeToCall = Math.max(0, 16 - (currTime - lastTime))
+        let id = window.setTimeout(function() {
+          callback(currTime + timeToCall)
+        }, timeToCall)
 
-  if (!window.cancelAnimationFrame) {
-    window.cancelAnimationFrame = function(id) {
-      clearTimeout(id)
+        lastTime = currTime + timeToCall
+        return id
+      };
+    }
+
+    if (!window.cancelAnimationFrame) {
+      window.cancelAnimationFrame = function(id) {
+        clearTimeout(id)
+      }
     }
   }
+
   /*
     define scroll vars
     ---
