@@ -28,6 +28,8 @@
 
 > Stickybits is a lightweight alternative to `position: sticky` polyfills. It works perfectly for things like sticky headers. 
 
+**NOTE:** As of **StickyBits 3.0.0**, unminified versions are not built hence the big 3.0.0. Everything else should work as expected. Provide a pull request with new build requirements. 
+
 **Stickybits is awesome because:**
 -  it can add a CSS Sticky Class (`.js-is-sticky`) when [position: sticky](http://caniuse.com/#search=sticky) elements become active and a CSS Stuck Class (`.js-is-stuck`) when they become stuck. See [useStickyClasses](#feature).
 -  it loosely mimics [position: sticky](http://caniuse.com/#search=sticky) to consistently stick elements vertically across multiple platforms 
