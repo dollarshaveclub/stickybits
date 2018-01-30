@@ -155,7 +155,7 @@ Stickybits.prototype.addInstance = function addInstance(el, props) {
   item.stateContainer = () => {
     this.manageState(item)
   }
-  se.addEventListener('scroll', item.stateContainer)
+  window.addEventListener('scroll', item.stateContainer)
   return item
 }
 
@@ -239,6 +239,7 @@ Stickybits.prototype.manageState = function manageState(item) {
   const e = it.el
   const p = it.props
   const state = it.state
+  const parent = it.parent
   const start = it.stickyStart
   const stop = it.stickyStop
   const stl = e.style
@@ -255,12 +256,35 @@ Stickybits.prototype.manageState = function manageState(item) {
     - use rAF
     - or stub rAF
   */
-  let rAF = se.requestAnimationFrame
-  if (!it.isWin || typeof rAF === 'undefined') {
-    rAF = function rAFDummy(f) {
-      f()
+
+  var lastTime = 0;
+  window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
+  window.cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame
+
+  let rAF = function rAFDummy(f) { f() }
+  if (it.isWin) {
+    rAF = window.requestAnimationFrame
+
+    if (!window.requestAnimationFrame) {
+      window.requestAnimationFrame = function(callback, element) {
+        let currTime = new Date().getTime()
+        let timeToCall = Math.max(0, 16 - (currTime - lastTime))
+        let id = window.setTimeout(function() {
+          callback(currTime + timeToCall)
+        }, timeToCall)
+
+        lastTime = currTime + timeToCall
+        return id
+      };
+    }
+
+    if (!window.cancelAnimationFrame) {
+      window.cancelAnimationFrame = function(id) {
+        clearTimeout(id)
+      }
     }
   }
+
   /*
     define scroll vars
     ---
@@ -270,7 +294,7 @@ Stickybits.prototype.manageState = function manageState(item) {
     - isStuck
   */
   const tC = this.toggleClasses
-  const scroll = it.isWin ? se.scrollY || se.pageYOffset : se.scrollTop
+  const scroll = (it.isWin || document.querySelector(se).getBoundingClientRect().top) ? window.scrollY || window.pageYOffset : document.querySelector(se).scrollTop;
   const notSticky = scroll > start && scroll < stop && (state === 'default' || state === 'stuck')
   const isSticky = scroll <= start && state === 'sticky'
   const isStuck = scroll >= stop && state === 'sticky'
@@ -334,7 +358,7 @@ Stickybits.prototype.removeInstance = function removeInstance(instance) {
 Stickybits.prototype.cleanup = function cleanup() {
   for (let i = 0; i < this.instances.length; i += 1) {
     const instance = this.instances[i]
-    instance.props.scrollEl.removeEventListener('scroll', instance.stateContainer)
+    window.removeEventListener('scroll', instance.stateContainer)
     this.removeInstance(instance)
   }
   this.manageState = false
