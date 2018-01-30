@@ -1,4 +1,4 @@
 dist/*
 tests/*
-rollup.config.js
-gulpfile.js
+node_modules/*
+coverage/*
