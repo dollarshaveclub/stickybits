@@ -18,7 +18,7 @@ export default {
   treeshake: false,
   output: {
     banner,
-    file: 'dist/stickbits.min.js',
+    file: 'dist/stickybits.min.js',
     format: 'umd',
     name: 'stickybits',
     sourcemap: false

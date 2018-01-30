@@ -18,7 +18,7 @@ export default {
   treeshake: false,
   output: {
     banner,
-    file: 'dist/umbrella.stickbits.js',
+    file: 'dist/umbrella.stickybits.js',
     format: 'umd',
     name: 'stickybits',
     sourcemap: false
