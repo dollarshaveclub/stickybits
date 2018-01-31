@@ -10,9 +10,6 @@
   <a href="https://www.npmjs.com/package/stickybits">
     <img alt="npm version" src="https://badge.fury.io/js/stickybits.svg" />
   </a>
-  <a href="https://github.com/dollarshaveclub/stickybits"> 
-    <img alt="bower version" src="https://badge.fury.io/bo/stickybits.svg" />
-  </a>
   <a href="https://greenkeeper.io/">
     <img alt="Greenkeeper" src="https://badges.greenkeeper.io/dollarshaveclub/stickybits.svg" />
   </a>
@@ -62,10 +59,6 @@ yarn add stickybits
 npm
 ```sh
 npm i stickybits
-```
-bower
-```sh
-bower i stickybits --save
 ```
 
 <h2 id="setup">Setup</h2>
