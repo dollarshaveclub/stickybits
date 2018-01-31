@@ -25,7 +25,7 @@
 
 > Stickybits is a lightweight alternative to `position: sticky` polyfills. It works perfectly for things like sticky headers. 
 
-**NOTE:** As of **StickyBits 3.0.0**, unminified versions are not built hence the big 3.0.0. Everything else should work as expected. Provide a pull request with new build requirements. 
+**NOTE:** As of **StickyBits 3.0.0**, unminified versions are not built—hence the big 3.0.0. Everything else should work as expected. Provide a pull request with new build requirements. 
 
 **Stickybits is awesome because:**
 -  it can add a CSS Sticky Class (`.js-is-sticky`) when [position: sticky](http://caniuse.com/#search=sticky) elements become active and a CSS Stuck Class (`.js-is-stuck`) when they become stuck. See [useStickyClasses](#feature).
@@ -308,9 +308,15 @@ Stickybits is a utility. It may often not be needed! With shared understanding o
 
 This plugin was heavily influenced by [Filament Group](https://www.filamentgroup.com/)'s awesome [Fixed-sticky](https://github.com/filamentgroup/fixed-sticky) jQuery plugin. Thanks to them for getting my mind going on this a while back. Thanks to [Peloton Cycle](https://github.com/pelotoncycle/)'s [Frame Throttle](https://github.com/pelotoncycle/frame-throttle) for an insightful solve for optimizing `frame throttling`. 
 
-**Contributions:** Much browser and documentation debugging has be done by [K. Vanberendonck](https://github.com/donkeybonks). Architecture discussions and Pull Request help has been provided by [Jacob Kelley](https://github.com/jakiestfu), [Brian Gonzalez](https://github.com/briangonzalez/), and [Matt Young](https://github.com/someguynamedmatt). It is much appreciated! 
+Architecture discussions and Pull Request help has been provided by [Jacob Kelley](https://github.com/jakiestfu), [Brian Gonzalez](https://github.com/briangonzalez/), and [Matt Young](https://github.com/someguynamedmatt). It is much appreciated! 
 
 ----
 
 [Created](https://github.com/yowainwright/sticky-bits) and maintained by [Jeff Wainwright](https://github.com/yowainwright) with [Dollar Shave Club Engineering](https://github.com/dollarshaveclub).
+
+### More great contributors 
+
+- [Daniel Ruf](https://github.com/DanielRuf)
+- [Nestor Vera](https://github.com/hacknug)
+- [K. Vanberendonck](https://github.com/donkeybonks)
 
