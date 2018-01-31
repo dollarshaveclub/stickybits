@@ -78,7 +78,8 @@ function Stickybits (target, obj) {
   this.els = typeof target === 'string' ? document.querySelectorAll(target) : target
   if (!('length' in this.els)) this.els = [this.els]
   this.instances = []
-  this.els.forEach((el) => {
+  for (let i = 0; i < this.els.length; i += 1) {
+    const el = this.els[i]
     const styles = el.style
     // set vertical position
     styles[vp] = vp === 'top' && !ns ? `${p.stickyBitStickyOffset}px` : ''
@@ -88,7 +89,7 @@ function Stickybits (target, obj) {
       // instances are an array of objects
       this.instances.push(instance)
     }
-  })
+  }
   return this
 }
 
@@ -325,10 +326,11 @@ Stickybits.prototype.removeInstance = function removeInstance (instance) {
   - clears instance
 */
 Stickybits.prototype.cleanup = function cleanup () {
-  this.instances.forEach((instance) => {
-    window.removeEventListener('scroll', instance.stateContainer)
+  for (let i = 0; i < this.instances.length; i += 1) {
+    const instance = this.instances[i]
+    instance.props.scrollEl.removeEventListener('scroll', instance.stateContainer)
     this.removeInstance(instance)
-  })
+  }
   this.manageState = false
   this.instances = []
 }
