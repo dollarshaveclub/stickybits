@@ -1,6 +1,7 @@
 import {
   babelSetup,
   banner,
+  name,
   uglifyOutput,
   version
 } from '../configs/config'
@@ -20,7 +21,7 @@ export default {
     banner,
     file: 'dist/jquery.stickybits.min.js',
     format: 'umd',
-    name: 'stickybits',
+    name,
     sourcemap: false
   }
 }
