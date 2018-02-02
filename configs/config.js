@@ -9,7 +9,7 @@ import {
 
 const babelSetup = {
   babelrc: false,
-  presets: [['es2015', { modules: false }]],
+  presets: [['env', { modules: false }]],
   exclude: 'node_modules/**'
 }
 
