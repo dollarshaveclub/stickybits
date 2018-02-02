@@ -85,5 +85,9 @@
     "stickyheader",
     "stickynavigation",
     "fixedheader"
+  ],
+  "browserslist": [
+    "defaults",
+    "ie >= 9"
   ]
 }
