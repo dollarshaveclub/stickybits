@@ -37,6 +37,7 @@ const banner = `/**
 export {
   babelSetup,
   banner,
+  name,
   uglifyOutput,
   version
 }

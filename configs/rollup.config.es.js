@@ -1,6 +1,7 @@
 import {
   babelSetup,
   banner,
+  name,
   uglifyOutput,
   version
 } from '../configs/config'
@@ -20,7 +21,7 @@ export default {
     banner,
     file: 'dist/stickybits.es.js',
     format: 'es',
-    name: 'stickybits',
+    name,
     sourcemap: false
   }
 }
