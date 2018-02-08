@@ -5,9 +5,11 @@
   "main": "dist/stickybits.js",
   "module": "dist/stickybits.es.js",
   "scripts": {
-    "build": "npm run test:unit && npm run build:es && npm run build:jquery && npm run build:standard && npm run build:umbrella",
+    "build": "npm run test:unit && npm run build:es && npm run build:jquery-dev && npm run build:jquery && npm run build:standard-dev && npm run build:standard && npm run build:umbrella",
     "build:es": "rollup --config configs/rollup.config.es.js",
+    "build:jquery-dev": "rollup --config configs/rollup.config.jquery-dev.js",
     "build:jquery": "rollup --config configs/rollup.config.jquery.js",
+    "build:standard-dev": "rollup --config configs/rollup.config.standard-dev.js",
     "build:standard": "rollup --config configs/rollup.config.standard.js",
     "build:umbrella": "rollup --config configs/rollup.config.umbrella.js",
     "lint": "eslint . --fix",
