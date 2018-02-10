@@ -58,7 +58,7 @@ function Stickybits (target, obj) {
     noStyles: o.noStyles || false,
     stickyBitStickyOffset: o.stickyBitStickyOffset || 0,
     parentClass: o.parentClass || 'js-stickybit-parent',
-    scrollEl: o.scrollEl || window,
+    scrollEl: document.querySelector(o.scrollEl) || window,
     stickyClass: o.stickyClass || 'js-is-sticky',
     stuckClass: o.stuckClass || 'js-is-stuck',
     useStickyClasses: o.useStickyClasses || false,
@@ -262,9 +262,9 @@ Stickybits.prototype.manageState = function manageState (item) {
     - isStuck
   */
   const tC = this.toggleClasses
-  const scroll = (this.isWin || document.querySelector(se).getBoundingClientRect().top)
+  const scroll = (this.isWin || se.getBoundingClientRect().top)
     ? window.scrollY || window.pageYOffset
-    : document.querySelector(se).scrollTop
+    : se.scrollTop
   const notSticky = scroll > start && scroll < stop && (state === 'default' || state === 'stuck')
   const isSticky = scroll <= start && state === 'sticky'
   const isStuck = scroll >= stop && state === 'sticky'
