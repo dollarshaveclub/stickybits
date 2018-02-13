@@ -160,9 +160,9 @@ Stickybits.prototype.addInstance = function addInstance (el, props) {
   - only used for non `window` scroll elements
   - supports older browsers
 */
-Stickybits.prototype.getClosestParent = (el, matchSelector) => {
+Stickybits.prototype.getClosestParent = (el, match) => {
   // p = parent element
-  const p = document.querySelector(matchSelector)
+  const p = match
   let e = el
   if (e.parentElement === p) return p
   // traverse up the dom tree until we get to the parent
