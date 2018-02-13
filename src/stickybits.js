@@ -50,8 +50,7 @@
   - .removeInstance = removes an instance
   - .cleanup = removes all Stickybits instances and cleans up dom from stickybits
 */
-function Stickybits (target, obj) {
-  const o = typeof obj !== 'undefined' ? obj : {}
+function Stickybits (target, o = {}) {
   this.version = 'VERSION'
   this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser'
   this.props = {
@@ -83,7 +82,7 @@ function Stickybits (target, obj) {
     const styles = el.style
     // set vertical position
     styles[vp] = vp === 'top' && !ns ? `${p.stickyBitStickyOffset}px` : ''
-    styles.position = pv
+    styles.position = pv !== 'fixed' ? pv : ''
     if (pv === 'fixed' || p.useStickyClasses) {
       const instance = this.addInstance(el, p)
       // instances are an array of objects
