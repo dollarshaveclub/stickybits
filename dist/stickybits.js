@@ -1,6 +1,6 @@
 /**
   stickybits - Stickybits is a lightweight alternative to `position: sticky` polyfills
-  @version v3.0.3
+  @version v3.0.4
   @link https://github.com/dollarshaveclub/stickybits#readme
   @author Jeff Wainwright <yowainwright@gmail.com> (https://jeffry.in)
   @license MIT
@@ -63,10 +63,9 @@
   - .removeInstance = removes an instance
   - .cleanup = removes all Stickybits instances and cleans up dom from stickybits
 */
-function Stickybits(target) {
-  var o = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-  this.version = '"3.0.3"';
+function Stickybits(target, obj) {
+  var o = typeof obj !== 'undefined' ? obj : {};
+  this.version = '"3.0.4"';
   this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
   this.props = {
     noStyles: o.noStyles || false,
@@ -178,9 +177,9 @@ Stickybits.prototype.addInstance = function addInstance(el, props) {
   - only used for non `window` scroll elements
   - supports older browsers
 */
-Stickybits.prototype.getClosestParent = function (el, matchSelector) {
+Stickybits.prototype.getClosestParent = function (el, match) {
   // p = parent element
-  var p = document.querySelector(matchSelector);
+  var p = match;
   var e = el;
   if (e.parentElement === p) return p;
   // traverse up the dom tree until we get to the parent
