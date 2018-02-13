@@ -50,7 +50,8 @@
   - .removeInstance = removes an instance
   - .cleanup = removes all Stickybits instances and cleans up dom from stickybits
 */
-function Stickybits (target, o = {}) {
+function Stickybits (target, obj) {
+  const o = typeof obj !== 'undefined' ? obj : {}
   this.version = 'VERSION'
   this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser'
   this.props = {
