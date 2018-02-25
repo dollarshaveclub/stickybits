@@ -1,6 +1,6 @@
 {
   "name": "stickybits",
-  "version": "3.0.5",
+  "version": "3.1.0",
   "description": "Stickybits is a lightweight alternative to `position: sticky` polyfills",
   "main": "dist/stickybits.js",
   "module": "dist/stickybits.es.js",
@@ -13,8 +13,13 @@
     "build:standard": "rollup --config configs/rollup.config.standard.js",
     "build:umbrella": "rollup --config configs/rollup.config.umbrella.js",
     "lint": "eslint . --fix",
-    "postpublish": "git tag $npm_package_version && git push origin --tags",
+    "chore:delete-branch": "git branch -D chore-changelog",
+    "chore:branch": "git checkout -b chore-changelog",
+    "chore:changelog": "conventional-changelog -p eslint -i CHANGELOG.md -s",
+    "chore:pr": "git add . && git commit -m '[chore] updates changelog' && git push origin chore-changelog -f",
+    "chore": "npm run chore:delete-branch && npm run chore:branch && npm run chore:changelog && npm run chore:pr",
     "pre-commit-msg": "Echo 'Running pre-commit checks...' && exit 0",
+    "postpublish": "git tag $npm_package_version && git push origin --tags && npm run chore",
     "release": "npm run lint && npm run build && npm test && npm run report:coverage",
     "report:coverage": "nyc report --reporter=lcov > coverage.lcov && codecov",
     "test:es-check": "es-check es5 dist/stickybits.min.js dist/stickybits.js dist/jquery.stickybits.js dist/jquery.stickybits.min.js dist/umbrella.stickybits.js dist/umbrella.stickybits.min.js",
@@ -30,8 +35,7 @@
       "pre-commit-msg",
       "lint",
       "test"
-    ],
-    "silent": true
+    ]
   },
   "bugs": {
     "url": "https://github.com/dollarshaveclub/stickybits/issues"
@@ -53,6 +57,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^22.4.1",
     "codecov": "^3.0.0",
+    "conventional-changelog-cli": "^1.3.15",
     "debug": "^3.0.0",
     "es-check": "^2.0.0",
     "eslint": "^4.18.1",
