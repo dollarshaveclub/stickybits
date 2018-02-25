@@ -218,7 +218,7 @@ Stickybits.prototype.toggleClasses = (el, r, a) => {
   createEvent
   ---
 */
-Stickybits.prototype.createEvent = (se, name) => {
+Stickybits.prototype.makeEvent = (se, name) => {
   const evt = se.creatEvent(`stickybits.${name}`)
   return evt.initEvent(`stickybits.${name}`, true, true)
 }
@@ -283,6 +283,8 @@ Stickybits.prototype.manageState = function manageState (item) {
   const notSticky = scroll > start && scroll < stop && (state === 'default' || state === 'stuck')
   const isSticky = scroll <= start && state === 'sticky'
   const isStuck = scroll >= stop && state === 'sticky'
+  const evtNames = ['unsticky', 'sticky', 'stuck']
+  evtNames.forEach(name => this.makeEvent(se, name))
   /*
     Unnamed arrow functions within this block
     ---
