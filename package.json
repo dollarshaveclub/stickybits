@@ -13,7 +13,7 @@
     "build:standard": "rollup --config configs/rollup.config.standard.js",
     "build:umbrella": "rollup --config configs/rollup.config.umbrella.js",
     "lint": "eslint . --fix",
-    "chore:delete-branch": "git branch -D chore-changelog",
+    "chore:delete-branch": "if git show-ref --quiet refs/heads/chore-changelog; then git branch -D chore-changelog; fi",
     "chore:branch": "git checkout -b chore-changelog",
     "chore:changelog": "conventional-changelog -p eslint -i CHANGELOG.md -s",
     "chore:pr": "git add . && git commit -m '[chore] updates changelog' && git push origin chore-changelog -f",

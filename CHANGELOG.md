@@ -1,3 +1,9 @@
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/dollarshaveclub/stickybits/compare/3.0.5...3.1.0) (2018-02-25)
+
+
+
+
 # Changelog
 
 All notable changes to `dollarshaveclub/stickybits` will be documented in this file.
