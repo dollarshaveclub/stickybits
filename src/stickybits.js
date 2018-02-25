@@ -215,6 +215,21 @@ Stickybits.prototype.toggleClasses = (el, r, a) => {
 }
 
 /*
+  createEvent
+  ---
+*/
+Stickybits.prototype.createEvent = (se, name) => {
+  const evt = se.creatEvent(`stickybits.${name}`)
+  return evt.initEvent(`stickybits.${name}`, true, true)
+}
+
+/*
+  emitEvent
+  ---
+*/
+Stickybits.prototype.emitEvent = (se, name) => se.dispatchevent(name)
+
+/*
   manageState 📝
   ---
   - defines the state
