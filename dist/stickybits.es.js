@@ -1,8 +1,373 @@
 /**
   stickybits - Stickybits is a lightweight alternative to `position: sticky` polyfills
-  @version v3.0.4
+  @version v3.0.5
   @link https://github.com/dollarshaveclub/stickybits#readme
   @author Jeff Wainwright <yowainwright@gmail.com> (https://jeffry.in)
   @license MIT
 **/
-function Stickybits(t,s){var i=void 0!==s?s:{};this.version='"3.0.4"',this.userAgent=window.navigator.userAgent||"no `userAgent` provided by the browser",this.props={noStyles:i.noStyles||!1,stickyBitStickyOffset:i.stickyBitStickyOffset||0,parentClass:i.parentClass||"js-stickybit-parent",scrollEl:document.querySelector(i.scrollEl)||window,stickyClass:i.stickyClass||"js-is-sticky",stuckClass:i.stuckClass||"js-is-stuck",useStickyClasses:i.useStickyClasses||!1,verticalPosition:i.verticalPosition||"top"};var e=this.props;e.positionVal=this.definePosition()||"fixed";var o=e.verticalPosition,n=e.noStyles,r=e.positionVal;this.els="string"==typeof t?document.querySelectorAll(t):t,"length"in this.els||(this.els=[this.els]),this.instances=[];for(var a=0;a<this.els.length;a+=1){var l=this.els[a],c=l.style;if(c[o]="top"!==o||n?"":e.stickyBitStickyOffset+"px",c.position="fixed"!==r?r:"","fixed"===r||e.useStickyClasses){var p=this.addInstance(l,e);this.instances.push(p)}}return this}function stickybits(t,s){return new Stickybits(t,s)}Stickybits.prototype.definePosition=function(){for(var t=["","-o-","-webkit-","-moz-","-ms-"],s=document.head.style,i=0;i<t.length;i+=1)s.position=t[i]+"sticky";var e=s.position?s.position:"fixed";return s.position="",e},Stickybits.prototype.addInstance=function(t,s){var i=this,e={el:t,parent:t.parentNode,props:s};this.isWin=this.props.scrollEl===window;var o=this.isWin?window:this.getClosestParent(e.el,e.props.scrollEl);return this.computeScrollOffsets(e),e.parent.className+=" "+s.parentClass,e.state="default",e.stateContainer=function(){return i.manageState(e)},o.addEventListener("scroll",e.stateContainer),e},Stickybits.prototype.getClosestParent=function(t,s){var i=s,e=t;if(e.parentElement===i)return i;for(;e.parentElement!==i;)e=e.parentElement;return i},Stickybits.prototype.computeScrollOffsets=function(t){var s=t,i=s.props,e=s.parent,o=!this.isWin&&"fixed"===i.positionVal,n="bottom"!==i.verticalPosition,r=o?i.scrollEl.getBoundingClientRect().top:0,a=o?e.getBoundingClientRect().top-r:e.getBoundingClientRect().top;return s.offset=r+i.stickyBitStickyOffset,s.stickyStart=n?a-s.offset:0,s.stickyStop=n?a+e.offsetHeight-(s.el.offsetHeight+s.offset):a+e.offsetHeight,s},Stickybits.prototype.toggleClasses=function(t,s,i){var e=t,o=e.className.split(" ");i&&-1===o.indexOf(i)&&o.push(i);var n=o.indexOf(s);-1!==n&&o.splice(n,1),e.className=o.join(" ")},Stickybits.prototype.manageState=function(t){var s=t,i=s.el,e=s.props,o=s.state,n=s.stickyStart,r=s.stickyStop,a=i.style,l=e.noStyles,c=e.positionVal,p=e.scrollEl,f=e.stickyClass,u=e.stuckClass,y=e.verticalPosition,k=function(t){t()},d=this.isWin&&(window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||window.msRequestAnimationFrame)||k,h=this.toggleClasses,v=this.isWin||p.getBoundingClientRect().top?window.scrollY||window.pageYOffset:p.scrollTop,S=v<=n&&"sticky"===o,g=v>=r&&"sticky"===o;return v>n&&v<r&&("default"===o||"stuck"===o)?(s.state="sticky",d(function(){h(i,u,f),a.position=c,l||(a.bottom="",a[y]=e.stickyBitStickyOffset+"px")})):S?(s.state="default",d(function(){h(i,f),"fixed"===c&&(a.position="")})):g&&(s.state="stuck",d(function(){h(i,f,u),"fixed"!==c||l||(a.top="",a.bottom="0",a.position="absolute")})),s},Stickybits.prototype.removeInstance=function(t){var s=t.el,i=t.props,e=this.toggleClasses;s.style.position="",s.style[i.verticalPosition]="",e(s,i.stickyClass),e(s,i.stuckClass),e(s.parentNode,i.parentClass)},Stickybits.prototype.cleanup=function(){for(var t=0;t<this.instances.length;t+=1){var s=this.instances[t];s.props.scrollEl.removeEventListener("scroll",s.stateContainer),this.removeInstance(s)}this.manageState=!1,this.instances=[]};export default stickybits;
+/*
+  STICKYBITS 💉
+  --------
+  > a lightweight alternative to `position: sticky` polyfills 🍬
+  --------
+  - each method is documented above it our view the readme
+  - Stickybits does not manage polymorphic functionality (position like properties)
+  * polymorphic functionality: (in the context of describing Stickybits)
+    means making things like `position: sticky` be loosely supported with position fixed.
+    It also means that features like `useStickyClasses` takes on styles like `position: fixed`.
+  --------
+  defaults 🔌
+  --------
+  - version = `package.json` version
+  - userAgent = viewer browser agent
+  - target = DOM element selector
+  - noStyles = boolean
+  - offset = number
+  - parentClass = 'string'
+  - scrollEl = window || DOM element selector
+  - stickyClass = 'string'
+  - stuckClass = 'string'
+  - useStickyClasses = boolean
+  - verticalPosition = 'string'
+  --------
+  props🔌
+  --------
+  - p = props {object}
+  --------
+  instance note
+  --------
+  - stickybits parent methods return this
+  - stickybits instance methods return an instance item
+  --------
+  nomenclature
+  --------
+  - target => el => e
+  - props => o || p
+  - instance => item => it
+  --------
+  methods
+  --------
+  - .definePosition = defines sticky or fixed
+  - .addInstance = an array of objects for each Stickybits Target
+  - .getClosestParent = gets the parent for non-window scroll
+  - .computeScrollOffsets = computes scroll position
+  - .toggleClasses = older browser toggler
+  - .manageState = manages sticky state
+  - .removeClass = older browser support class remover
+  - .removeInstance = removes an instance
+  - .cleanup = removes all Stickybits instances and cleans up dom from stickybits
+*/
+function Stickybits(target, obj) {
+  var o = typeof obj !== 'undefined' ? obj : {};
+  this.version = '"3.0.5"';
+  this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
+  this.props = {
+    noStyles: o.noStyles || false,
+    stickyBitStickyOffset: o.stickyBitStickyOffset || 0,
+    parentClass: o.parentClass || 'js-stickybit-parent',
+    scrollEl: document.querySelector(o.scrollEl) || window,
+    stickyClass: o.stickyClass || 'js-is-sticky',
+    stuckClass: o.stuckClass || 'js-is-stuck',
+    useStickyClasses: o.useStickyClasses || false,
+    verticalPosition: o.verticalPosition || 'top'
+  };
+  var p = this.props;
+  /*
+    define positionVal
+    ----
+    -  uses a computed (`.definePosition()`)
+    -  defined the position
+  */
+
+  p.positionVal = this.definePosition() || 'fixed';
+  var vp = p.verticalPosition;
+  var ns = p.noStyles;
+  var pv = p.positionVal;
+  this.els = typeof target === 'string' ? document.querySelectorAll(target) : target;
+  if (!('length' in this.els)) this.els = [this.els];
+  this.instances = [];
+
+  for (var i = 0; i < this.els.length; i += 1) {
+    var el = this.els[i];
+    var styles = el.style; // set vertical position
+
+    styles[vp] = vp === 'top' && !ns ? p.stickyBitStickyOffset + "px" : '';
+    styles.position = pv !== 'fixed' ? pv : '';
+
+    if (pv === 'fixed' || p.useStickyClasses) {
+      var instance = this.addInstance(el, p); // instances are an array of objects
+
+      this.instances.push(instance);
+    }
+  }
+
+  return this;
+}
+/*
+  setStickyPosition ✔️
+  --------
+  —  most basic thing stickybits does
+  => checks to see if position sticky is supported
+  => defined the position to be used
+  => stickybits works accordingly
+*/
+
+
+Stickybits.prototype.definePosition = function () {
+  var prefix = ['', '-o-', '-webkit-', '-moz-', '-ms-'];
+  var test = document.head.style;
+
+  for (var i = 0; i < prefix.length; i += 1) {
+    test.position = prefix[i] + "sticky";
+  }
+
+  var stickyProp = test.position ? test.position : 'fixed';
+  test.position = '';
+  return stickyProp;
+};
+/*
+  addInstance ✔️
+  --------
+  — manages instances of items
+  - takes in an el and props
+  - returns an item object
+  ---
+  - target = el
+  - o = {object} = props
+    - scrollEl = 'string'
+    - verticalPosition = number
+    - off = boolean
+    - parentClass = 'string'
+    - stickyClass = 'string'
+    - stuckClass = 'string'
+  ---
+  - defined later
+    - parent = dom element
+    - state = 'string'
+    - offset = number
+    - stickyStart = number
+    - stickyStop = number
+  - returns an instance object
+*/
+
+
+Stickybits.prototype.addInstance = function addInstance(el, props) {
+  var _this = this;
+
+  var item = {
+    el: el,
+    parent: el.parentNode,
+    props: props
+  };
+  this.isWin = this.props.scrollEl === window;
+  var se = this.isWin ? window : this.getClosestParent(item.el, item.props.scrollEl);
+  this.computeScrollOffsets(item);
+  item.parent.className += " " + props.parentClass;
+  item.state = 'default';
+
+  item.stateContainer = function () {
+    return _this.manageState(item);
+  };
+
+  se.addEventListener('scroll', item.stateContainer);
+  return item;
+};
+/*
+  --------
+  getParent 👨‍
+  --------
+  - a helper function that gets the target element's parent selected el
+  - only used for non `window` scroll elements
+  - supports older browsers
+*/
+
+
+Stickybits.prototype.getClosestParent = function (el, match) {
+  // p = parent element
+  var p = match;
+  var e = el;
+  if (e.parentElement === p) return p; // traverse up the dom tree until we get to the parent
+
+  while (e.parentElement !== p) {
+    e = e.parentElement;
+  } // return parent element
+
+
+  return p;
+};
+/*
+  computeScrollOffsets 📊
+  ---
+  computeScrollOffsets for Stickybits
+  - defines
+    - offset
+    - start
+    - stop
+*/
+
+
+Stickybits.prototype.computeScrollOffsets = function computeScrollOffsets(item) {
+  var it = item;
+  var p = it.props;
+  var parent = it.parent;
+  var isCustom = !this.isWin && p.positionVal === 'fixed';
+  var isBottom = p.verticalPosition !== 'bottom';
+  var scrollElOffset = isCustom ? p.scrollEl.getBoundingClientRect().top : 0;
+  var stickyStart = isCustom ? parent.getBoundingClientRect().top - scrollElOffset : parent.getBoundingClientRect().top;
+  it.offset = scrollElOffset + p.stickyBitStickyOffset;
+  it.stickyStart = isBottom ? stickyStart - it.offset : 0;
+  it.stickyStop = isBottom ? stickyStart + parent.offsetHeight - (it.el.offsetHeight + it.offset) : stickyStart + parent.offsetHeight;
+  return it;
+};
+/*
+  toggleClasses ⚖️
+  ---
+  toggles classes (for older browser support)
+  r = removed class
+  a = added class
+*/
+
+
+Stickybits.prototype.toggleClasses = function (el, r, a) {
+  var e = el;
+  var cArray = e.className.split(' ');
+  if (a && cArray.indexOf(a) === -1) cArray.push(a);
+  var rItem = cArray.indexOf(r);
+  if (rItem !== -1) cArray.splice(rItem, 1);
+  e.className = cArray.join(' ');
+};
+/*
+  manageState 📝
+  ---
+  - defines the state
+    - normal
+    - sticky
+    - stuck
+*/
+
+
+Stickybits.prototype.manageState = function manageState(item) {
+  // cache object
+  var it = item;
+  var e = it.el;
+  var p = it.props;
+  var state = it.state;
+  var start = it.stickyStart;
+  var stop = it.stickyStop;
+  var stl = e.style; // cache props
+
+  var ns = p.noStyles;
+  var pv = p.positionVal;
+  var se = p.scrollEl;
+  var sticky = p.stickyClass;
+  var stuck = p.stuckClass;
+  var vp = p.verticalPosition;
+  /*
+    requestAnimationFrame
+    ---
+    - use rAF
+    - or stub rAF
+  */
+
+  var rAFStub = function rAFDummy(f) {
+    f();
+  };
+
+  var rAF = !this.isWin ? rAFStub : window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || rAFStub;
+  /*
+    define scroll vars
+    ---
+    - scroll
+    - notSticky
+    - isSticky
+    - isStuck
+  */
+
+  var tC = this.toggleClasses;
+  var scroll = this.isWin || se.getBoundingClientRect().top ? window.scrollY || window.pageYOffset : se.scrollTop;
+  var notSticky = scroll > start && scroll < stop && (state === 'default' || state === 'stuck');
+  var isSticky = scroll <= start && state === 'sticky';
+  var isStuck = scroll >= stop && state === 'sticky';
+  /*
+    Unnamed arrow functions within this block
+    ---
+    - help wanted or discussion
+    - view test.stickybits.js
+      - `stickybits .manageState  `position: fixed` interface` for more awareness 👀
+  */
+
+  if (notSticky) {
+    it.state = 'sticky';
+    rAF(function () {
+      tC(e, stuck, sticky);
+      stl.position = pv;
+      if (ns) return;
+      stl.bottom = '';
+      stl[vp] = p.stickyBitStickyOffset + "px";
+    });
+  } else if (isSticky) {
+    it.state = 'default';
+    rAF(function () {
+      tC(e, sticky);
+      if (pv === 'fixed') stl.position = '';
+    });
+  } else if (isStuck) {
+    it.state = 'stuck';
+    rAF(function () {
+      tC(e, sticky, stuck);
+      if (pv !== 'fixed' || ns) return;
+      stl.top = '';
+      stl.bottom = '0';
+      stl.position = 'absolute';
+    });
+  }
+
+  return it;
+};
+/*
+  removes an instance 👋
+  --------
+  - cleanup instance
+*/
+
+
+Stickybits.prototype.removeInstance = function removeInstance(instance) {
+  var e = instance.el;
+  var p = instance.props;
+  var tC = this.toggleClasses;
+  e.style.position = '';
+  e.style[p.verticalPosition] = '';
+  tC(e, p.stickyClass);
+  tC(e, p.stuckClass);
+  tC(e.parentNode, p.parentClass);
+};
+/*
+  cleanup 🛁
+  --------
+  - cleans up each instance
+  - clears instance
+*/
+
+
+Stickybits.prototype.cleanup = function cleanup() {
+  for (var i = 0; i < this.instances.length; i += 1) {
+    var instance = this.instances[i];
+    instance.props.scrollEl.removeEventListener('scroll', instance.stateContainer);
+    this.removeInstance(instance);
+  }
+
+  this.manageState = false;
+  this.instances = [];
+};
+/*
+  export
+  --------
+  exports StickBits to be used 🏁
+*/
+
+
+function stickybits(target, o) {
+  return new Stickybits(target, o);
+}
+
+export default stickybits;

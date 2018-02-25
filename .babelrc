@@ -1,6 +1,7 @@
 {
   "presets": [
-    ["env", {
+    ["@babel/preset-env", {
+      "loose": true,
       "targets": {
         "browsers": [
           "defaults",
@@ -8,5 +9,5 @@
         ]
       }
     }]
-  ]
+  ],
 }

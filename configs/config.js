@@ -7,9 +7,11 @@ import {
   version
 } from '../package.json'
 
+const loose = true
+
 const babelSetup = {
   babelrc: false,
-  presets: [['env', { modules: false }]],
+  presets: [['@babel/preset-env', { modules: false, loose }]],
   exclude: 'node_modules/**'
 }
 
