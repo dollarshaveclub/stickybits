@@ -1,6 +1,6 @@
 {
   "name": "stickybits",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Stickybits is a lightweight alternative to `position: sticky` polyfills",
   "main": "dist/stickybits.js",
   "module": "dist/stickybits.es.js",
@@ -16,7 +16,7 @@
     "chore:delete-branch": "if git show-ref --quiet refs/heads/chore-changelog; then git branch -D chore-changelog; fi",
     "chore:branch": "git checkout -b chore-changelog",
     "chore:changelog": "conventional-changelog -p eslint -i CHANGELOG.md -s",
-    "chore:pr": "git add . && git commit -m '[chore] updates changelog' && git push origin chore-changelog -f",
+    "chore:pr": "git add . && git commit -m '[chore] updates changelog' --no-verify && git push origin chore-changelog -f",
     "chore": "npm run chore:delete-branch && npm run chore:branch && npm run chore:changelog && npm run chore:pr",
     "pre-commit-msg": "Echo 'Running pre-commit checks...' && exit 0",
     "postpublish": "git tag $npm_package_version && git push origin --tags && npm run chore",
