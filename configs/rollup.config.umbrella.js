@@ -3,7 +3,7 @@ import {
   banner,
   name,
   uglifyOutput,
-  version
+  version,
 } from '../configs/config'
 import babel from 'rollup-plugin-babel'
 import replace from 'rollup-plugin-replace'
@@ -14,7 +14,7 @@ export default {
   plugins: [
     babel(babelSetup),
     replace({ VERSION: JSON.stringify(version) }),
-    uglify(uglifyOutput)
+    uglify(uglifyOutput),
   ],
   treeshake: false,
   output: {
@@ -22,6 +22,6 @@ export default {
     file: 'dist/umbrella.stickybits.js',
     format: 'umd',
     name,
-    sourcemap: false
-  }
+    sourcemap: false,
+  },
 }
