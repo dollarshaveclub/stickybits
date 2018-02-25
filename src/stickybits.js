@@ -62,7 +62,7 @@ function Stickybits (target, obj) {
     stickyClass: o.stickyClass || 'js-is-sticky',
     stuckClass: o.stuckClass || 'js-is-stuck',
     useStickyClasses: o.useStickyClasses || false,
-    verticalPosition: o.verticalPosition || 'top'
+    verticalPosition: o.verticalPosition || 'top',
   }
   const p = this.props
   /*
@@ -140,7 +140,7 @@ Stickybits.prototype.addInstance = function addInstance (el, props) {
   const item = {
     el,
     parent: el.parentNode,
-    props
+    props,
   }
   this.isWin = this.props.scrollEl === window
   const se = this.isWin ? window : this.getClosestParent(item.el, item.props.scrollEl)

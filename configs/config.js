@@ -4,13 +4,15 @@ import {
   homepage,
   license,
   name,
-  version
+  version,
 } from '../package.json'
+
+const loose = true
 
 const babelSetup = {
   babelrc: false,
-  presets: [['env', { modules: false }]],
-  exclude: 'node_modules/**'
+  presets: [['@babel/preset-env', { modules: false, loose }]],
+  exclude: 'node_modules/**',
 }
 
 const uglifyOutput = {
@@ -22,8 +24,8 @@ const uglifyOutput = {
         // multiline comment
         return /@preserve|@license|@cc_on/i.test(text)
       }
-    }
-  }
+    },
+  },
 }
 
 const banner = `/**
@@ -39,5 +41,5 @@ export {
   banner,
   name,
   uglifyOutput,
-  version
+  version,
 }

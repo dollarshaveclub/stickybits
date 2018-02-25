@@ -1,5 +1,5 @@
 {
-  "extends": [ "standard"],
+  "extends": "dollarshaveclub",
   "env": {
     "browser": true,
     "node": true
