@@ -1,78 +1,246 @@
+<a name="3.1.1"></a>
+## [3.1.1](https://github.com/dollarshaveclub/stickybits/compare/3.1.0...3.1.1) (2018-02-26)
+
+
+
+
 <a name="3.1.0"></a>
 # [3.1.0](https://github.com/dollarshaveclub/stickybits/compare/3.0.5...3.1.0) (2018-02-25)
 
 
 
 
-# Changelog
+<a name="3.0.5"></a>
+## [3.0.5](https://github.com/dollarshaveclub/stickybits/compare/3.0.4...3.0.5) (2018-02-25)
 
-All notable changes to `dollarshaveclub/stickybits` will be documented in this file.
 
-Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## [2.0.15] - [2.0.7] - 2017-06-17
 
-> Sorry if this is incorrect. I'm not update to date on changelogs.
+<a name="3.0.4"></a>
+## [3.0.4](https://github.com/dollarshaveclub/stickybits/compare/3.0.3...3.0.4) (2018-02-13)
 
-### Updated
-- Updated K. Vanberendonck's Github username. ([282f622](https://github.com/dollarshaveclub/stickybits/commit/282f62265628a1b47f4a51cc5cdd13f6b3981422))
-- Updated dependencies _things_.
-  - chore(package): update rollup to version 0.52.1 (#170)
-  - chore(package): update rollup to version 0.52.0 (#163) 
-  - chore(package): update rollup to version 0.51.8 (#158)
-  - chore(package): update rollup to version 0.51.6 (#157)
 
-### Fixed 
-- Fixed offset issue.
-  - Rosivanov master (#164)
 
-### Added 
-- Added Module
-  - Add "module" property (#147)
 
-## [2.0.6] - 2017-10-17
+<a name="3.0.3"></a>
+## [3.0.3](https://github.com/dollarshaveclub/stickybits/compare/3.0.1...3.0.3) (2018-02-13)
 
-### Fixed
-- Fix instance. ([2bd7450](https://github.com/dollarshaveclub/stickybits/commit/2bd745048f3bf7f7caa8ed8ca487067dba0b7bae))
-- Fix rAF check. ([3057b5d](https://github.com/dollarshaveclub/stickybits/commit/3057b5db8e2d1be8fe9c6306bb7638a3dcdf8cdf))
 
-### Removed
-- Remove unused method. ([30f2315](https://github.com/dollarshaveclub/stickybits/commit/30f2315187438cf2689f7ae9e6792b591322ac74))
 
-## [2.0.4] - 2017-10-10
 
-### Updated
-- Update eslint-config-airbnb to version 16.0.0 ([bcb3892](https://github.com/dollarshaveclub/stickybits/commit/bcb389234ae73472dcd27398e93a1e785abb672b))
-- Changes check for rAF ([878af2f](https://github.com/dollarshaveclub/stickybits/commit/878af2fd851c2fbbdea2707261c3a2d53f5bec6b))
+<a name="3.0.1"></a>
+## [3.0.1](https://github.com/dollarshaveclub/stickybits/compare/3.0.0...3.0.1) (2018-01-31)
 
-## [2.0.3] - 2017-10-05
 
-### Updated
-- Format `package.json`. ([e951d58](https://github.com/dollarshaveclub/stickybits/commit/e951d58cc98aada756cbd0b65fc61539ebb090e8))
 
-### Fixed
-- Fixes stickyClass at 0. ([a3639ca](https://github.com/dollarshaveclub/stickybits/commit/a3639ca2fd0eb155d982dbad0ddfa063e4f2f87a))
-- Fix stickyStart & stickyStop class removal. ([a1662b2](https://github.com/dollarshaveclub/stickybits/commit/a1662b2896845a3a58d0ba8b4fd6147fe15cbeb6))
 
-## [2.0.2] - 2017-10-02
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/dollarshaveclub/stickybits/compare/2.1.2...3.0.0) (2018-01-31)
 
-### Fixed
-- Fixes positionVal in browsers issue. ([72f3ece](https://github.com/dollarshaveclub/stickybits/commit/72f3ece89320263b65bd1bf769a23d74ab03586c))
 
-## [2.0.1] - 2017-09-30
 
-## [1.5.3] - 2017-08-05
 
-## [1.5.2] - 2017-08-01
+<a name="2.1.2"></a>
+## [2.1.2](https://github.com/dollarshaveclub/stickybits/compare/2.1.1...2.1.2) (2018-01-24)
 
-## [1.5.0] - 2017-07-25
 
-[unreleased]: https://github.com/dollarshaveclub/stickybits/compare/2.0.6...HEAD
-[2.0.6]: https://github.com/dollarshaveclub/stickybits/compare/2.0.4...2.0.6
-[2.0.4]: https://github.com/dollarshaveclub/stickybits/compare/2.0.3...2.0.4
-[2.0.3]: https://github.com/dollarshaveclub/stickybits/compare/2.0.2...2.0.3
-[2.0.2]: https://github.com/dollarshaveclub/stickybits/compare/2.0.1...2.0.2
-[2.0.1]: https://github.com/dollarshaveclub/stickybits/compare/1.5.3...2.0.1
-[1.5.3]: https://github.com/dollarshaveclub/stickybits/compare/1.5.2...1.5.3
-[1.5.2]: https://github.com/dollarshaveclub/stickybits/compare/1.5.0...1.5.2
-[1.5.0]: https://github.com/dollarshaveclub/stickybits/compare/1.4.4...1.5.0
+
+
+<a name="2.1.1"></a>
+## [2.1.1](https://github.com/dollarshaveclub/stickybits/compare/2.0.13...2.1.1) (2018-01-16)
+
+
+
+
+<a name="2.0.13"></a>
+## [2.0.13](https://github.com/dollarshaveclub/stickybits/compare/2.0.10...2.0.13) (2017-12-06)
+
+
+
+
+<a name="2.0.10"></a>
+## [2.0.10](https://github.com/dollarshaveclub/stickybits/compare/2.0.9...2.0.10) (2017-11-09)
+
+
+
+
+<a name="2.0.9"></a>
+## [2.0.9](https://github.com/dollarshaveclub/stickybits/compare/2.0.8...2.0.9) (2017-10-31)
+
+
+
+
+<a name="2.0.8"></a>
+## [2.0.8](https://github.com/dollarshaveclub/stickybits/compare/2.0.7...2.0.8) (2017-10-21)
+
+
+
+
+<a name="2.0.7"></a>
+## [2.0.7](https://github.com/dollarshaveclub/stickybits/compare/2.0.6...2.0.7) (2017-10-20)
+
+
+
+
+<a name="2.0.6"></a>
+## [2.0.6](https://github.com/dollarshaveclub/stickybits/compare/2.0.4...2.0.6) (2017-10-17)
+
+
+
+
+<a name="2.0.4"></a>
+## [2.0.4](https://github.com/dollarshaveclub/stickybits/compare/2.0.3...2.0.4) (2017-10-10)
+
+
+
+
+<a name="2.0.3"></a>
+## [2.0.3](https://github.com/dollarshaveclub/stickybits/compare/2.0.2...2.0.3) (2017-10-06)
+
+
+
+
+<a name="2.0.2"></a>
+## [2.0.2](https://github.com/dollarshaveclub/stickybits/compare/2.0.1...2.0.2) (2017-10-02)
+
+
+
+
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/dollarshaveclub/stickybits/compare/1.5.3...2.0.1) (2017-09-29)
+
+
+
+
+<a name="1.5.3"></a>
+## [1.5.3](https://github.com/dollarshaveclub/stickybits/compare/1.5.2...1.5.3) (2017-08-06)
+
+
+
+
+<a name="1.5.2"></a>
+## [1.5.2](https://github.com/dollarshaveclub/stickybits/compare/1.5.0...1.5.2) (2017-08-02)
+
+
+
+
+<a name="1.5.0"></a>
+# [1.5.0](https://github.com/dollarshaveclub/stickybits/compare/1.4.4...1.5.0) (2017-07-25)
+
+
+
+
+<a name="1.4.4"></a>
+## [1.4.4](https://github.com/dollarshaveclub/stickybits/compare/1.3.12...1.4.4) (2017-07-25)
+
+
+
+
+<a name="1.3.12"></a>
+## [1.3.12](https://github.com/dollarshaveclub/stickybits/compare/1.3.10...1.3.12) (2017-07-17)
+
+
+
+
+<a name="1.3.10"></a>
+## [1.3.10](https://github.com/dollarshaveclub/stickybits/compare/1.3.8...1.3.10) (2017-07-15)
+
+
+
+
+<a name="1.3.8"></a>
+## [1.3.8](https://github.com/dollarshaveclub/stickybits/compare/1.3.5...1.3.8) (2017-07-04)
+
+
+
+
+<a name="1.2.10"></a>
+## [1.2.10](https://github.com/dollarshaveclub/stickybits/compare/1.2.8...1.2.10) (2017-05-22)
+
+
+
+
+<a name="1.2.8"></a>
+## [1.2.8](https://github.com/dollarshaveclub/stickybits/compare/1.2.7...1.2.8) (2017-04-20)
+
+
+
+
+<a name="1.2.7"></a>
+## [1.2.7](https://github.com/dollarshaveclub/stickybits/compare/1.2.6...1.2.7) (2017-04-19)
+
+
+
+
+<a name="1.2.6"></a>
+## [1.2.6](https://github.com/dollarshaveclub/stickybits/compare/1.2.5...1.2.6) (2017-04-19)
+
+
+
+
+<a name="1.2.5"></a>
+## [1.2.5](https://github.com/dollarshaveclub/stickybits/compare/1.2.4...1.2.5) (2017-04-19)
+
+
+
+
+<a name="1.2.4"></a>
+## [1.2.4](https://github.com/dollarshaveclub/stickybits/compare/1.2.3...1.2.4) (2017-04-19)
+
+
+
+
+<a name="1.2.3"></a>
+## [1.2.3](https://github.com/dollarshaveclub/stickybits/compare/1.1.3...1.2.3) (2017-04-19)
+
+
+
+
+<a name="1.1.3"></a>
+## [1.1.3](https://github.com/dollarshaveclub/stickybits/compare/1.1.2...1.1.3) (2017-04-07)
+
+
+
+
+<a name="1.1.2"></a>
+## [1.1.2](https://github.com/dollarshaveclub/stickybits/compare/1.0.2...1.1.2) (2017-04-01)
+
+
+
+
+<a name="1.0.2"></a>
+## [1.0.2](https://github.com/dollarshaveclub/stickybits/compare/1.0.1...1.0.2) (2017-03-28)
+
+
+
+
+<a name="1.0.1"></a>
+## [1.0.1](https://github.com/dollarshaveclub/stickybits/compare/1.0.0...1.0.1) (2017-03-24)
+
+
+
+
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/dollarshaveclub/stickybits/compare/0.0.4...1.0.0) (2017-03-23)
+
+
+
+
+<a name="0.0.4"></a>
+## [0.0.4](https://github.com/dollarshaveclub/stickybits/compare/0.0.3...0.0.4) (2017-02-27)
+
+
+
+
+<a name="0.0.3"></a>
+## [0.0.3](https://github.com/dollarshaveclub/stickybits/compare/0.0.2...0.0.3) (2017-02-22)
+
+
+
+
+<a name="0.0.2"></a>
+## 0.0.2 (2017-02-22)
+
+
+
+
