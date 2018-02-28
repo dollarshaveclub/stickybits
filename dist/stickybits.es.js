@@ -62,12 +62,14 @@ function Stickybits(target, obj) {
   this.version = '"3.1.1"';
   this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
   this.props = {
+    customStickyChangeNumber: o.customStickyChangeNumber || null,
     noStyles: o.noStyles || false,
     stickyBitStickyOffset: o.stickyBitStickyOffset || 0,
     parentClass: o.parentClass || 'js-stickybit-parent',
     scrollEl: document.querySelector(o.scrollEl) || window,
     stickyClass: o.stickyClass || 'js-is-sticky',
     stuckClass: o.stuckClass || 'js-is-stuck',
+    stickyChangeClass: o.stickyChangeClass || 'js-is-sticky--change',
     useStickyClasses: o.useStickyClasses || false,
     verticalPosition: o.verticalPosition || 'top'
   };
@@ -209,13 +211,16 @@ Stickybits.prototype.getClosestParent = function (el, match) {
 Stickybits.prototype.computeScrollOffsets = function computeScrollOffsets(item) {
   var it = item;
   var p = it.props;
+  var el = it.el;
   var parent = it.parent;
   var isCustom = !this.isWin && p.positionVal === 'fixed';
   var isBottom = p.verticalPosition !== 'bottom';
   var scrollElOffset = isCustom ? p.scrollEl.getBoundingClientRect().top : 0;
-  var stickyStart = isCustom ? parent.getBoundingClientRect().top - scrollElOffset : parent.getBoundingClientRect().top;
+  var stickyStart = isCustom ? el.getBoundingClientRect().top + el.getBoundingClientRect().top - scrollElOffset : el.getBoundingClientRect().top;
+  var stickyChangeOffset = p.customStickyChangeNumber !== null ? p.customStickyChangeNumber : item.el.offsetHeight;
   it.offset = scrollElOffset + p.stickyBitStickyOffset;
   it.stickyStart = isBottom ? stickyStart - it.offset : 0;
+  it.stickyChange = stickyStart + stickyChangeOffset;
   it.stickyStop = isBottom ? stickyStart + parent.offsetHeight - (it.el.offsetHeight + it.offset) : stickyStart + parent.offsetHeight;
   return it;
 };
@@ -253,6 +258,7 @@ Stickybits.prototype.manageState = function manageState(item) {
   var p = it.props;
   var state = it.state;
   var start = it.stickyStart;
+  var change = it.stickyChange;
   var stop = it.stickyStop;
   var stl = e.style; // cache props
 
@@ -260,7 +266,10 @@ Stickybits.prototype.manageState = function manageState(item) {
   var pv = p.positionVal;
   var se = p.scrollEl;
   var sticky = p.stickyClass;
+  var stickyChange = p.stickyChangeClass;
   var stuck = p.stuckClass;
+  var stub = 'stub'; // a stub css class to remove
+
   var vp = p.verticalPosition;
   /*
     requestAnimationFrame
@@ -287,6 +296,8 @@ Stickybits.prototype.manageState = function manageState(item) {
   var scroll = this.isWin || se.getBoundingClientRect().top ? window.scrollY || window.pageYOffset : se.scrollTop;
   var notSticky = scroll > start && scroll < stop && (state === 'default' || state === 'stuck');
   var isSticky = scroll <= start && state === 'sticky';
+  var isStickyChange = scroll <= change && scroll >= stop;
+  var isNotStickyChange = scroll <= start && scroll > change;
   var isStuck = scroll >= stop && state === 'sticky';
   /*
     Unnamed arrow functions within this block
@@ -311,10 +322,19 @@ Stickybits.prototype.manageState = function manageState(item) {
       tC(e, sticky);
       if (pv === 'fixed') stl.position = '';
     });
+  } else if (isNotStickyChange) {
+    rAF(function () {
+      tC(e, stickyChange);
+    });
+  } else if (isStickyChange) {
+    rAF(function () {
+      tC(e, stub, stickyChange);
+    });
   } else if (isStuck) {
     it.state = 'stuck';
     rAF(function () {
       tC(e, sticky, stuck);
+      tC(e, stickyChange);
       if (pv !== 'fixed' || ns) return;
       stl.top = '';
       stl.bottom = '0';
