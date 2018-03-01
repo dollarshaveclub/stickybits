@@ -217,10 +217,10 @@ Stickybits.prototype.computeScrollOffsets = function computeScrollOffsets(item) 
   var isBottom = p.verticalPosition !== 'bottom';
   var scrollElOffset = isCustom ? p.scrollEl.getBoundingClientRect().top : 0;
   var stickyStart = isCustom ? el.getBoundingClientRect().top + el.getBoundingClientRect().top - scrollElOffset : el.getBoundingClientRect().top;
-  var stickyChangeOffset = p.customStickyChangeNumber !== null ? p.customStickyChangeNumber : item.el.offsetHeight;
+  var stickyChangeOffset = p.customStickyChangeNumber !== null ? p.customStickyChangeNumber : el.offsetHeight;
   it.offset = scrollElOffset + p.stickyBitStickyOffset;
   it.stickyStart = isBottom ? stickyStart - it.offset : 0;
-  it.stickyChange = stickyStart + stickyChangeOffset;
+  it.stickyChange = it.stickyStart + stickyChangeOffset;
   it.stickyStop = isBottom ? stickyStart + parent.offsetHeight - (it.el.offsetHeight + it.offset) : stickyStart + parent.offsetHeight;
   return it;
 };
@@ -268,8 +268,6 @@ Stickybits.prototype.manageState = function manageState(item) {
   var sticky = p.stickyClass;
   var stickyChange = p.stickyChangeClass;
   var stuck = p.stuckClass;
-  var stub = 'stub'; // a stub css class to remove
-
   var vp = p.verticalPosition;
   /*
     requestAnimationFrame
@@ -296,8 +294,6 @@ Stickybits.prototype.manageState = function manageState(item) {
   var scroll = this.isWin || se.getBoundingClientRect().top ? window.scrollY || window.pageYOffset : se.scrollTop;
   var notSticky = scroll > start && scroll < stop && (state === 'default' || state === 'stuck');
   var isSticky = scroll <= start && state === 'sticky';
-  var isStickyChange = scroll <= change && scroll >= stop;
-  var isNotStickyChange = scroll <= start && scroll > change;
   var isStuck = scroll >= stop && state === 'sticky';
   /*
     Unnamed arrow functions within this block
@@ -322,23 +318,28 @@ Stickybits.prototype.manageState = function manageState(item) {
       tC(e, sticky);
       if (pv === 'fixed') stl.position = '';
     });
-  } else if (isNotStickyChange) {
+  } else if (isStuck) {
+    it.state = 'stuck';
+    rAF(function () {
+      tC(e, sticky, stuck);
+      if (pv !== 'fixed' || ns) return;
+      stl.top = '';
+      stl.bottom = '0';
+      stl.position = 'absolute';
+    });
+  }
+
+  var isStickyChange = scroll >= change && scroll <= stop;
+  var isNotStickyChange = scroll < change || scroll > stop;
+  var stub = 'stub'; // a stub css class to remove
+
+  if (isNotStickyChange) {
     rAF(function () {
       tC(e, stickyChange);
     });
   } else if (isStickyChange) {
     rAF(function () {
       tC(e, stub, stickyChange);
-    });
-  } else if (isStuck) {
-    it.state = 'stuck';
-    rAF(function () {
-      tC(e, sticky, stuck);
-      tC(e, stickyChange);
-      if (pv !== 'fixed' || ns) return;
-      stl.top = '';
-      stl.bottom = '0';
-      stl.position = 'absolute';
     });
   }
 

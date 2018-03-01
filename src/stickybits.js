@@ -193,12 +193,12 @@ Stickybits.prototype.computeScrollOffsets = function computeScrollOffsets (item)
   const stickyStart = isCustom
     ? (el.getBoundingClientRect().top + el.getBoundingClientRect().top) - scrollElOffset
     : el.getBoundingClientRect().top
-  const stickyChangeOffset = p.customStickyChangeNumber !== null ?
-    p.customStickyChangeNumber :
-    item.el.offsetHeight
+  const stickyChangeOffset = p.customStickyChangeNumber !== null
+    ? p.customStickyChangeNumber
+    : el.offsetHeight
   it.offset = scrollElOffset + p.stickyBitStickyOffset
   it.stickyStart = isBottom ? stickyStart - it.offset : 0
-  it.stickyChange = stickyStart + stickyChangeOffset
+  it.stickyChange = it.stickyStart + stickyChangeOffset
   it.stickyStop = isBottom
     ? (stickyStart + parent.offsetHeight) - (it.el.offsetHeight + it.offset)
     : stickyStart + parent.offsetHeight
@@ -246,7 +246,6 @@ Stickybits.prototype.manageState = function manageState (item) {
   const sticky = p.stickyClass
   const stickyChange = p.stickyChangeClass
   const stuck = p.stuckClass
-  const stub = 'stub' // a stub css class to remove
   const vp = p.verticalPosition
   /*
     requestAnimationFrame
@@ -277,8 +276,6 @@ Stickybits.prototype.manageState = function manageState (item) {
     : se.scrollTop
   const notSticky = scroll > start && scroll < stop && (state === 'default' || state === 'stuck')
   const isSticky = scroll <= start && state === 'sticky'
-  const isStickyChange = scroll <= change && scroll >= stop
-  const isNotStickyChange = scroll <= start && scroll > change
   const isStuck = scroll >= stop && state === 'sticky'
   /*
     Unnamed arrow functions within this block
@@ -302,25 +299,26 @@ Stickybits.prototype.manageState = function manageState (item) {
       tC(e, sticky)
       if (pv === 'fixed') stl.position = ''
     })
-  } else if (isNotStickyChange) {
-    rAF(() => {
-      tC(e, stickyChange)
-    })
-  } else if (isStickyChange) {
-    rAF(() => {
-      tC(e, stub, stickyChange)
-    })
   } else if (isStuck) {
     it.state = 'stuck'
     rAF(() => {
       tC(e, sticky, stuck)
-      tC(e, stickyChange)
       if (pv !== 'fixed' || ns) return
       stl.top = ''
       stl.bottom = '0'
       stl.position = 'absolute'
     })
   }
+
+  const isStickyChange = scroll >= change && scroll <= stop
+  const isNotStickyChange = scroll < change || scroll > stop
+  const stub = 'stub' // a stub css class to remove
+  if (isNotStickyChange) {
+    rAF(() => { tC(e, stickyChange) })
+  } else if (isStickyChange) {
+    rAF(() => { tC(e, stub, stickyChange) })
+  }
+
   return it
 }
 

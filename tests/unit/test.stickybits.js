@@ -182,6 +182,26 @@ test('stickybits .manageState `isSticky` interface', () => {
   expect(instance.stickyStart).toBe(1)
 })
 
+test('stickybits .manageState `isStickyChange` interface', () => {
+  // Set up our document
+  document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
+  const stickybit = stickybits('#manage-sticky', { useStickyClasses: true, customStickyChangeNumber: 10 })
+  // test instance setup
+  const instance = stickybit.instances[0]
+
+  // test notSticky
+  instance.props.scrollTop = 500
+  const stickyChangeTest = instance.stickyChange
+  stickybit.manageState(instance)
+  // test instance setup
+  expect(typeof instance).toBe('object')
+  // test results
+  expect(instance.el.style.position).toBe('-ms-sticky')
+  expect(instance.props.scrollTop).toBe(500)
+  expect(instance.props.customStickyChangeNumber).toBe(10)
+  expect(instance.stickyChange).toBe(10)
+})
+
 test('stickybits .manageState `isStuck` interface', () => {
   // Set up our document
   document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
