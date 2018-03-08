@@ -8,12 +8,6 @@
   "scripts": {
     "build": "npm run test:unit && npm run build:rollup",
     "build:rollup": "rollup --config configs/rollup.config.js",
-    "build:es": "rollup --config configs/rollup.config.es.js",
-    "build:jquery-dev": "rollup --config configs/rollup.config.jquery-dev.js",
-    "build:jquery": "rollup --config configs/rollup.config.jquery.js",
-    "build:standard-dev": "rollup --config configs/rollup.config.standard-dev.js",
-    "build:standard": "rollup --config configs/rollup.config.standard.js",
-    "build:umbrella": "rollup --config configs/rollup.config.umbrella.js",
     "lint": "eslint . --fix",
     "chore:delete-branch": "if git show-ref --quiet refs/heads/chore-changelog; then git branch -D chore-changelog; fi",
     "chore:branch": "git checkout -b chore-changelog",

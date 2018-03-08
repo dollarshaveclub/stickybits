@@ -15,7 +15,7 @@ const ensureArray = maybeArr => Array.isArray(maybeArr) ? maybeArr : [maybeArr]
 const createConfig = ({ input, output, env } = {}) => {
   const plugins = [
     babel(babelSetup),
-    replace({ 'VERSION': JSON.stringify(version) })
+    replace({ 'VERSION': JSON.stringify(version) }),
   ]
 
   if (env !== 'undefined') plugins.push(uglify(uglifyOutput))
