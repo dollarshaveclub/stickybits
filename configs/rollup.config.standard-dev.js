@@ -11,7 +11,7 @@ export default {
   input: 'src/stickybits.js',
   plugins: [
     babel(babelSetup),
-    replace({ VERSION: JSON.stringify(version) }),
+    replace({ 'VERSION': JSON.stringify(version) }),
   ],
   treeshake: false,
   output: {
