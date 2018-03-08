@@ -18,7 +18,7 @@ const createConfig = ({ input, output, env } = {}) => {
     replace({ 'VERSION': JSON.stringify(version) }),
   ]
 
-  if (env !== 'undefined') plugins.push(uglify(uglifyOutput))
+  if (env === 'production') plugins.push(uglify(uglifyOutput))
 
   return {
     input,
