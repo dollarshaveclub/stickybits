@@ -13,7 +13,7 @@ export default {
   input: 'src/jquery.stickybits.js',
   plugins: [
     babel(babelSetup),
-    replace({ VERSION: JSON.stringify(version) }),
+    replace({ 'VERSION': JSON.stringify(version) }),
     uglify(uglifyOutput),
   ],
   treeshake: false,

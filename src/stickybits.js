@@ -191,8 +191,8 @@ Stickybits.prototype.computeScrollOffsets = function computeScrollOffsets (item)
   const isBottom = p.verticalPosition !== 'bottom'
   const scrollElOffset = isCustom ? p.scrollEl.getBoundingClientRect().top : 0
   const stickyStart = isCustom
-    ? (el.getBoundingClientRect().top + el.getBoundingClientRect().top) - scrollElOffset
-    : el.getBoundingClientRect().top
+    ? parent.getBoundingClientRect().top - scrollElOffset
+    : parent.getBoundingClientRect().top
   const stickyChangeOffset = p.customStickyChangeNumber !== null
     ? p.customStickyChangeNumber
     : el.offsetHeight
