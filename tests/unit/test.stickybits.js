@@ -4,6 +4,10 @@
   - Tests below use Jest to test the Stickybits API
 */
 import stickybits from '../../src/stickybits.js'
+import computeStickyStart from '../../src/helpers/compute-sticky-start'
+import definePosition from '../../src/helpers/define-position'
+import getClosestParent from '../../src/helpers/get-closest-parent'
+import updateClasses from '../../src/helpers/update-classes'
 
 test('Jest is working', () => expect(1).toBe(1))
 
@@ -44,7 +48,7 @@ test('basic stickybits interface with positionVal equalling sticky', () => {
   stickybit.props.positionVal = 'sticky'
   // stickybit should be sticky
   expect(stickybit.props.positionVal).toBe('sticky')
-  stickybit.props.positionVal = stickybit.definePosition()
+  stickybit.props.positionVal = definePosition()
   // stickybit should be `-ms-sticky`
   expect(stickybit.props.positionVal).toBe('-ms-sticky')
 })
@@ -108,11 +112,11 @@ test('stickybits .getClosestParent interface', () => {
   const child = document.getElementById('child')
   const parentEl = document.getElementById('parent')
   const stickybit = stickybits('#manage-sticky')
-  const parent = stickybit.getClosestParent(child, parentEl)
+  const parent = getClosestParent(child, parentEl)
   expect(parent.id).toBe('parent')
 })
 
-test('stickybits .computeScrollOffsets interface', () => {
+test('stickybits .defineScrollOffsets interface', () => {
   // Set up our document
   document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
   const stickybit = stickybits('#manage-sticky', { useStickyClasses: true })
@@ -121,7 +125,7 @@ test('stickybits .computeScrollOffsets interface', () => {
   // test instance setup
   expect(typeof instance).toBe('object')
   expect(typeof p).toBe('object')
-  const item = stickybit.computeScrollOffsets(instance)
+  const item = stickybit.defineScrollOffsets(instance)
   // test .computeScrollOffsets interface
   expect(typeof item).toBe('object')
   expect(item.offset).toBe(0)
@@ -130,13 +134,13 @@ test('stickybits .computeScrollOffsets interface', () => {
   expect(item.state).toBe('default')
 })
 
-test('stickybits .toggleClasses interface', () => {
+test('stickybits .updateClasses interface', () => {
   // Set up our document
   document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
   const stickybit = stickybits('#manage-sticky', { useStickyClasses: true })
   const el = document.getElementById('parent')
   el.classList.add('test')
-  stickybit.toggleClasses(el, test, 'other-test')
+  updateClasses(el, test, 'other-test')
   expect(el.classList.contains('other-test')).toBe(true)
 })
 
@@ -252,16 +256,6 @@ test('stickybits .manageState  `position: fixed` interface', () => {
   expect(instance.state).toBe('default')
   expect(instance.props.scrollTop).toBe(500)
   expect(instance.stickyStart).toBe(0)
-})
-
-test('stickybits .removeClass interface', () => {
-  // Set up our document
-  document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
-  const stickybit = stickybits('#manage-sticky', { useStickyClasses: true })
-  const el = document.getElementById('parent')
-  el.classList.add('test')
-  stickybit.toggleClasses(el, 'test')
-  expect(el.classList.contains('test')).toBe(false)
 })
 
 test('stickybits .removeInstance interface', () => {

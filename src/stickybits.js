@@ -1,3 +1,8 @@
+import computeStickyStart from './helpers/compute-sticky-start'
+import definePosition from './helpers/define-position'
+import getClosestParent from './helpers/get-closest-parent'
+import updateClasses from './helpers/update-classes'
+
 /*
   STICKYBITS 💉
   --------
@@ -40,13 +45,9 @@
   --------
   methods
   --------
-  - .definePosition = defines sticky or fixed
   - .addInstance = an array of objects for each Stickybits Target
-  - .getClosestParent = gets the parent for non-window scroll
-  - .computeScrollOffsets = computes scroll position
-  - .toggleClasses = older browser toggler
+  - .define = computes scroll position
   - .manageState = manages sticky state
-  - .removeClass = older browser support class remover
   - .removeInstance = removes an instance
   - .cleanup = removes all Stickybits instances and cleans up dom from stickybits
 */
@@ -73,7 +74,7 @@ function Stickybits (target, obj) {
     -  uses a computed (`.definePosition()`)
     -  defined the position
   */
-  p.positionVal = this.definePosition() || 'fixed'
+  p.positionVal = definePosition()
   const vp = p.verticalPosition
   const ns = p.noStyles
   const pv = p.positionVal
@@ -93,25 +94,6 @@ function Stickybits (target, obj) {
     }
   }
   return this
-}
-
-/*
-  setStickyPosition ✔️
-  --------
-  —  most basic thing stickybits does
-  => checks to see if position sticky is supported
-  => defined the position to be used
-  => stickybits works accordingly
-*/
-Stickybits.prototype.definePosition = () => {
-  const prefix = ['', '-o-', '-webkit-', '-moz-', '-ms-']
-  const test = document.head.style
-  for (let i = 0; i < prefix.length; i += 1) {
-    test.position = `${prefix[i]}sticky`
-  }
-  const stickyProp = test.position ? test.position : 'fixed'
-  test.position = ''
-  return stickyProp
 }
 
 /*
@@ -145,8 +127,8 @@ Stickybits.prototype.addInstance = function addInstance (el, props) {
     props,
   }
   this.isWin = this.props.scrollEl === window
-  const se = this.isWin ? window : this.getClosestParent(item.el, item.props.scrollEl)
-  this.computeScrollOffsets(item)
+  const se = this.isWin ? window : getClosestParent(item.el, item.props.scrollEl)
+  this.defineScrollOffsets(item)
   item.parent.className += ` ${props.parentClass}`
   item.state = 'default'
   item.stateContainer = () => this.manageState(item)
@@ -155,34 +137,15 @@ Stickybits.prototype.addInstance = function addInstance (el, props) {
 }
 
 /*
-  --------
-  getParent 👨‍
-  --------
-  - a helper function that gets the target element's parent selected el
-  - only used for non `window` scroll elements
-  - supports older browsers
-*/
-Stickybits.prototype.getClosestParent = (el, match) => {
-  // p = parent element
-  const p = match
-  let e = el
-  if (e.parentElement === p) return p
-  // traverse up the dom tree until we get to the parent
-  while (e.parentElement !== p) e = e.parentElement
-  // return parent element
-  return p
-}
-
-/*
-  computeScrollOffsets 📊
+  defineScrollOffsets 📊
   ---
-  computeScrollOffsets for Stickybits
+  defineScrollOffsets for Stickybits
   - defines
     - offset
     - start
     - stop
 */
-Stickybits.prototype.computeScrollOffsets = function computeScrollOffsets (item) {
+Stickybits.prototype.defineScrollOffsets = function defineScrollOffsets (item) {
   const it = item
   const p = it.props
   const el = it.el
@@ -190,9 +153,7 @@ Stickybits.prototype.computeScrollOffsets = function computeScrollOffsets (item)
   const isCustom = !this.isWin && p.positionVal === 'fixed'
   const isBottom = p.verticalPosition !== 'bottom'
   const scrollElOffset = isCustom ? p.scrollEl.getBoundingClientRect().top : 0
-  const stickyStart = isCustom
-    ? parent.getBoundingClientRect().top - scrollElOffset
-    : parent.getBoundingClientRect().top
+  const stickyStart = computeStickyStart(el, parent, scrollElOffset, isCustom)
   const stickyChangeOffset = p.customStickyChangeNumber !== null
     ? p.customStickyChangeNumber
     : el.offsetHeight
@@ -203,22 +164,6 @@ Stickybits.prototype.computeScrollOffsets = function computeScrollOffsets (item)
     ? (stickyStart + parent.offsetHeight) - (it.el.offsetHeight + it.offset)
     : stickyStart + parent.offsetHeight
   return it
-}
-
-/*
-  toggleClasses ⚖️
-  ---
-  toggles classes (for older browser support)
-  r = removed class
-  a = added class
-*/
-Stickybits.prototype.toggleClasses = (el, r, a) => {
-  const e = el
-  const cArray = e.className.split(' ')
-  if (a && cArray.indexOf(a) === -1) cArray.push(a)
-  const rItem = cArray.indexOf(r)
-  if (rItem !== -1) cArray.splice(rItem, 1)
-  e.className = cArray.join(' ')
 }
 
 /*
@@ -270,13 +215,16 @@ Stickybits.prototype.manageState = function manageState (item) {
     - isSticky
     - isStuck
   */
-  const tC = this.toggleClasses
+  const uC = updateClasses
   const scroll = (this.isWin || se.getBoundingClientRect().top)
     ? window.scrollY || window.pageYOffset
     : se.scrollTop
   const notSticky = scroll > start && scroll < stop && (state === 'default' || state === 'stuck')
   const isSticky = scroll <= start && state === 'sticky'
   const isStuck = scroll >= stop && state === 'sticky'
+  const isStickyChange = scroll >= change && scroll <= stop
+  const isNotStickyChange = scroll < change || scroll > stop
+  const stub = 'stub' // a stub css class to remove
   /*
     Unnamed arrow functions within this block
     ---
@@ -284,40 +232,29 @@ Stickybits.prototype.manageState = function manageState (item) {
     - view test.stickybits.js
       - `stickybits .manageState  `position: fixed` interface` for more awareness 👀
   */
-  if (notSticky) {
-    it.state = 'sticky'
-    rAF(() => {
-      tC(e, stuck, sticky)
+  rAF(() => {
+    if (notSticky) {
+      it.state = 'sticky'
+      uC(e, stuck, sticky)
       stl.position = pv
       if (ns) return
       stl.bottom = ''
       stl[vp] = `${p.stickyBitStickyOffset}px`
-    })
-  } else if (isSticky) {
-    it.state = 'default'
-    rAF(() => {
-      tC(e, sticky)
+    } else if (isSticky) {
+      it.state = 'default'
+      uC(e, sticky)
       if (pv === 'fixed') stl.position = ''
-    })
-  } else if (isStuck) {
-    it.state = 'stuck'
-    rAF(() => {
-      tC(e, sticky, stuck)
+    } else if (isStuck) {
+      it.state = 'stuck'
+      uC(e, sticky, stuck)
       if (pv !== 'fixed' || ns) return
       stl.top = ''
       stl.bottom = '0'
       stl.position = 'absolute'
-    })
-  }
-
-  const isStickyChange = scroll >= change && scroll <= stop
-  const isNotStickyChange = scroll < change || scroll > stop
-  const stub = 'stub' // a stub css class to remove
-  if (isNotStickyChange) {
-    rAF(() => { tC(e, stickyChange) })
-  } else if (isStickyChange) {
-    rAF(() => { tC(e, stub, stickyChange) })
-  }
+    }
+    if (isNotStickyChange) uC(e, stickyChange)
+    else if (isStickyChange) uC(e, stub, stickyChange)
+  })
 
   return it
 }
@@ -330,12 +267,12 @@ Stickybits.prototype.manageState = function manageState (item) {
 Stickybits.prototype.removeInstance = function removeInstance (instance) {
   const e = instance.el
   const p = instance.props
-  const tC = this.toggleClasses
+  const uC = updateClasses
   e.style.position = ''
   e.style[p.verticalPosition] = ''
-  tC(e, p.stickyClass)
-  tC(e, p.stuckClass)
-  tC(e.parentNode, p.parentClass)
+  uC(e, p.stickyClass)
+  uC(e, p.stuckClass)
+  uC(e.parentNode, p.parentClass)
 }
 
 /*
