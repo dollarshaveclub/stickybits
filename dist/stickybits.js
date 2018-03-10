@@ -5,11 +5,7 @@
   @author Jeff Wainwright <yowainwright@gmail.com> (https://jeffry.in)
   @license MIT
 **/
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global.stickybits = factory());
-}(this, (function () { 'use strict';
+'use strict';
 
 /*
   computeStickyStart ✔️
@@ -134,7 +130,7 @@ function updateClasses(el, r, a) {
 
 function Stickybits(target, obj) {
   var o = typeof obj !== 'undefined' ? obj : {};
-  this.version = '"3.3.0"';
+  this.version = '3.3.0';
   this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
   this.props = {
     customStickyChangeNumber: o.customStickyChangeNumber || null,
@@ -391,6 +387,4 @@ function stickybits(target, o) {
   return new Stickybits(target, o);
 }
 
-return stickybits;
-
-})));
+module.exports = stickybits;

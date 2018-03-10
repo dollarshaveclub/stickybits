@@ -128,7 +128,7 @@ function updateClasses(el, r, a) {
 
 function Stickybits(target, obj) {
   var o = typeof obj !== 'undefined' ? obj : {};
-  this.version = '"3.3.0"';
+  this.version = '3.3.0';
   this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
   this.props = {
     customStickyChangeNumber: o.customStickyChangeNumber || null,
