@@ -1,0 +1,32 @@
+defaults: &defaults
+  working_directory: ~/code
+  docker:
+    - image: circleci/node:8
+      environment:
+        NPM_CONFIG_LOGLEVEL: error # make npm commands less noisy
+        JOBS: max # https://gist.github.com/ralphtheninja/f7c45bdee00784b41fed
+
+restore_cache_keys: &restore_cache_keys
+  keys:
+    - code-{{ .Branch }}-{{ checksum ".nvmrc" }}-{{ checksum "package.json" }}
+
+version: 2
+jobs:
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache: *restore_cache_keys
+      - run: npm install
+      - save_cache:
+          key: code-{{ .Branch }}-{{ checksum ".nvmrc" }}-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run: npm run lint
+      - run: npm run test
+
+workflows:
+  version: 2
+  all:
+    jobs:
+      - test

@@ -6,6 +6,7 @@
   },
   "globals": {
     "document": true,
+    "expect": true,
     "window": true
   },
   "rules": {
