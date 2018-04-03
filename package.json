@@ -9,6 +9,7 @@
     "build": "npm run test:unit && npm run build:rollup",
     "build:rollup": "rollup --config configs/rollup.config.js",
     "lint": "eslint . --fix",
+    "lint:ci": "eslint .",
     "chore:delete-branch": "if git show-ref --quiet refs/heads/chore-changelog; then git branch -D chore-changelog; fi",
     "chore:branch": "git checkout -b chore-changelog",
     "chore:changelog": "conventional-changelog -p eslint -i CHANGELOG.md -s -r 0",

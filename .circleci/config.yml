@@ -22,7 +22,7 @@ jobs:
           key: code-{{ .Branch }}-{{ checksum ".nvmrc" }}-{{ checksum "package.json" }}
           paths:
             - node_modules
-      - run: npm run lint
+      - run: npm run lint:ci
       - run: npm run test
 
 workflows:
