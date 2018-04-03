@@ -14,4 +14,4 @@ before_install:
 install:
   - npm install
 
-script: npm run release
+script: npm run test

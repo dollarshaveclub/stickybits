@@ -325,6 +325,13 @@ Stickybits.prototype.manageState = function manageState (item) {
   return it
 }
 
+Stickybits.prototype.update = function update () {
+  for (let i = 0; i < this.instances.length; i += 1) {
+    const instance = this.instances[i]
+    this.computeScrollOffsets(instance)
+  }
+}
+
 /*
   removes an instance 👋
   --------

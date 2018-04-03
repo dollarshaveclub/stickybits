@@ -291,11 +291,12 @@ Stickybits.prototype.manageState = function manageState(item) {
   */
 
   var tC = this.toggleClasses;
+  var scroll;
 
   if (this.isWin) {
-    var _scroll = window.scrollY || window.pageYOffset;
+    scroll = window.scrollY || window.pageYOffset;
   } else {
-    var _scroll2 = se.scrollTop;
+    scroll = se.scrollTop;
   }
 
   var notSticky = scroll > start && scroll < stop && (state === 'default' || state === 'stuck');
@@ -350,6 +351,13 @@ Stickybits.prototype.manageState = function manageState(item) {
   }
 
   return it;
+};
+
+Stickybits.prototype.update = function update() {
+  for (var i = 0; i < this.instances.length; i += 1) {
+    var instance = this.instances[i];
+    this.computeScrollOffsets(instance);
+  }
 };
 /*
   removes an instance 👋
