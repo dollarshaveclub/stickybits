@@ -1,6 +1,6 @@
 {
   "name": "stickybits",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "description": "Stickybits is a lightweight alternative to `position: sticky` polyfills",
   "main": "dist/stickybits.js",
   "module": "dist/stickybits.es.js",
@@ -9,6 +9,7 @@
     "build": "npm run test:unit && npm run build:rollup",
     "build:rollup": "rollup --config configs/rollup.config.js",
     "lint": "eslint . --fix",
+    "lint:ci": "eslint .",
     "chore:delete-branch": "if git show-ref --quiet refs/heads/chore-changelog; then git branch -D chore-changelog; fi",
     "chore:branch": "git checkout -b chore-changelog",
     "chore:changelog": "conventional-changelog -p eslint -i CHANGELOG.md -s -r 0",
@@ -19,7 +20,7 @@
     "release": "npm run lint && npm run build && npm test && npm run report:coverage",
     "report:coverage": "nyc report --reporter=lcov > coverage.lcov && codecov",
     "test:es-check": "es-check es5 dist/stickybits.min.js dist/stickybits.js dist/jquery.stickybits.js dist/jquery.stickybits.min.js dist/umbrella.stickybits.js dist/umbrella.stickybits.min.js",
-    "test:unit": "nyc jest --coverage",
+    "test:unit": "jest --coverage",
     "test:acceptance": "node ./scripts/acceptance.js --coverage",
     "test": "npm run test:unit && npm run test:acceptance"
   },

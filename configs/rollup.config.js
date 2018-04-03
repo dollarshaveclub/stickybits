@@ -40,7 +40,7 @@ export default [
   createConfig({
     input: 'src/stickybits.js',
     output: [
-      { file: pkg.main, format: 'cjs' },
+      { file: pkg.main, format: 'umd' },
       { file: pkg.module, format: 'es' },
     ],
   }),
