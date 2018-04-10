@@ -271,12 +271,7 @@ Stickybits.prototype.manageState = function manageState (item) {
     - isStuck
   */
   const tC = this.toggleClasses
-  let scroll
-  if (this.isWin) {
-    scroll = window.scrollY || window.pageYOffset
-  } else {
-    scroll = se.scrollTop
-  }
+  const scroll = this.isWin ? (window.scrollY || window.pageYOffset) : se.scrollTop
   const notSticky = scroll > start && scroll < stop && (state === 'default' || state === 'stuck')
   const isSticky = scroll <= start && state === 'sticky'
   const isStuck = scroll >= stop && state === 'sticky'
