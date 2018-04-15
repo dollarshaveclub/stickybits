@@ -17,7 +17,7 @@ jobs:
     steps:
       - checkout
       - restore_cache: *restore_cache_keys
-      - run: npm install -g npm@latest
+      - run: sudo npm install -g npm@latest
       - run: npm ci
       - save_cache:
           key: code-{{ .Branch }}-{{ checksum ".nvmrc" }}-{{ checksum "package.json" }}
