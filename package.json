@@ -5,6 +5,7 @@
   "main": "dist/stickybits.js",
   "module": "dist/stickybits.es.js",
   "unpkg": "dist/stickybits.min.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "build": "npm run test:unit && npm run build:rollup",
     "build:rollup": "rollup --config configs/rollup.config.js",
@@ -46,6 +47,7 @@
   "license": "MIT",
   "files": [
     "dist",
+    "types",
     "src"
   ],
   "devDependencies": {
