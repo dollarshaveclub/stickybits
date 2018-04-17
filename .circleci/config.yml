@@ -12,7 +12,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - run: npm install -g npm@latest
+      - run: sudo npm install -g npm@latest
       - run: npm ci
   lint:
     <<: *defaults
