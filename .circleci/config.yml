@@ -24,7 +24,6 @@ jobs:
     steps:
       - checkout
       - *restore_cache
-      - run: sudo npm install -g npm@latest
       - run: npm ci
       - *save_cache
   lint:
