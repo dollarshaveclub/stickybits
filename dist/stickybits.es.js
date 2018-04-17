@@ -1,6 +1,6 @@
 /**
   stickybits - Stickybits is a lightweight alternative to `position: sticky` polyfills
-  @version v3.2.2
+  @version v3.3.0
   @link https://github.com/dollarshaveclub/stickybits#readme
   @author Jeff Wainwright <yowainwright@gmail.com> (https://jeffry.in)
   @license MIT
@@ -59,7 +59,7 @@
 */
 function Stickybits(target, obj) {
   var o = typeof obj !== 'undefined' ? obj : {};
-  this.version = '3.2.2';
+  this.version = '3.3.0';
   this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
   this.props = {
     customStickyChangeNumber: o.customStickyChangeNumber || null,
@@ -291,14 +291,7 @@ Stickybits.prototype.manageState = function manageState(item) {
   */
 
   var tC = this.toggleClasses;
-  var scroll;
-
-  if (this.isWin) {
-    scroll = window.scrollY || window.pageYOffset;
-  } else {
-    scroll = se.scrollTop;
-  }
-
+  var scroll = this.isWin ? window.scrollY || window.pageYOffset : se.scrollTop;
   var notSticky = scroll > start && scroll < stop && (state === 'default' || state === 'stuck');
   var isSticky = scroll <= start && state === 'sticky';
   var isStuck = scroll >= stop && state === 'sticky';
