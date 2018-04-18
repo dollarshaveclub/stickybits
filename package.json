@@ -1,6 +1,6 @@
 {
   "name": "stickybits",
-  "version": "3.2.3",
+  "version": "3.2.4",
   "description": "Stickybits is a lightweight alternative to `position: sticky` polyfills",
   "main": "dist/stickybits.js",
   "module": "dist/stickybits.es.js",
@@ -51,7 +51,8 @@
     "src"
   ],
   "devDependencies": {
-    "@babel/core": "^7.0.0-beta.40",
+    "@babel/core": "^7.0.0-beta.44",
+    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.44",
     "@babel/preset-env": "^7.0.0-beta.40",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^22.4.1",
