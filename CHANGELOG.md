@@ -1,3 +1,9 @@
+<a name="3.3.0"></a>
+# [3.3.0](https://github.com/dollarshaveclub/stickybits/compare/3.2.4...3.3.0) (2018-04-25)
+
+
+
+
 <a name="3.2.4"></a>
 ## [3.2.4](https://github.com/dollarshaveclub/stickybits/compare/3.2.3...3.2.4) (2018-04-18)
 
