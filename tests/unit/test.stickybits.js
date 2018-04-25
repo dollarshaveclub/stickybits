@@ -295,3 +295,13 @@ test('stickybits .cleanup interface', () => {
   expect(stickybit.manageState).toBe(false)
   expect(stickybit.instances).toEqual([])
 })
+
+// test('stickybits .cleanup interface', () => {
+//   // Set up our document
+//   document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
+//   const stickybit = stickybits('#manage-sticky', { useStickyClasses: true })
+//   // invoke .cleanup
+//   stickybit.cleanup()
+//   expect(stickybit.manageState).toBe(false)
+//   expect(stickybit.instances).toEqual([])
+// })

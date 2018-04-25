@@ -1,3 +1,13 @@
+<a name="3.2.4"></a>
+## [3.2.4](https://github.com/dollarshaveclub/stickybits/compare/3.2.3...3.2.4) (2018-04-18)
+
+
+### tests
+
+* use npm ci (#279) ([5050a5727110e71b6991245f2e2dcaa5b583d039](https://github.com/dollarshaveclub/stickybits/commit/5050a5727110e71b6991245f2e2dcaa5b583d039)), closes [#279](https://github.com/dollarshaveclub/stickybits/issues/279)
+
+
+
 <a name="3.2.3"></a>
 ## [3.2.3](https://github.com/dollarshaveclub/stickybits/compare/3.2.0...3.2.3) (2018-04-10)
 
