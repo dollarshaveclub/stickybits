@@ -317,8 +317,15 @@ class Stickybits {
     } else if (isStickyChange) {
       rAF(() => { tC(e, stub, stickyChange) })
     }
-
     return it
+  }
+
+  update () {
+    for (let i = 0; i < this.instances.length; i += 1) {
+      const instance = this.instances[i]
+      this.computeScrollOffsets(instance)
+    }
+    return this
   }
 
   /*

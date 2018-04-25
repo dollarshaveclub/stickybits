@@ -295,3 +295,15 @@ test('stickybits .cleanup interface', () => {
   expect(stickybit.manageState).toBe(false)
   expect(stickybit.instances).toEqual([])
 })
+
+test('stickybits .update interface', () => {
+  // Set up our document
+  document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
+  const stickybit = stickybits('#manage-sticky', { useStickyClasses: true })
+
+  const instance = stickybit.instances[0]
+  instance.stickyStart = 200
+  expect(stickybit.instances[0].stickyStart).toBe(200)
+  stickybit.update()
+  expect(stickybit.instances[0].stickyStart).toBe(0)
+})
