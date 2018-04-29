@@ -4,8 +4,8 @@
 <p align="center">Make things get sticky &hellip;in a good way</p>
 <hr />
 <p align="center">
-  <a href="https://travis-ci.org/dollarshaveclub/stickybits/">
-    <img alt="Build Status" src="https://travis-ci.org/dollarshaveclub/stickybits.svg?branch=master" />
+  <a href="https://circleci.com/gh/dollarshaveclub/stickybits">
+    <img alt="CircleCI" src="https://circleci.com/gh/dollarshaveclub/stickybits.svg?style=svg" />
   </a>
   <a href="https://www.npmjs.com/package/stickybits">
     <img alt="npm version" src="https://badge.fury.io/js/stickybits.svg" />
@@ -84,6 +84,8 @@ By default, if `position: sticky` is supported, StickyBits will exit allowing th
 
 If the `useStickyClasses` argument is set to `true` then even if a browser supports `position: sticky`, StickyBits will still add a `scroll` event listener to [add and remove sticky CSS Classes](#notes). This option is available so that CSS styles can use when StickyBits elements become sticky or stuck at the bottom of their parent.
 
+To provide more feature richness to the Stickybits experience, a `.js-is-sticky--change` CSS class is added after the Stickybit element is sticky for a certain duration of scroll. By default this duration of scrolling is the height of the Stickybit element. The scroll duration for when `.js-is-sticky--change` is added can be modified by providing a number for `customStickyChangeNumber` option.
+
 To use `useStickyClasses`:
 
 ```javascript
@@ -95,6 +97,9 @@ Then, in css you can do:
 ```css
 .some-sticky-element.js-is-sticky {
   background-color: red;
+}
+.some-sticky-element.js-is-sticky--change {
+  height: 50px;
 }
 .some-sticky-element.js-is-stuck {
   background-color: green;
@@ -145,6 +150,15 @@ To _cleanup_ an instance of Stickybits:
 ```javascript
 const stickybitsInstancetoBeCleanedup = stickybits('selector');
 stickybitsInstancetoBeCleanedup.cleanup();
+```
+
+### StickyBits Update
+
+To _update_ an instance of Stickybits:
+
+```javascript
+const stickybitsInstancetoBeUpdated = stickybits('selector');
+stickybitsInstancetoBeUpdated.update();
 ```
 
 ### StickyBits NoStyles
@@ -224,7 +238,7 @@ Have another example or question? Feel free to [comment](https://github.com/doll
 
 ### Not a Polyfill
 
-Stickybits is not a Shim or Polyfill for `position: sticky` because full support would require more code. This plugin makes elements vertically sticky very similarly to `position: fixed` but in a `sticky` sort of way. Read more about position sticky [here](https://developer.mozilla.org/en-US/docs/Web/CSS/position) or follow its browser implementation [here](http://caniuse.com/#search=sticky).  
+Stickybits is not a Shim or Polyfill for `position: sticky` because full support would require more code. This plugin makes elements vertically sticky very similarly to `position: fixed` but in a `sticky` sort of way. Read more about position sticky [here](https://developer.mozilla.org/en-US/docs/Web/CSS/position) or follow its browser implementation [here](http://caniuse.com/#search=sticky).
 
 Stickybits is a no dependency JavaScript plugin. It provides the smallest API possible in both features and kb size to deliver working sticky elements. This means that opinionated featuring is left out as much as possible and that it works with minimal effort in Frameworks.
 
