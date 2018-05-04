@@ -6,9 +6,9 @@
   @license MIT
 **/
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global.stickybits = factory());
+  (factory());
 }(this, (function () { 'use strict';
 
   /*
@@ -414,6 +414,14 @@
     return new Stickybits(target, o);
   }
 
-  return stickybits;
+  if (typeof window !== 'undefined') {
+    var plugin = window.u;
+
+    if (plugin) {
+      plugin.prototype.stickybits = function stickybitsPlugin(opts) {
+        stickybits(this, opts);
+      };
+    }
+  }
 
 })));

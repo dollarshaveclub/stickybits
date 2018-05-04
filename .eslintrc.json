@@ -1,11 +1,12 @@
 {
-  "extends": [ "airbnb/base"],
+  "extends": "dollarshaveclub",
   "env": {
     "browser": true,
     "node": true
   },
   "globals": {
     "document": true,
+    "expect": true,
     "window": true
   },
   "rules": {
