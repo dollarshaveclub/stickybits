@@ -182,13 +182,10 @@ class Stickybits {
     - a helper function that gets the offsetTop of the element
     - from the top level of the DOM
   */
-  getOffsetTop (elem) {
-    var offsetTop = 0
-    do {
-      if (!isNaN(elem.offsetTop)) {
-        offsetTop += elem.offsetTop
-      }
-    } while ((elem = elem.offsetParent))
+  getOffsetTop (el) {
+    let offsetTop = 0
+    do offsetTop = el.offsetTop + offsetTop
+    while ((el = el.offsetParent))
     return offsetTop
   }
 
