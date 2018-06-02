@@ -268,10 +268,10 @@ With `useStickyClasses`
 $('selector').stickybits({useStickyClasses: true});
 ```
 
-With `customVerticalPosition`
+With `verticalPosition`
 
 ```javascript
-$('selector').stickybits({customVerticalPosition: true});
+$('selector').stickybits({verticalPosition: 'bottom'});
 ```
 
 With `stickyBitStickyOffset`
