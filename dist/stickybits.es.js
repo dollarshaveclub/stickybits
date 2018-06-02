@@ -28,6 +28,7 @@
   - stickyClass = 'string'
   - stuckClass = 'string'
   - useStickyClasses = boolean
+  - useFixed = boolean
   - verticalPosition = 'string'
   --------
   props🔌
@@ -75,6 +76,7 @@ function () {
       stuckClass: o.stuckClass || 'js-is-stuck',
       stickyChangeClass: o.stickyChangeClass || 'js-is-sticky--change',
       useStickyClasses: o.useStickyClasses || false,
+      useFixed: o.useFixed || false,
       verticalPosition: o.verticalPosition || 'top'
     };
     var p = this.props;
@@ -122,15 +124,22 @@ function () {
   var _proto = Stickybits.prototype;
 
   _proto.definePosition = function definePosition() {
-    var prefix = ['', '-o-', '-webkit-', '-moz-', '-ms-'];
-    var test = document.head.style;
+    var stickyProp;
 
-    for (var i = 0; i < prefix.length; i += 1) {
-      test.position = prefix[i] + "sticky";
+    if (this.props.useFixed) {
+      stickyProp = 'fixed';
+    } else {
+      var prefix = ['', '-o-', '-webkit-', '-moz-', '-ms-'];
+      var test = document.head.style;
+
+      for (var i = 0; i < prefix.length; i += 1) {
+        test.position = prefix[i] + "sticky";
+      }
+
+      stickyProp = test.position ? test.position : 'fixed';
+      test.position = '';
     }
 
-    var stickyProp = test.position ? test.position : 'fixed';
-    test.position = '';
     return stickyProp;
   };
   /*
