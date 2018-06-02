@@ -21,6 +21,7 @@
   - stickyClass = 'string'
   - stuckClass = 'string'
   - useStickyClasses = boolean
+  - useFixed = boolean
   - verticalPosition = 'string'
   --------
   props🔌
@@ -66,6 +67,7 @@ class Stickybits {
       stuckClass: o.stuckClass || 'js-is-stuck',
       stickyChangeClass: o.stickyChangeClass || 'js-is-sticky--change',
       useStickyClasses: o.useStickyClasses || false,
+      useFixed: o.useFixed || false,
       verticalPosition: o.verticalPosition || 'top',
     }
     const p = this.props
@@ -106,13 +108,18 @@ class Stickybits {
     => stickybits works accordingly
   */
   definePosition () {
-    const prefix = ['', '-o-', '-webkit-', '-moz-', '-ms-']
-    const test = document.head.style
-    for (let i = 0; i < prefix.length; i += 1) {
-      test.position = `${prefix[i]}sticky`
+    let stickyProp
+    if (this.props.useFixed) {
+      stickyProp = 'fixed'
+    } else {
+      const prefix = ['', '-o-', '-webkit-', '-moz-', '-ms-']
+      const test = document.head.style
+      for (let i = 0; i < prefix.length; i += 1) {
+        test.position = `${prefix[i]}sticky`
+      }
+      stickyProp = test.position ? test.position : 'fixed'
+      test.position = ''
     }
-    const stickyProp = test.position ? test.position : 'fixed'
-    test.position = ''
     return stickyProp
   }
 
