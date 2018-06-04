@@ -191,6 +191,15 @@ stuckClass:
 stickybits('selector', {stuckClass: 'new-stuck-classname'});
 ```
 
+### StickyBits useFixed
+
+To not use `position: sticky` **ever**, add the following key value to a stickybit initalization..
+
+parentClass:
+
+```javascript
+stickybits('selector', {useFixed: true});
+```
 
 To change all of the CSS classes
 ```javascript

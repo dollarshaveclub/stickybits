@@ -317,3 +317,13 @@ test('stickybits .update interface', () => {
   stickybit.update()
   expect(stickybit.instances[0].stickyStart).toBe(0)
 })
+
+test('stickybits .useFixed interface', () => {
+  // Set up our document
+  document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
+  const stickybit = stickybits('#manage-sticky', { useFixed: true })
+
+  const instance = stickybit.instances[0]
+
+  expect(instance.props.useFixed).toBe(true)
+})
