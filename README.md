@@ -26,12 +26,12 @@
 > Stickybits is a lightweight alternative to `position: sticky` polyfills. It works perfectly for things like sticky headers.
 
 **Stickybits is awesome because:**
--  it can add a CSS Sticky Class (`.js-is-sticky`) when [position: sticky](http://caniuse.com/#search=sticky) elements become active and a CSS Stuck Class (`.js-is-stuck`) when they become stuck. See [useStickyClasses](#feature).
--  it loosely mimics [position: sticky](http://caniuse.com/#search=sticky) to consistently stick elements vertically across multiple platforms
--  it does not have the _jumpiness_ that plugins that are built around `position: fixed` have because it tries to support `position: sticky` first.
--  in its simplest use case, a `scroll` event listener will not be used if `position: sticky` is supported.
--  it is super simple & lightweight
--  it provides a [wiki](https://github.com/dollarshaveclub/stickybits/wiki) that digs deeply into fundementals of `position: sticky` and `position: fixed` and it works with them.
+- it can add a CSS Sticky Class (`.js-is-sticky`) when [position: sticky](http://caniuse.com/#search=sticky) elements become active and a CSS Stuck Class (`.js-is-stuck`) when they become stuck. See [useStickyClasses](#feature).
+- it loosely mimics [position: sticky](http://caniuse.com/#search=sticky) to consistently stick elements vertically across multiple platforms
+- it does not have the _jumpiness_ that plugins that are built around `position: fixed` have because it tries to support `position: sticky` first.
+- in its simplest use case, a `scroll` event listener will not be used if `position: sticky` is supported.
+- it is super simple & lightweight
+- it provides a [wiki](https://github.com/dollarshaveclub/stickybits/wiki) that digs deeply into fundementals of `position: sticky` and `position: fixed` and it works with them.
 
 <hr />
   <p align="center">
@@ -51,10 +51,13 @@
 <h2 id="install">Installing from a package manager</h2>
 
 yarn
+
 ```sh
 yarn add stickybits
 ```
+
 npm
+
 ```sh
 npm i stickybits
 ```
@@ -131,6 +134,7 @@ To have Stickybit use an selector besides `window`:
 ```javascript
 stickybits('selector', {scrollEl: 'an-id'});
 ```
+
 \* **Note:** This selector is not selected automatically so the specific element need to be passed in.
 
 ### StickyBit Sticky Offset
@@ -205,22 +209,22 @@ stickybits('selector', {
 
 <h2 id="examples">Examples</h2>
 
--  [Basic Usage](https://codepen.io/yowainwright/pen/QdedaO)
--  [Basic usage but with multiple instances of the same selector](https://codepen.io/yowainwright/pen/VPogaX)
--  [Custom vertical top offset](https://codepen.io/yowainwright/pen/YQZPqR) ie: `stickybits('selector', {stickyBitStickyOffset: 20})`
--  [UseStickyClasses](http://codepen.io/yowainwright/pen/NpzPGR) ie: `stickybits('selector', {useStickyClasses: true})`
--  [Clean Stickybits](https://codepen.io/yowainwright/pen/gRgdep) ie: `const stickything = stickybits('selector'); stickything.cleanup();`
--  [As a jQuery or Zepto Plugin](http://codepen.io/yowainwright/pen/57b852e88a644e9d919f843dc7b3b5f1) ie: `$('selector').stickybits();`
+- [Basic Usage](https://codepen.io/yowainwright/pen/QdedaO)
+- [Basic usage but with multiple instances of the same selector](https://codepen.io/yowainwright/pen/VPogaX)
+- [Custom vertical top offset](https://codepen.io/yowainwright/pen/YQZPqR) ie: `stickybits('selector', {stickyBitStickyOffset: 20})`
+- [UseStickyClasses](http://codepen.io/yowainwright/pen/NpzPGR) ie: `stickybits('selector', {useStickyClasses: true})`
+- [Clean Stickybits](https://codepen.io/yowainwright/pen/gRgdep) ie: `const stickything = stickybits('selector'); stickything.cleanup();`
+- [As a jQuery or Zepto Plugin](http://codepen.io/yowainwright/pen/57b852e88a644e9d919f843dc7b3b5f1) ie: `$('selector').stickybits();`
 
 ----
 
 ### Examples extended
 
--  [Custom vertical position (at bottom of parent element)](http://codepen.io/yowainwright/pen/e32cc7b82907ed9715a0a482ffa57596)
--  [NoStyles Stickybits](https://codepen.io/yowainwright/pen/YrQpQj) ie: `stickybits('selector', {noStyles: true});`
--  [With Custom Classes](https://codepen.io/yowainwright/pen/rGwWyW/) ie: `stickybits('selector', {parentClass: 'js-parent-test'})`
--  [ScrollEl](https://codepen.io/yowainwright/pen/EXzJeb) ie: `stickybits('selector', {scrollEl: 'a-custom-scroll-el'})`
--  If you have Stickybits examples, please submit an [issue](https://github.com/dollarshaveclub/stickybits/issues) with a link to it. 🙏
+- [Custom vertical position (at bottom of parent element)](http://codepen.io/yowainwright/pen/e32cc7b82907ed9715a0a482ffa57596)
+- [NoStyles Stickybits](https://codepen.io/yowainwright/pen/YrQpQj) ie: `stickybits('selector', {noStyles: true});`
+- [With Custom Classes](https://codepen.io/yowainwright/pen/rGwWyW/) ie: `stickybits('selector', {parentClass: 'js-parent-test'})`
+- [ScrollEl](https://codepen.io/yowainwright/pen/EXzJeb) ie: `stickybits('selector', {scrollEl: 'a-custom-scroll-el'})`
+- If you have Stickybits examples, please submit an [issue](https://github.com/dollarshaveclub/stickybits/issues) with a link to it. 🙏
 
 -----
 
