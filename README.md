@@ -158,12 +158,30 @@ stickybitsInstancetoBeCleanedup.cleanup();
 
 ### StickyBits Update
 
-To _update_ an instance of Stickybits:
+To _update_ the calculations of an instance of Stickybits:
 
 ```javascript
 const stickybitsInstancetoBeUpdated = stickybits('selector');
 stickybitsInstancetoBeUpdated.update();
 ```
+
+Re-calculates each Stickybits instance's offsets (stickyStart, stickyStop).
+If the Stickybits implementer would like re-calculate offsets when the DOM window is resized or when the url changes. `.update()` can be invoked within an event listener.
+
+**Examples**
+```javascript
+// when the window is resized
+const stickybitsInstancetoBeUpdated = stickybits('selector');
+window.addEventListener('resize' () => {
+  stickybitsInstancetoBeUpdated.update();
+});
+// when the url hash changes
+window.addEventListener('hashchange' () => {
+  stickybitsInstancetoBeUpdated.update();
+});
+```
+
+**Note:** `.update` does not re-initialize classnames or pre-set calculations.
 
 ### StickyBits NoStyles
 
@@ -223,6 +241,7 @@ stickybits('selector', {
 - [Custom vertical top offset](https://codepen.io/yowainwright/pen/YQZPqR) ie: `stickybits('selector', {stickyBitStickyOffset: 20})`
 - [UseStickyClasses](http://codepen.io/yowainwright/pen/NpzPGR) ie: `stickybits('selector', {useStickyClasses: true})`
 - [Clean Stickybits](https://codepen.io/yowainwright/pen/gRgdep) ie: `const stickything = stickybits('selector'); stickything.cleanup();`
+- [Update](https://codepen.io/yowainwright/pen/JZOajV/) ie: `const stickything = stickybits('selector') stickything.update()`
 - [Use Fixed](https://codepen.io/yowainwright/pen/mKMzNb/) ie: `const stickything = stickybits('selector', {useFixed: true})`
 - [As a jQuery or Zepto Plugin](http://codepen.io/yowainwright/pen/57b852e88a644e9d919f843dc7b3b5f1) ie: `$('selector').stickybits()`
 
@@ -274,6 +293,13 @@ With `scrollEl`
 
 ```javascript
 $('selector').stickybits({scrollEl: '#scrollEl'});
+```
+
+With `.update`
+
+```javascript
+var instance = $('selector').stickybits();
+instance.update();
 ```
 
 With `useStickyClasses`
