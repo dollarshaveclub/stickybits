@@ -74,10 +74,24 @@ Or as a module with `import stickybits from 'stickybits'`
 stickybits('selector');
 ```
 
-#### By default, a selected stickybits element will:
+#### By default, a selected stickybits element will
 
--  Stick elements to the top of the viewport when scrolled to vertically.
--  Stick elements at the bottom of their parent element when scrolled past.
+- Stick elements to the top of the viewport when scrolled to vertically.
+- Stick elements at the bottom of their parent element when scrolled past.
+
+---
+
+**Key Note:** Stickybits expects and works best when the element that will become sticky is wrapped within a parent element that defines when the element starts being sticky and stops being sticky. See below for visual reference.
+
+```html
+
+<main id="some-stickybit-parent">
+  <nav id="some-stickybit-nav"></nav>
+</main>
+
+```
+
+---
 
 <h2 id="feature"><code>useStickyClasses</code> Feature</h2>
 
