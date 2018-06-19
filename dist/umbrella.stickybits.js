@@ -254,14 +254,11 @@
       var parent = it.parent;
       var isCustom = !this.isWin && p.positionVal === 'fixed';
       var isBottom = p.verticalPosition !== 'bottom';
-      var scrollElOffset = isCustom ? p.scrollEl.getBoundingClientRect().top : 0; // const itScrollOffset = parseInt(it.el.getBoundingClientRect().top, 0);
-
-      var stickyStart = isCustom ? parent.getBoundingClientRect().top - scrollElOffset : parent.getBoundingClientRect().top;
+      var scrollElOffset = isCustom ? this.getOffsetTop(p.scrollEl) : 0;
+      var stickyStart = isCustom ? this.getOffsetTop(parent) - scrollElOffset : this.getOffsetTop(parent);
       var stickyChangeOffset = p.customStickyChangeNumber !== null ? p.customStickyChangeNumber : el.offsetHeight;
-      it.offset = scrollElOffset + p.stickyBitStickyOffset; // it.offset = itScrollOffset - p.stickyBitStickyOffset;
-
-      it.stickyStart = isBottom ? stickyStart - it.offset : 0; // it.stickyStart = it.offset;
-
+      it.offset = scrollElOffset + p.stickyBitStickyOffset;
+      it.stickyStart = isBottom ? stickyStart - it.offset : 0;
       it.stickyChange = it.stickyStart + stickyChangeOffset;
       it.stickyStop = isBottom ? stickyStart + parent.offsetHeight - (it.el.offsetHeight + it.offset) : stickyStart + parent.offsetHeight;
       return it;
