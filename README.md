@@ -242,7 +242,8 @@ To change all of the CSS classes
 stickybits('selector', {
   parentClass: 'new-parent-classname',
   stickyClass: 'new-sticky-classname',
-  stuckClass: 'new-stuck-classname'
+  stuckClass: 'new-stuck-classname',
+  stickyChangeClass: 'new-sticky-change-classname'
 });
 ```
 
