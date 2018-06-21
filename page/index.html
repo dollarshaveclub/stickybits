@@ -77,24 +77,16 @@
                 <div class="container container--section">
                     <section id="description" class="section section--description">
                         <div class="share">
-                            <a class="share__link" href="https://travis-ci.org/dollarshaveclub/stickybits/">
-                                <img alt="Build Status" src="https://travis-ci.org/dollarshaveclub/stickybits.svg?branch=master" />
-                            </a>
                             <a class="share__link" href="https://www.npmjs.com/package/stickybits">
                                 <img alt="npm version" src="https://badge.fury.io/js/stickybits.svg" />
-                            </a>
-                            <a class="share__link" href="https://github.com/dollarshaveclub/stickybits">
-                                <img alt="Bower version" src="https://badge.fury.io/bo/stickybits.svg" />
                             </a>
                             <a class="share__link share__link--twitter" href="https://twitter.com/home?status=Stickybits%2C%20A%200%20dep%2C%201kb%20JS%20plugin.%20Make%20things%20get%20sticky%20in%20a%20good%20way!%20%F0%9F%8D%AC%20https%3A%2F%2Fgithub.com%2Fdollarshaveclub%2Fstickybits%40yowainwright">
                                 <img alt="Share on Twitter" src="https://camo.githubusercontent.com/2baf72d39bb3d2d5b417515037a45829c2e4167e/68747470733a2f2f696d672e736869656c64732e696f2f747769747465722f75726c2f687474702f736869656c64732e696f2e7376673f7374796c653d736f6369616c266d61784167653d32353932303030"
                                 />
                             </a>
-                            <a class="share__link share__link--reddit" href="//www.reddit.com/submit" onclick="window.location = '//www.reddit.com/submit?url=' + encodeURIComponent(window.location); return false"> <img src="//www.redditstatic.com/spreddit7.gif" alt="submit to reddit" border="0" />
-                            </a>
                         </div>
                         <hr />
-                        <p>Stickybits is a lightweight alternative to position: sticky polyfills that works perfectly for things like sticky headers.</p>
+                        <p>Stickybits is a lightweight alternative to position: sticky polyfills that works perfectly for things like sticky headers. Checkout the <a href="https://github.com/dollarshaveclub/stickybits">Github repository</a> for the most up to date documnetation.</p>
                         <hr />
                         <h3>Stickybits is awesome because:</h3>
                         <ul>
@@ -113,9 +105,6 @@
                         </div>
                         <h3>npm</h3>
                         <div><pre><code>npm install stickybits --save-dev</code></pre></div>
-                        <h3>bower</h3>
-                        <div><pre><code>bower install stickybits --save-dev</code></pre>
-                        </div>
                         <section id="setup" class="section section--setup">
                             <h2>Setup</h2>
                             <h3>Default</h3>
@@ -132,6 +121,14 @@
                                 <li>Stick elements to the top of the viewport when scrolled to vertically.</li>
                                 <li>Stick elements at the bottom of their parent when scrolled past.</li>
                             </ul>
+                            <p>
+                              <strong>Key Note:</strong> Stickybits expects and works best when the element that will become sticky is wrapped within a parent
+                              element that defines when the element starts being sticky and stops being sticky. See below for visual reference.
+                            </p>
+                            <div>
+                              <pre><code>
+                                &lt;main id="some-stickybit-parent"&gt;&lt;nav id="some-stickybit-nav"&gt;&lt;/nav&gt;&lt;/main&gt;&lt;/code&gt;&lt;/pre&gt;
+                            </div>
                             <h2><code>useStickyClasses</code> Feature</h2>
                             <p>Stickybits allows costumers to add CSS to elements when they become sticky and when they become stuck at the bottom of their parent element.</p>
                             <p>By default, if <code>position: sticky</code> is supported, StickyBits will exit allowing the browser to manage stickiness and avoid adding a <code>scroll</code> event listener.</p>
@@ -214,12 +211,12 @@
             <footer class="footer">
                 <hr class="footer--horizontal-rule">
                 <p class="footer__description"><a href="https://dollarshaveclub.com">Dollar Shave Club</a>&nbsp;|&nbsp;<a href="https://github.com/yowainwright">yowainwright</a>&nbsp;|&nbsp;
-                    <date id="footer__date" class="date">2017</date>
+                    <date id="footer__date" class="date">2018</date>
                 </p>
             </footer>
         </div>
     </main>
-    <script type="text/javascript" src="dist/stickybits.js" rel="javascript"></script>
+    <script type="text/javascript" src="https://unpkg.com/stickybits@latest/dist/stickybits.min.js" rel="javascript"></script>
     <script type="text/javascript" src="page/app.js" rel="javascript"></script>
     <script type="text/javascript">
         (function(i, s, o, g, r, a, m) {
