@@ -267,7 +267,7 @@ stickybits('selector', {
 - [Custom vertical position (at bottom of parent element)](http://codepen.io/yowainwright/pen/e32cc7b82907ed9715a0a482ffa57596)
 - [NoStyles Stickybits](https://codepen.io/yowainwright/pen/YrQpQj) ie: `stickybits('selector', {noStyles: true});`
 - [With Custom Classes](https://codepen.io/yowainwright/pen/rGwWyW/) ie: `stickybits('selector', {parentClass: 'js-parent-test'})`
-- [ScrollEl](https://codepen.io/yowainwright/pen/EXzJeb) ie: `stickybits('selector', {scrollEl: 'a-custom-scroll-el'})`
+- [ScrollEl](https://codepen.io/yowainwright/pen/EXzJeb) ie: `stickybits('selector', {scrollEl: 'a-custom-scroll-el'})` or `stickybits('selector', {scrollEl: element})`
 - If you have Stickybits examples, please submit an [issue](https://github.com/dollarshaveclub/stickybits/issues) with a link to it. 🙏
 
 -----
@@ -308,6 +308,11 @@ With `scrollEl`
 
 ```javascript
 $('selector').stickybits({scrollEl: '#scrollEl'});
+
+// or
+
+const el = document.querySelector('#scrollEl');
+$('selector').stickybits({scrollEl: el});
 ```
 
 With `.update`

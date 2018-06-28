@@ -1,6 +1,6 @@
 /**
   stickybits - Stickybits is a lightweight alternative to `position: sticky` polyfills
-  @version v3.3.7
+  @version v3.4.0
   @link https://github.com/dollarshaveclub/stickybits#readme
   @author Jeff Wainwright <yowainwright@gmail.com> (https://jeffry.in)
   @license MIT
@@ -24,7 +24,7 @@
   - noStyles = boolean
   - offset = number
   - parentClass = 'string'
-  - scrollEl = window || DOM element selector
+  - scrollEl = window || DOM element selector || DOM element
   - stickyClass = 'string'
   - stuckClass = 'string'
   - useStickyClasses = boolean
@@ -64,14 +64,14 @@ var Stickybits =
 function () {
   function Stickybits(target, obj) {
     var o = typeof obj !== 'undefined' ? obj : {};
-    this.version = '3.3.7';
+    this.version = '3.4.0';
     this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
     this.props = {
       customStickyChangeNumber: o.customStickyChangeNumber || null,
       noStyles: o.noStyles || false,
       stickyBitStickyOffset: o.stickyBitStickyOffset || 0,
       parentClass: o.parentClass || 'js-stickybit-parent',
-      scrollEl: document.querySelector(o.scrollEl) || window,
+      scrollEl: typeof o.scrollEl === 'string' ? document.querySelector(o.scrollEl) : o.scrollEl || window,
       stickyClass: o.stickyClass || 'js-is-sticky',
       stuckClass: o.stuckClass || 'js-is-stuck',
       stickyChangeClass: o.stickyChangeClass || 'js-is-sticky--change',
@@ -151,7 +151,7 @@ function () {
     ---
     - target = el
     - o = {object} = props
-      - scrollEl = 'string'
+      - scrollEl = 'string' | object
       - verticalPosition = number
       - off = boolean
       - parentClass = 'string'
