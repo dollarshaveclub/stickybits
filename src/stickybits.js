@@ -17,7 +17,7 @@
   - noStyles = boolean
   - offset = number
   - parentClass = 'string'
-  - scrollEl = window || DOM element selector
+  - scrollEl = window || DOM element selector || DOM element
   - stickyClass = 'string'
   - stuckClass = 'string'
   - useStickyClasses = boolean
@@ -62,7 +62,7 @@ class Stickybits {
       noStyles: o.noStyles || false,
       stickyBitStickyOffset: o.stickyBitStickyOffset || 0,
       parentClass: o.parentClass || 'js-stickybit-parent',
-      scrollEl: document.querySelector(o.scrollEl) || window,
+      scrollEl: typeof o.scrollEl === 'string' ? document.querySelector(o.scrollEl) : o.scrollEl || window,
       stickyClass: o.stickyClass || 'js-is-sticky',
       stuckClass: o.stuckClass || 'js-is-stuck',
       stickyChangeClass: o.stickyChangeClass || 'js-is-sticky--change',
@@ -132,7 +132,7 @@ class Stickybits {
     ---
     - target = el
     - o = {object} = props
-      - scrollEl = 'string'
+      - scrollEl = 'string' | object
       - verticalPosition = number
       - off = boolean
       - parentClass = 'string'

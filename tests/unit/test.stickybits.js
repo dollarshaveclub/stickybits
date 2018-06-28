@@ -73,11 +73,23 @@ test('stickybits interface with an updated object properties', () => {
   expect(stickybit.props.positionVal).toBe('-ms-sticky')
 })
 
-test('stickybits interface with custom scrollEl', () => {
+test('stickybits interface with custom scrollEl selector', () => {
 
   document.body.innerHTML = '<div id="parent"><div id="stickybit"></div></div>'
   const stickybit = stickybits('#stickybit', {
     scrollEl: '#parent'
+  })
+
+  // interface results for custom scrollEl
+  expect(stickybit.props.scrollEl).toBe(document.querySelector('#parent'))
+})
+
+test('stickybits interface with custom scrollEl element', () => {
+
+  document.body.innerHTML = '<div id="parent"><div id="stickybit"></div></div>'
+  console.log(typeof document.querySelector('#parent'));
+  const stickybit = stickybits('#stickybit', {
+    scrollEl: document.querySelector('#parent')
   })
 
   // interface results for custom scrollEl
