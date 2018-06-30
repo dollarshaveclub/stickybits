@@ -67,4 +67,11 @@ export default [
       format: 'umd',
     },
   }),
+  createConfig({
+    input: 'src/jquery.stickybits.js',
+    output: {
+      file: 'dist/jquery.stickybits.js',
+      format: 'umd',
+    },
+  }),
 ]
