@@ -141,15 +141,13 @@ stickybits('selector', {verticalPosition: 'bottom'});
 
 ### Custom Scroll Element
 
-By default, if Stickybits uses a scroll event (if `position: sticky` is not supported or if we use the option `useStickyClasses`) it uses `window`.
+By default, if Stickybits uses `window` scrolling to define Sticky Elements. An element besides `window` can be used if `window` is `undefined` by selecting the desired scrolling element with the `scrollEl` option. For more custom sticky featuring, the `scrollEl` option can be used. However, those implementations require the implementing developers support.
 
 To have Stickybit use an selector besides `window`:
 
 ```javascript
 stickybits('selector', {scrollEl: 'an-id'});
 ```
-
-\* **Note:** This selector is not selected automatically so the specific element need to be passed in.
 
 ### StickyBit Sticky Offset
 
