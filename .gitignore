@@ -3,3 +3,5 @@ node_modules/*
 .tags
 .tags1
 package-lock.json
+coverage/*
+.DS_Store

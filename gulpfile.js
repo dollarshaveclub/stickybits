@@ -50,7 +50,7 @@ gulp.task('styles', () => {
 gulp.task('minify', () => {
   gulp.src(['./scripts/app.js'])
     .pipe(babel({
-      presets: ['es2015']
+      presets: ['@babel/env'],
     }))
     // .pipe(uglify())
     .pipe(gulp.dest('./page/'))
