@@ -13,8 +13,9 @@
     stickyWrapper.innerHTML += stickyParent;
   }
 
-  stickybits('.sticky-element', {
+  window.sb = stickybits('.sticky-element', {
     stickyBitStickyOffset: 48,
-    useStickyClasses: true
+    useStickyClasses: true,
+    useGetBoundingClientRect: true
   });
 })();
