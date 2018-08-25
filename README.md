@@ -227,7 +227,7 @@ stickybits('selector', {stuckClass: 'new-stuck-classname'});
 
 ### StickyBits useFixed
 
-To not use `position: sticky` **ever**, add the following key value to a stickybit initalization..
+To not use `position: sticky` **ever**, add the following key value to a stickybit initalization.
 
 parentClass:
 
@@ -243,6 +243,15 @@ stickybits('selector', {
   stuckClass: 'new-stuck-classname',
   stickyChangeClass: 'new-sticky-change-classname'
 });
+```
+
+### StickyBits useGetBoundingClientRect
+
+To not use `offsetTop` provide the optional boolean `useGetBoundingClientRect`.
+This feature is optimal when dealing with things like CSS calc which can throw off `offsetTop` calculations. Read more about this functionality [here](https://stanko.github.io/javascript-get-element-offset/).
+
+```javascript
+stickybits('selector', {useGetBoundingClientRect: true});
 ```
 
 \* For jQuery and Zepto support, read the jQuery notes [below](#jquery).

@@ -22,6 +22,7 @@
   - stuckClass = 'string'
   - useStickyClasses = boolean
   - useFixed = boolean
+  - useGetBoundingClientRect = boolean
   - verticalPosition = 'string'
   --------
   props🔌
@@ -68,6 +69,7 @@ class Stickybits {
       stickyChangeClass: o.stickyChangeClass || 'js-is-sticky--change',
       useStickyClasses: o.useStickyClasses || false,
       useFixed: o.useFixed || false,
+      useGetBoundingClientRect: o.useGetBoundingClientRect || false,
       verticalPosition: o.verticalPosition || 'top',
     }
     const p = this.props
@@ -191,7 +193,12 @@ class Stickybits {
   */
   getTopPosition (el) {
     let topPosition = 0
-    do topPosition = el.getBoundingClientRect().top + topPosition
+    do {
+      topPosition = this.props.useGetBoundingClientRect
+        ? (el.getBoundingClientRect().top + this.props.scrollY) + topPosition
+        : el.offsetTop + topPosition
+    }
+
     while ((el = el.offsetParent))
     return topPosition
   }
