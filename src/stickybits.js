@@ -194,12 +194,12 @@ class Stickybits {
   getTopPosition (el) {
     let topPosition = 0
     do {
-      topPosition = this.props.useGetBoundingClientRect
-        ? (el.getBoundingClientRect().top + this.props.scrollY) + topPosition
-        : el.offsetTop + topPosition
-    }
-
-    while ((el = el.offsetParent))
+      if (this.props.useGetBoundingClientRect) {
+        topPosition = (el.getBoundingClientRect().top + this.props.scrollEl.scrollY) + topPosition
+      } else {
+        topPosition = el.offsetTop + topPosition
+      }
+    } while ((el = el.offsetParent))
     return topPosition
   }
 
