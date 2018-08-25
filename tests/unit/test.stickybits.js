@@ -124,13 +124,13 @@ test('stickybits .getClosestParent interface', () => {
   expect(parent.id).toBe('parent')
 })
 
-test('stickybits .getOffsetTop interface', () => {
+test('stickybits .getTopPosition interface', () => {
   // Set up our document
   document.body.innerHTML = '<div id="parent"><div><div id="child"><div id="manage-sticky"></div></div></div></div>'
   const child = document.getElementById('child')
   const parentEl = document.getElementById('parent')
   const stickybit = stickybits('#manage-sticky')
-  const parentOffsetTop = stickybit.getOffsetTop(parentEl)
+  const parentOffsetTop = stickybit.getTopPosition(parentEl)
   expect(parentOffsetTop).toBe(0)
 })
 
