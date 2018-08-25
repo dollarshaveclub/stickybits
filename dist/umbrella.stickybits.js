@@ -1,6 +1,6 @@
 /**
   stickybits - Stickybits is a lightweight alternative to `position: sticky` polyfills
-  @version v3.4.2
+  @version v3.5.0
   @link https://github.com/dollarshaveclub/stickybits#readme
   @author Jeff Wainwright <yowainwright@gmail.com> (https://jeffry.in)
   @license MIT
@@ -35,6 +35,7 @@
     - stuckClass = 'string'
     - useStickyClasses = boolean
     - useFixed = boolean
+    - useGetBoundingClientRect = boolean
     - verticalPosition = 'string'
     --------
     props🔌
@@ -70,7 +71,7 @@
   function () {
     function Stickybits(target, obj) {
       var o = typeof obj !== 'undefined' ? obj : {};
-      this.version = '3.4.2';
+      this.version = '3.5.0';
       this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
       this.props = {
         customStickyChangeNumber: o.customStickyChangeNumber || null,
@@ -83,6 +84,7 @@
         stickyChangeClass: o.stickyChangeClass || 'js-is-sticky--change',
         useStickyClasses: o.useStickyClasses || false,
         useFixed: o.useFixed || false,
+        useGetBoundingClientRect: o.useGetBoundingClientRect || false,
         verticalPosition: o.verticalPosition || 'top'
       };
       var p = this.props;
@@ -231,7 +233,7 @@
       var topPosition = 0;
 
       do {
-        topPosition = el.getBoundingClientRect().top + topPosition;
+        topPosition = this.props.useGetBoundingClientRect ? el.getBoundingClientRect().top + this.props.scrollY + topPosition : el.offsetTop + topPosition;
       } while (el = el.offsetParent);
 
       return topPosition;
