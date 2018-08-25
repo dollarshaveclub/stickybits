@@ -1,6 +1,6 @@
 /**
   stickybits - Stickybits is a lightweight alternative to `position: sticky` polyfills
-  @version v3.4.1
+  @version v3.4.2
   @link https://github.com/dollarshaveclub/stickybits#readme
   @author Jeff Wainwright <yowainwright@gmail.com> (https://jeffry.in)
   @license MIT
@@ -51,7 +51,7 @@
   - .definePosition = defines sticky or fixed
   - .addInstance = an array of objects for each Stickybits Target
   - .getClosestParent = gets the parent for non-window scroll
-  - .getOffsetTop = gets the element offsetTop from the top level of the DOM
+  - .getTopPosition = gets the element top pixel position from the viewport
   - .computeScrollOffsets = computes scroll position
   - .toggleClasses = older browser toggler
   - .manageState = manages sticky state
@@ -64,7 +64,7 @@ var Stickybits =
 function () {
   function Stickybits(target, obj) {
     var o = typeof obj !== 'undefined' ? obj : {};
-    this.version = '3.4.1';
+    this.version = '3.4.2';
     this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
     this.props = {
       customStickyChangeNumber: o.customStickyChangeNumber || null,
@@ -214,21 +214,21 @@ function () {
   };
   /*
     --------
-    getOffsetTop
+    getTopPosition
     --------
-    - a helper function that gets the offsetTop of the element
+    - a helper function that gets the topPosition of a Stickybit element
     - from the top level of the DOM
   */
 
 
-  _proto.getOffsetTop = function getOffsetTop(el) {
-    var offsetTop = 0;
+  _proto.getTopPosition = function getTopPosition(el) {
+    var topPosition = 0;
 
     do {
-      offsetTop = el.offsetTop + offsetTop;
+      topPosition = el.getBoundingClientRect().top + topPosition;
     } while (el = el.offsetParent);
 
-    return offsetTop;
+    return topPosition;
   };
   /*
     computeScrollOffsets 📊
@@ -248,8 +248,8 @@ function () {
     var parent = it.parent;
     var isCustom = !this.isWin && p.positionVal === 'fixed';
     var isBottom = p.verticalPosition !== 'bottom';
-    var scrollElOffset = isCustom ? this.getOffsetTop(p.scrollEl) : 0;
-    var stickyStart = isCustom ? this.getOffsetTop(parent) - scrollElOffset : this.getOffsetTop(parent);
+    var scrollElOffset = isCustom ? this.getTopPosition(p.scrollEl) : 0;
+    var stickyStart = isCustom ? this.getTopPosition(parent) - scrollElOffset : this.getTopPosition(parent);
     var stickyChangeOffset = p.customStickyChangeNumber !== null ? p.customStickyChangeNumber : el.offsetHeight;
     it.offset = scrollElOffset + p.stickyBitStickyOffset;
     it.stickyStart = isBottom ? stickyStart - it.offset : 0;
