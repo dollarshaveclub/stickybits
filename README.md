@@ -203,7 +203,7 @@ stickybitsInstancetoBeUpdated.update();
 Re-calculates each Stickybits instance's offsets (stickyStart, stickyStop).
 If the Stickybits implementer would like re-calculate offsets when the DOM window is resized or when the url changes. `.update()` can be invoked within an event listener.
 
-#### Examples
+#### More Stickybits Update Examples
 
 ```javascript
 
