@@ -11,3 +11,4 @@ coverage.lcov
 coverage_*/
 tmp
 .idea
+npm-debug.log

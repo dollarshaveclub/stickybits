@@ -1,6 +1,6 @@
 {
   "name": "stickybits",
-  "version": "3.5.2",
+  "version": "3.5.3",
   "description": "Stickybits is a lightweight alternative to `position: sticky` polyfills",
   "main": "dist/stickybits.js",
   "module": "dist/stickybits.es.js",
@@ -35,14 +35,6 @@
   },
   "jest": {
     "testRegex": "./tests/unit/.*.js$"
-  },
-  "pre-commit": {
-    "run": [
-      "pre-commit-msg",
-      "build",
-      "lint",
-      "test"
-    ]
   },
   "bugs": {
     "url": "https://github.com/dollarshaveclub/stickybits/issues"
