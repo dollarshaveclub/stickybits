@@ -1,5 +1,8 @@
 (function () {
-  stickybits('#nav');
+  const stickyNav = stickybits('#nav', {
+    useGetBoundingClientRect: true,
+  });
+  console.info(stickyNav);
   if (window.innerWidth < 900) return;
   const wrapper = document.getElementById('wrapper')
   wrapper.className += ' js-has-aside';
@@ -9,9 +12,10 @@
     const stickyParent = '<div class="sticky-parent sticky-parent--' + i + '">' + stickyItem + '</div>';
     stickyWrapper.innerHTML += stickyParent;
   }
-  window.sb = stickybits('.sticky-element', {
+  const stickyItems = stickybits('.sticky-element', {
     stickyBitStickyOffset: 48,
     useStickyClasses: true,
     useGetBoundingClientRect: true,
   });
+  console.info(stickyItems);
 })();

@@ -1,7 +1,10 @@
 "use strict";
 
 (function () {
-  stickybits('#nav');
+  var stickyNav = stickybits('#nav', {
+    useGetBoundingClientRect: true
+  });
+  console.info(stickyNav);
   if (window.innerWidth < 900) return;
   var wrapper = document.getElementById('wrapper');
   wrapper.className += ' js-has-aside';
@@ -13,9 +16,10 @@
     stickyWrapper.innerHTML += stickyParent;
   }
 
-  window.sb = stickybits('.sticky-element', {
+  var stickyItems = stickybits('.sticky-element', {
     stickyBitStickyOffset: 48,
     useStickyClasses: true,
     useGetBoundingClientRect: true
   });
+  console.info(stickyItems);
 })();
