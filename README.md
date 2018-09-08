@@ -10,7 +10,7 @@
   <a href="https://www.npmjs.com/package/stickybits">
     <img alt="npm version" src="https://badge.fury.io/js/stickybits.svg" />
   </a>
-  <a href="https://unpkg.com/stickybits@3.5.3/dist/stickybits.min.js">
+  <a href="https://unpkg.com/stickybits@latest/dist/stickybits.min.js">
     <img alt="unpkg" src="https://img.shields.io/badge/unpkg-link-blue.svg">
   </a>
   <a href="https://greenkeeper.io/">
