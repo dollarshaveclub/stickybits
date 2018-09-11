@@ -276,7 +276,7 @@ class Stickybits {
     const stickyChange = p.stickyChangeClass
     const stuck = p.stuckClass
     const vp = p.verticalPosition
-    const isTop = vp !== 'bottom';
+    const isTop = vp !== 'bottom'
     /*
       requestAnimationFrame
       ---
