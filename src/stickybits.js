@@ -217,7 +217,7 @@ class Stickybits {
     const el = it.el
     const parent = it.parent
     const isCustom = !this.isWin && p.positionVal === 'fixed'
-    const isBottom = p.verticalPosition !== 'bottom'
+    const isTop = p.verticalPosition !== 'bottom'
     const scrollElOffset = isCustom ? this.getTopPosition(p.scrollEl) : 0
     const stickyStart = isCustom
       ? this.getTopPosition(parent) - scrollElOffset
@@ -226,11 +226,11 @@ class Stickybits {
       ? p.customStickyChangeNumber
       : el.offsetHeight
     it.offset = scrollElOffset + p.stickyBitStickyOffset
-    it.stickyStart = isBottom ? stickyStart - it.offset : 0
+    it.stickyStart = isTop ? stickyStart - it.offset : 0
     it.stickyChange = it.stickyStart + stickyChangeOffset
-    it.stickyStop = isBottom
+    it.stickyStop = isTop
       ? (stickyStart + parent.offsetHeight) - (it.el.offsetHeight + it.offset)
-      : stickyStart + parent.offsetHeight
+      : stickyStart + parent.offsetHeight - window.innerHeight
     return it
   }
 
@@ -276,6 +276,7 @@ class Stickybits {
     const stickyChange = p.stickyChangeClass
     const stuck = p.stuckClass
     const vp = p.verticalPosition
+    const isTop = vp !== 'bottom';
     /*
       requestAnimationFrame
       ---
@@ -302,7 +303,7 @@ class Stickybits {
     const tC = this.toggleClasses
     const scroll = this.isWin ? (window.scrollY || window.pageYOffset) : se.scrollTop
     const notSticky = scroll > start && scroll < stop && (state === 'default' || state === 'stuck')
-    const isSticky = scroll <= start && state === 'sticky'
+    const isSticky = isTop && scroll <= start && state === 'sticky'
     const isStuck = scroll >= stop && state === 'sticky'
     /*
       Unnamed arrow functions within this block
