@@ -718,9 +718,9 @@ acorn@^5.0.3, acorn@^5.6.0:
   version "5.7.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.7.1.tgz#f095829297706a7c9776958c0afc8930a9b9d9d8"
 
-acorn@~5.4.0:
-  version "5.4.1"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.4.1.tgz#fdc58d9d17f4a4e98d102ded826a9b9759125102"
+acorn@~5.7.0:
+  version "5.7.3"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.7.3.tgz#67aa231bf8812974b85235a96771eb6bd07ea279"
 
 add-stream@^1.0.0:
   version "1.0.0"
@@ -2124,11 +2124,11 @@ es-abstract@^1.5.1, es-abstract@^1.7.0:
     is-callable "^1.1.3"
     is-regex "^1.0.4"
 
-es-check@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/es-check/-/es-check-2.0.4.tgz#75d33eaf7cd3c7aadf8ccf79d7ec375cedcab7da"
+es-check@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/es-check/-/es-check-3.0.0.tgz#225c0038d88f50113daa0d39b400db4a45d70b05"
   dependencies:
-    acorn "~5.4.0"
+    acorn "~5.7.0"
     caporal "^0.10.0"
     glob "^7.1.2"
 
