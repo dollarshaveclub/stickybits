@@ -253,14 +253,14 @@ function () {
     var el = it.el;
     var parent = it.parent;
     var isCustom = !this.isWin && p.positionVal === 'fixed';
-    var isBottom = p.verticalPosition !== 'bottom';
+    var isTop = p.verticalPosition !== 'bottom';
     var scrollElOffset = isCustom ? this.getTopPosition(p.scrollEl) : 0;
     var stickyStart = isCustom ? this.getTopPosition(parent) - scrollElOffset : this.getTopPosition(parent);
     var stickyChangeOffset = p.customStickyChangeNumber !== null ? p.customStickyChangeNumber : el.offsetHeight;
     it.offset = scrollElOffset + p.stickyBitStickyOffset;
-    it.stickyStart = isBottom ? stickyStart - it.offset : 0;
+    it.stickyStart = isTop ? stickyStart - it.offset : 0;
     it.stickyChange = it.stickyStart + stickyChangeOffset;
-    it.stickyStop = isBottom ? stickyStart + parent.offsetHeight - (it.el.offsetHeight + it.offset) : stickyStart + parent.offsetHeight;
+    it.stickyStop = isTop ? stickyStart + parent.offsetHeight - (it.el.offsetHeight + it.offset) : stickyStart + parent.offsetHeight - window.innerHeight;
     return it;
   };
   /*
@@ -308,6 +308,7 @@ function () {
     var stickyChange = p.stickyChangeClass;
     var stuck = p.stuckClass;
     var vp = p.verticalPosition;
+    var isTop = vp !== 'bottom';
     /*
       requestAnimationFrame
       ---
@@ -332,7 +333,7 @@ function () {
     var tC = this.toggleClasses;
     var scroll = this.isWin ? window.scrollY || window.pageYOffset : se.scrollTop;
     var notSticky = scroll > start && scroll < stop && (state === 'default' || state === 'stuck');
-    var isSticky = scroll <= start && state === 'sticky';
+    var isSticky = isTop && scroll <= start && state === 'sticky';
     var isStuck = scroll >= stop && state === 'sticky';
     /*
       Unnamed arrow functions within this block
