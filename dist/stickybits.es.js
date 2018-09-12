@@ -257,10 +257,11 @@ function () {
     var scrollElOffset = isCustom ? this.getTopPosition(p.scrollEl) : 0;
     var stickyStart = isCustom ? this.getTopPosition(parent) - scrollElOffset : this.getTopPosition(parent);
     var stickyChangeOffset = p.customStickyChangeNumber !== null ? p.customStickyChangeNumber : el.offsetHeight;
+    var parentBottom = stickyStart + parent.offsetHeight;
     it.offset = scrollElOffset + p.stickyBitStickyOffset;
     it.stickyStart = isTop ? stickyStart - it.offset : 0;
     it.stickyChange = it.stickyStart + stickyChangeOffset;
-    it.stickyStop = isTop ? stickyStart + parent.offsetHeight - (it.el.offsetHeight + it.offset) : stickyStart + parent.offsetHeight - window.innerHeight;
+    it.stickyStop = isTop ? parentBottom - (el.offsetHeight + it.offset) : parentBottom - window.innerHeight;
     return it;
   };
   /*
