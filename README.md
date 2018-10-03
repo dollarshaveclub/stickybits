@@ -212,11 +212,11 @@ If the Stickybits implementer would like re-calculate offsets when the DOM windo
 
 // when the window is resized
 const stickybitsInstancetoBeUpdated = stickybits('selector');
-window.addEventListener('resize' () => {
+window.addEventListener('resize', () => {
   stickybitsInstancetoBeUpdated.update();
 });
 // when the url hash changes
-window.addEventListener('hashchange' () => {
+window.addEventListener('hashchange', () => {
   stickybitsInstancetoBeUpdated.update();
 });
 
