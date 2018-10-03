@@ -19,5 +19,6 @@ export namespace StickyBits {
     stickyChangeClass?: string
     useStickyClasses?: boolean
     verticalPosition?: 'top' | 'bottom'
+    useFixed?: boolean
   }
 }
