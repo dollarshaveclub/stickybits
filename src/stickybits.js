@@ -43,7 +43,7 @@
   methods
   --------
   - .definePosition = defines sticky or fixed
-  - .addInstance = an array of objects for each Stickybits Target
+  - .makeInstance = object for each Stickybits Target
   - .getClosestParent = gets the parent for non-window scroll
   - .getTopPosition = gets the element top pixel position from the viewport
   - .computeScrollOffsets = computes scroll position
@@ -54,55 +54,68 @@
   - .cleanup = removes all Stickybits instances and cleans up dom from stickybits
 */
 class Stickybits {
-  constructor (target, obj) {
-    const o = typeof obj !== 'undefined' ? obj : {}
+  constructor (target, config) {
     this.version = 'VERSION'
-    this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser'
-    this.props = {
-      customStickyChangeNumber: o.customStickyChangeNumber || null,
-      noStyles: o.noStyles || false,
-      stickyBitStickyOffset: o.stickyBitStickyOffset || 0,
-      parentClass: o.parentClass || 'js-stickybit-parent',
-      scrollEl: typeof o.scrollEl === 'string' ? document.querySelector(o.scrollEl) : o.scrollEl || window,
-      stickyClass: o.stickyClass || 'js-is-sticky',
-      stuckClass: o.stuckClass || 'js-is-stuck',
-      stickyChangeClass: o.stickyChangeClass || 'js-is-sticky--change',
-      useStickyClasses: o.useStickyClasses || false,
-      useFixed: o.useFixed || false,
-      useGetBoundingClientRect: o.useGetBoundingClientRect || false,
-      verticalPosition: o.verticalPosition || 'top',
+    this.userAgent = this.makeUserAgent()
+    this.props = this.makeProps(config)
+    this.isWin = this.props.scrollEl === window
+    this.instances = this.makeInstances(target)
+  }
+
+  makeUserAgent () {
+    return window.navigator.userAgent || 'no `userAgent` provided by the browser'
+  }
+
+  makeProps (config = {}) {
+    return {
+      customStickyChangeNumber: config.customStickyChangeNumber || null,
+      noStyles: config.noStyles || false,
+      stickyBitStickyOffset: config.stickyBitStickyOffset || 0,
+      scrollEl: typeof config.scrollEl === 'string' ? document.querySelector(config.scrollEl) : config.scrollEl || window,
+      parentClass: config.parentClass || 'js-stickybit-parent',
+      stickyClass: config.stickyClass || 'js-is-sticky',
+      stuckClass: config.stuckClass || 'js-is-stuck',
+      stickyChangeClass: config.stickyChangeClass || 'js-is-sticky--change',
+      useStickyClasses: config.useStickyClasses || false,
+      useFixed: config.useFixed || false,
+      useGetBoundingClientRect: config.useGetBoundingClientRect || false,
+      verticalPosition: config.verticalPosition || 'top',
+      positionVal: config.useFixed ? 'fixed' : this.definePosition(),
     }
-    const p = this.props
-    /*
-      define positionVal
-      ----
-      -  uses a computed (`.definePosition()`)
-      -  defined the position
-    */
-    p.positionVal = this.definePosition() || 'fixed'
-    const vp = p.verticalPosition
-    const ns = p.noStyles
-    const pv = p.positionVal
-    this.els = typeof target === 'string' ? document.querySelectorAll(target) : target
-    if (!('length' in this.els)) this.els = [this.els]
-    this.instances = []
-    for (let i = 0; i < this.els.length; i += 1) {
-      const el = this.els[i]
-      const styles = el.style
-      // set vertical position
-      styles[vp] = vp === 'top' && !ns ? `${p.stickyBitStickyOffset}px` : ''
-      styles.position = pv !== 'fixed' ? pv : ''
-      if (pv === 'fixed' || p.useStickyClasses) {
-        const instance = this.addInstance(el, p)
-        // instances are an array of objects
-        this.instances.push(instance)
+  }
+
+  makeInstances (target) {
+    const instances = []
+
+    let elements = typeof target === 'string' ? document.querySelectorAll(target) : target
+
+    if (!('length' in elements)) {
+      elements = [elements]
+    }
+
+    const {positionVal, verticalPosition, noStyles, stickyBitStickyOffset, useStickyClasses} = this.props
+    const hasNativeSupport = positionVal !== 'fixed'
+    const verticalPositionStyle = verticalPosition === 'top' && !noStyles ? `${stickyBitStickyOffset}px` : ''
+    const positionStyle = hasNativeSupport ? positionVal : ''
+
+    for (let i = 0; i < elements.length; i++) {
+      const el = elements[i]
+
+      el.style[verticalPosition] = verticalPositionStyle
+      el.style.position = positionStyle
+
+      if (!hasNativeSupport || useStickyClasses) {
+        const instance = this.makeInstance(el)
+
+        instances.push(instance)
       }
     }
-    return this
+
+    return instances
   }
 
   /*
-    setStickyPosition ✔️
+    definePosition ✔️
     --------
     —  most basic thing stickybits does
     => checks to see if position sticky is supported
@@ -110,36 +123,24 @@ class Stickybits {
     => stickybits works accordingly
   */
   definePosition () {
-    let stickyProp
-    if (this.props.useFixed) {
-      stickyProp = 'fixed'
-    } else {
-      const prefix = ['', '-o-', '-webkit-', '-moz-', '-ms-']
-      const test = document.head.style
-      for (let i = 0; i < prefix.length; i += 1) {
-        test.position = `${prefix[i]}sticky`
-      }
-      stickyProp = test.position ? test.position : 'fixed'
-      test.position = ''
-    }
+    const test = document.head.style
+    const prefixes = ['', '-o-', '-webkit-', '-moz-', '-ms-']
+    prefixes.forEach((prefix) => {
+      test.position = `${prefix}sticky`
+    })
+    const stickyProp = test.position ? test.position : 'fixed'
+    test.position = ''
     return stickyProp
   }
 
   /*
-    addInstance ✔️
+    makeInstance ✔️
     --------
     — manages instances of items
     - takes in an el and props
     - returns an item object
     ---
     - target = el
-    - o = {object} = props
-      - scrollEl = 'string' | object
-      - verticalPosition = number
-      - off = boolean
-      - parentClass = 'string'
-      - stickyClass = 'string'
-      - stuckClass = 'string'
     ---
     - defined later
       - parent = dom element
@@ -149,14 +150,14 @@ class Stickybits {
       - stickyStop = number
     - returns an instance object
   */
-  addInstance (el, props) {
+  makeInstance (el) {
+    const {props} = this
     const item = {
       el,
       parent: el.parentNode,
       props,
     }
-    this.isWin = this.props.scrollEl === window
-    const se = this.isWin ? window : this.getClosestParent(item.el, item.props.scrollEl)
+    const se = this.isWin ? window : this.getClosestParent(item.el, props.scrollEl)
     this.computeScrollOffsets(item)
     item.parent.className += ` ${props.parentClass}`
     item.state = 'default'
