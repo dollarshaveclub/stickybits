@@ -87,7 +87,6 @@ test('stickybits interface with custom scrollEl selector', () => {
 test('stickybits interface with custom scrollEl element', () => {
 
   document.body.innerHTML = '<div id="parent"><div id="stickybit"></div></div>'
-  console.log(typeof document.querySelector('#parent'));
   const stickybit = stickybits('#stickybit', {
     scrollEl: document.querySelector('#parent')
   })
