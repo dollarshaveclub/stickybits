@@ -54,23 +54,22 @@
   - .cleanup = removes all Stickybits instances and cleans up dom from stickybits
 */
 class Stickybits {
-  constructor (target, obj) {
-    const o = typeof obj !== 'undefined' ? obj : {}
+  constructor (target, config = {}) {
     this.version = 'VERSION'
     this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser'
     this.props = {
-      customStickyChangeNumber: o.customStickyChangeNumber || null,
-      noStyles: o.noStyles || false,
-      stickyBitStickyOffset: o.stickyBitStickyOffset || 0,
-      parentClass: o.parentClass || 'js-stickybit-parent',
-      scrollEl: typeof o.scrollEl === 'string' ? document.querySelector(o.scrollEl) : o.scrollEl || window,
-      stickyClass: o.stickyClass || 'js-is-sticky',
-      stuckClass: o.stuckClass || 'js-is-stuck',
-      stickyChangeClass: o.stickyChangeClass || 'js-is-sticky--change',
-      useStickyClasses: o.useStickyClasses || false,
-      useFixed: o.useFixed || false,
-      useGetBoundingClientRect: o.useGetBoundingClientRect || false,
-      verticalPosition: o.verticalPosition || 'top',
+      customStickyChangeNumber: config.customStickyChangeNumber || null,
+      noStyles: config.noStyles || false,
+      stickyBitStickyOffset: config.stickyBitStickyOffset || 0,
+      parentClass: config.parentClass || 'js-stickybit-parent',
+      scrollEl: typeof config.scrollEl === 'string' ? document.querySelector(config.scrollEl) : config.scrollEl || window,
+      stickyClass: config.stickyClass || 'js-is-sticky',
+      stuckClass: config.stuckClass || 'js-is-stuck',
+      stickyChangeClass: config.stickyChangeClass || 'js-is-sticky--change',
+      useStickyClasses: config.useStickyClasses || false,
+      useFixed: config.useFixed || false,
+      useGetBoundingClientRect: config.useGetBoundingClientRect || false,
+      verticalPosition: config.verticalPosition || 'top',
     }
     const p = this.props
     /*
