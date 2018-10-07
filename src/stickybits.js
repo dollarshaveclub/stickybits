@@ -99,8 +99,6 @@ class Stickybits {
         this.instances.push(instance)
       }
     }
-
-    return this
   }
 
   /*
