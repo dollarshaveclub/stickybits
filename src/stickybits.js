@@ -72,6 +72,7 @@ class Stickybits {
       useGetBoundingClientRect: o.useGetBoundingClientRect || false,
       verticalPosition: o.verticalPosition || 'top',
     }
+    this.isWin = this.props.scrollEl === window
     const p = this.props
     /*
       define positionVal
@@ -155,7 +156,6 @@ class Stickybits {
       parent: el.parentNode,
       props,
     }
-    this.isWin = this.props.scrollEl === window
     const se = this.isWin ? window : this.getClosestParent(item.el, item.props.scrollEl)
     this.computeScrollOffsets(item)
     item.parent.className += ` ${props.parentClass}`
@@ -285,7 +285,7 @@ class Stickybits {
       - or stub rAF
     */
     const rAFStub = function rAFDummy (f) { f() }
-    const rAF = !this.isWin
+    const rAF = !window
       ? rAFStub
       : window.requestAnimationFrame ||
       window.mozRequestAnimationFrame ||
