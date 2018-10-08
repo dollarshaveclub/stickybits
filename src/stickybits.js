@@ -72,30 +72,40 @@ class Stickybits {
       useGetBoundingClientRect: o.useGetBoundingClientRect || false,
       verticalPosition: o.verticalPosition || 'top',
     }
-    this.props.positionVal = this.definePosition()
+    /*
+      define positionVal
+      ----
+      -  uses a computed (`.definePosition()`)
+      -  defined the position
+    */
+    this.props.positionVal = this.definePosition() || 'fixed'
 
     this.instances = []
 
-    const {positionVal, verticalPosition, noStyles, stickyBitStickyOffset, useStickyClasses} = this.props
-    const hasNativeSupport = positionVal !== 'fixed'
+    const {
+      positionVal,
+      verticalPosition,
+      noStyles,
+      stickyBitStickyOffset,
+      useStickyClasses,
+    } = this.props
     const verticalPositionStyle = verticalPosition === 'top' && !noStyles ? `${stickyBitStickyOffset}px` : ''
-    const positionStyle = hasNativeSupport ? positionVal : ''
+    const positionStyle = positionVal !== 'fixed' ? positionVal : ''
 
     this.els = typeof target === 'string' ? document.querySelectorAll(target) : target
 
-    if (!('length' in this.els)) {
-      this.els = [this.els]
-    }
+    if (!('length' in this.els)) this.els = [this.els]
 
     for (let i = 0; i < this.els.length; i++) {
       const el = this.els[i]
 
+      // set vertical position
       el.style[verticalPosition] = verticalPositionStyle
       el.style.position = positionStyle
 
-      if (!hasNativeSupport || useStickyClasses) {
+      if (positionVal === 'fixed' || useStickyClasses) {
         const instance = this.addInstance(el, this.props)
-
+        // instances are an array of objects
         this.instances.push(instance)
       }
     }
