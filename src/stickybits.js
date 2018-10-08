@@ -72,28 +72,39 @@ class Stickybits {
       useGetBoundingClientRect: o.useGetBoundingClientRect || false,
       verticalPosition: o.verticalPosition || 'top',
     }
-    const p = this.props
     /*
       define positionVal
       ----
       -  uses a computed (`.definePosition()`)
       -  defined the position
     */
-    p.positionVal = this.definePosition() || 'fixed'
-    const vp = p.verticalPosition
-    const ns = p.noStyles
-    const pv = p.positionVal
-    this.els = typeof target === 'string' ? document.querySelectorAll(target) : target
-    if (!('length' in this.els)) this.els = [this.els]
+    this.props.positionVal = this.definePosition() || 'fixed'
+
     this.instances = []
-    for (let i = 0; i < this.els.length; i += 1) {
+
+    const {
+      positionVal,
+      verticalPosition,
+      noStyles,
+      stickyBitStickyOffset,
+      useStickyClasses,
+    } = this.props
+    const verticalPositionStyle = verticalPosition === 'top' && !noStyles ? `${stickyBitStickyOffset}px` : ''
+    const positionStyle = positionVal !== 'fixed' ? positionVal : ''
+
+    this.els = typeof target === 'string' ? document.querySelectorAll(target) : target
+
+    if (!('length' in this.els)) this.els = [this.els]
+
+    for (let i = 0; i < this.els.length; i++) {
       const el = this.els[i]
-      const styles = el.style
+
       // set vertical position
-      styles[vp] = vp === 'top' && !ns ? `${p.stickyBitStickyOffset}px` : ''
-      styles.position = pv !== 'fixed' ? pv : ''
-      if (pv === 'fixed' || p.useStickyClasses) {
-        const instance = this.addInstance(el, p)
+      el.style[verticalPosition] = verticalPositionStyle
+      el.style.position = positionStyle
+
+      if (positionVal === 'fixed' || useStickyClasses) {
+        const instance = this.addInstance(el, this.props)
         // instances are an array of objects
         this.instances.push(instance)
       }
