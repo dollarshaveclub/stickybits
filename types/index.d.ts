@@ -13,7 +13,7 @@ export namespace StickyBits {
     noStyles?: boolean
     stickyBitStickyOffset?: number
     parentClass?: string
-    scrollEl?: Element
+    scrollEl?: Element | string
     stickyClass?: string
     stuckClass?: string
     stickyChangeClass?: string
