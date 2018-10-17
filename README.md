@@ -460,3 +460,4 @@ Architecture discussions and Pull Request help has been provided by [Jacob Kelle
 - [Daniel Ruf](https://github.com/DanielRuf)
 - [Nestor Vera](https://github.com/hacknug)
 - [K. Vanberendonck](https://github.com/donkeybonks)
+- [Alexey Ukolov](https://github.com/alexey-m-ukolov)
