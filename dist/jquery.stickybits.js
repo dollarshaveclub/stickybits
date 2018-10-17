@@ -1,6 +1,6 @@
 /**
   stickybits - Stickybits is a lightweight alternative to `position: sticky` polyfills
-  @version v3.5.6
+  @version v3.5.7
   @link https://github.com/dollarshaveclub/stickybits#readme
   @author Jeff Wainwright <yowainwright@gmail.com> (https://jeffry.in)
   @license MIT
@@ -71,7 +71,7 @@
   function () {
     function Stickybits(target, obj) {
       var o = typeof obj !== 'undefined' ? obj : {};
-      this.version = '3.5.6';
+      this.version = '3.5.7';
       this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
       this.props = {
         customStickyChangeNumber: o.customStickyChangeNumber || null,
@@ -86,38 +86,39 @@
         useFixed: o.useFixed || false,
         useGetBoundingClientRect: o.useGetBoundingClientRect || false,
         verticalPosition: o.verticalPosition || 'top'
-      };
-      var p = this.props;
-      /*
-        define positionVal
-        ----
-        -  uses a computed (`.definePosition()`)
-        -  defined the position
-      */
+        /*
+          define positionVal
+          ----
+          -  uses a computed (`.definePosition()`)
+          -  defined the position
+        */
 
-      p.positionVal = this.definePosition() || 'fixed';
-      var vp = p.verticalPosition;
-      var ns = p.noStyles;
-      var pv = p.positionVal;
+      };
+      this.props.positionVal = this.definePosition() || 'fixed';
+      this.instances = [];
+      var _this$props = this.props,
+          positionVal = _this$props.positionVal,
+          verticalPosition = _this$props.verticalPosition,
+          noStyles = _this$props.noStyles,
+          stickyBitStickyOffset = _this$props.stickyBitStickyOffset,
+          useStickyClasses = _this$props.useStickyClasses;
+      var verticalPositionStyle = verticalPosition === 'top' && !noStyles ? stickyBitStickyOffset + "px" : '';
+      var positionStyle = positionVal !== 'fixed' ? positionVal : '';
       this.els = typeof target === 'string' ? document.querySelectorAll(target) : target;
       if (!('length' in this.els)) this.els = [this.els];
-      this.instances = [];
 
-      for (var i = 0; i < this.els.length; i += 1) {
-        var el = this.els[i];
-        var styles = el.style; // set vertical position
+      for (var i = 0; i < this.els.length; i++) {
+        var el = this.els[i]; // set vertical position
 
-        styles[vp] = vp === 'top' && !ns ? p.stickyBitStickyOffset + "px" : '';
-        styles.position = pv !== 'fixed' ? pv : '';
+        el.style[verticalPosition] = verticalPositionStyle;
+        el.style.position = positionStyle;
 
-        if (pv === 'fixed' || p.useStickyClasses) {
-          var instance = this.addInstance(el, p); // instances are an array of objects
+        if (positionVal === 'fixed' || useStickyClasses) {
+          var instance = this.addInstance(el, this.props); // instances are an array of objects
 
           this.instances.push(instance);
         }
       }
-
-      return this;
     }
     /*
       setStickyPosition ✔️
