@@ -24,20 +24,21 @@ jobs:
     steps:
       - checkout
       - *restore_cache
-      - run: npm ci
+      - run: yarn
+      - run: yarn build
       - *save_cache
   lint:
     <<: *defaults
     steps:
       - checkout
       - *restore_cache
-      - run: npm run lint:ci
+      - run: yarn lint:ci
   test:
     <<: *defaults
     steps:
       - checkout
       - *restore_cache
-      - run: npm test
+      - run: yarn test
 
 workflows:
   version: 2
