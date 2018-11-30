@@ -169,7 +169,6 @@ test('stickybits .manageState `notSticky` interface', () => {
   const instance = stickybit.instances[0]
 
   // test notSticky
-  instance.props.scrollTop = 500;
   instance.state = 'default'
   instance.stickyStart = 0;
   stickybit.manageState(instance)
@@ -178,11 +177,10 @@ test('stickybits .manageState `notSticky` interface', () => {
   // test results
   expect(instance.el.style.position).toBe('-ms-sticky')
   expect(instance.state).toBe('default')
-  expect(instance.props.scrollTop).toBe(500)
   expect(instance.stickyStart).toBe(0)
 })
 
-test('stickybits .manageState `isSticky` interface', () => {
+test('stickybits .manageState `isSticky` interface from default', () => {
   // Set up our document
   document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
   const stickybit = stickybits('#manage-sticky', { useStickyClasses: true })
@@ -190,16 +188,39 @@ test('stickybits .manageState `isSticky` interface', () => {
   const instance = stickybit.instances[0]
 
   // test notSticky
-  instance.props.scrollTop = 500
+  stickybit.isWin = false
+  instance.props.scrollEl = { scrollTop: 1 }
+  instance.state = 'default'
+  instance.stickyStart = 0
+  instance.stickyStop = 200
+  stickybit.manageState(instance);
+  // test instance setup
+  expect(typeof instance).toBe('object')
+  // test results
+  expect(instance.el.style.position).toBe('-ms-sticky')
+  expect(instance.state).toBe('sticky')
+  expect(instance.stickyStart).toBe(0)
+  expect(instance.stickyStop).toBe(200)
+  expect(instance.props.scrollEl.scrollTop).toBe(1)
+})
+
+test('stickybits .manageState `isSticky` interface from stuck', () => {
+  // Set up our document
+  document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
+  const stickybit = stickybits('#manage-sticky', { useStickyClasses: true })
+  // test instance setup
+  const instance = stickybit.instances[0]
+
+  // test notSticky
   instance.state = 'stuck'
+  instance.el.classList.add('js-is-stuck')
   instance.stickyStart = 1
   stickybit.manageState(instance);
   // test instance setup
   expect(typeof instance).toBe('object')
   // test results
   expect(instance.el.style.position).toBe('-ms-sticky')
-  expect(instance.state).toBe('stuck')
-  expect(instance.props.scrollTop).toBe(500)
+  expect(instance.state).toBe('default')
   expect(instance.stickyStart).toBe(1)
 })
 
@@ -211,14 +232,12 @@ test('stickybits .manageState `isStickyChange` interface', () => {
   const instance = stickybit.instances[0]
 
   // test notSticky
-  instance.props.scrollTop = 500
   const stickyChangeTest = instance.stickyChange
   stickybit.manageState(instance)
   // test instance setup
   expect(typeof instance).toBe('object')
   // test results
   expect(instance.el.style.position).toBe('-ms-sticky')
-  expect(instance.props.scrollTop).toBe(500)
   expect(instance.props.customStickyChangeNumber).toBe(10)
   expect(instance.stickyChange).toBe(10)
 })
@@ -231,8 +250,10 @@ test('stickybits .manageState `isStuck` interface', () => {
   const instance = stickybit.instances[0]
 
   // test notSticky
-  instance.props.scrollTop = 500
+  stickybit.isWin = false
+  instance.props.scrollEl = { scrollTop: 500 }
   instance.state = 'stuck'
+  instance.el.classList.add('js-is-stuck')
   instance.stickyStart = 0
   instance.stickyStop = 200
   stickybit.manageState(instance);
@@ -241,7 +262,7 @@ test('stickybits .manageState `isStuck` interface', () => {
   // test results
   expect(instance.el.style.position).toBe('-ms-sticky')
   expect(instance.state).toBe('stuck')
-  expect(instance.props.scrollTop).toBe(500)
+  expect(instance.props.scrollEl.scrollTop).toBe(500)
   expect(instance.stickyStart).toBe(0)
   expect(instance.stickyStop).toBe(200)
 })
@@ -261,7 +282,6 @@ test('stickybits .manageState  `position: fixed` interface', () => {
   const instance = stickybit.instances[0]
 
   // test notSticky
-  instance.props.scrollTop = 500;
   instance.props.positionVal = 'fixed'
   instance.state = 'default'
   instance.stickyStart = 0
@@ -271,7 +291,6 @@ test('stickybits .manageState  `position: fixed` interface', () => {
   // test results
   expect(instance.props.positionVal).toBe('fixed')
   expect(instance.state).toBe('default')
-  expect(instance.props.scrollTop).toBe(500)
   expect(instance.stickyStart).toBe(0)
 })
 
