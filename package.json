@@ -1,6 +1,6 @@
 {
   "name": "stickybits",
-  "version": "3.5.7",
+  "version": "3.5.8",
   "description": "Stickybits is a lightweight alternative to `position: sticky` polyfills",
   "main": "dist/stickybits.js",
   "module": "dist/stickybits.es.js",
@@ -62,6 +62,9 @@
     "es-check": "^5.0.0",
     "eslint": "^5.0.0",
     "eslint-config-dollarshaveclub": "^3.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-standard": "^4.0.0",
     "husky": "^1.0.0",
     "jest": "^22.0.0",
     "jquery": "^3.2.1",
