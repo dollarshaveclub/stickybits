@@ -1,6 +1,6 @@
 /**
   stickybits - Stickybits is a lightweight alternative to `position: sticky` polyfills
-  @version v3.5.8
+  @version v3.6.0
   @link https://github.com/dollarshaveclub/stickybits#readme
   @author Jeff Wainwright <yowainwright@gmail.com> (https://jeffry.in)
   @license MIT
@@ -8,8 +8,8 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global.stickybits = factory());
-}(this, (function () { 'use strict';
+  global.stickybits = factory();
+}(typeof self !== 'undefined' ? self : this, function () { 'use strict';
 
   /*
     STICKYBITS 💉
@@ -71,7 +71,7 @@
   function () {
     function Stickybits(target, obj) {
       var o = typeof obj !== 'undefined' ? obj : {};
-      this.version = '3.5.8';
+      this.version = '3.6.0';
       this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
       this.props = {
         customStickyChangeNumber: o.customStickyChangeNumber || null,
@@ -395,10 +395,20 @@
       return it;
     };
 
-    _proto.update = function update() {
+    _proto.update = function update(updatedProps) {
+      if (updatedProps === void 0) {
+        updatedProps = null;
+      }
+
       for (var i = 0; i < this.instances.length; i += 1) {
         var instance = this.instances[i];
         this.computeScrollOffsets(instance);
+
+        if (updatedProps) {
+          for (var updatedProp in updatedProps) {
+            instance.props[updatedProp] = updatedProps[updatedProp];
+          }
+        }
       }
 
       return this;
@@ -454,4 +464,4 @@
 
   return stickybits;
 
-})));
+}));
