@@ -34,7 +34,8 @@
     "test": "npm run markdownlint && npm run test:unit && npm run test:acceptance"
   },
   "jest": {
-    "testRegex": "./tests/unit/.*.js$"
+    "testRegex": "./tests/unit/.*.js$",
+    "testURL": "http://localhost/"
   },
   "bugs": {
     "url": "https://github.com/dollarshaveclub/stickybits/issues"

@@ -150,7 +150,7 @@
       }
 
       return stickyProp;
-    };
+    }
     /*
       addInstance ✔️
       --------
@@ -175,7 +175,7 @@
         - stickyStop = number
       - returns an instance object
     */
-
+    ;
 
     _proto.addInstance = function addInstance(el, props) {
       var _this = this;
@@ -197,7 +197,7 @@
 
       se.addEventListener('scroll', item.stateContainer);
       return item;
-    };
+    }
     /*
       --------
       getParent 👨‍
@@ -206,7 +206,7 @@
       - only used for non `window` scroll elements
       - supports older browsers
     */
-
+    ;
 
     _proto.getClosestParent = function getClosestParent(el, match) {
       // p = parent element
@@ -220,7 +220,7 @@
 
 
       return p;
-    };
+    }
     /*
       --------
       getTopPosition
@@ -228,7 +228,7 @@
       - a helper function that gets the topPosition of a Stickybit element
       - from the top level of the DOM
     */
-
+    ;
 
     _proto.getTopPosition = function getTopPosition(el) {
       if (this.props.useGetBoundingClientRect) {
@@ -242,7 +242,7 @@
       } while (el = el.offsetParent);
 
       return topPosition;
-    };
+    }
     /*
       computeScrollOffsets 📊
       ---
@@ -252,7 +252,7 @@
         - start
         - stop
     */
-
+    ;
 
     _proto.computeScrollOffsets = function computeScrollOffsets(item) {
       var it = item;
@@ -270,7 +270,7 @@
       it.stickyChange = it.stickyStart + stickyChangeOffset;
       it.stickyStop = isTop ? parentBottom - (el.offsetHeight + it.offset) : parentBottom - window.innerHeight;
       return it;
-    };
+    }
     /*
       toggleClasses ⚖️
       ---
@@ -278,7 +278,7 @@
       r = removed class
       a = added class
     */
-
+    ;
 
     _proto.toggleClasses = function toggleClasses(el, r, a) {
       var e = el;
@@ -287,7 +287,7 @@
       var rItem = cArray.indexOf(r);
       if (rItem !== -1) cArray.splice(rItem, 1);
       e.className = cArray.join(' ');
-    };
+    }
     /*
       manageState 📝
       ---
@@ -296,7 +296,7 @@
         - sticky
         - stuck
     */
-
+    ;
 
     _proto.manageState = function manageState(item) {
       // cache object
@@ -402,13 +402,13 @@
       }
 
       return this;
-    };
+    }
     /*
       removes an instance 👋
       --------
       - cleanup instance
     */
-
+    ;
 
     _proto.removeInstance = function removeInstance(instance) {
       var e = instance.el;
@@ -419,14 +419,14 @@
       tC(e, p.stickyClass);
       tC(e, p.stuckClass);
       tC(e.parentNode, p.parentClass);
-    };
+    }
     /*
       cleanup 🛁
       --------
       - cleans up each instance
       - clears instance
     */
-
+    ;
 
     _proto.cleanup = function cleanup() {
       for (var i = 0; i < this.instances.length; i += 1) {
