@@ -361,10 +361,15 @@ class Stickybits {
     return it
   }
 
-  update () {
+  update (updatedProps = null) {
     for (let i = 0; i < this.instances.length; i += 1) {
       const instance = this.instances[i]
       this.computeScrollOffsets(instance)
+      if (updatedProps) {
+        for (const updatedProp in updatedProps) {
+          instance.props[updatedProp] = updatedProps[updatedProp]
+        }
+      }
     }
     return this
   }
