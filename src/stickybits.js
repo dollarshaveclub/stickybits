@@ -351,7 +351,7 @@ class Stickybits {
     }
 
     const isStickyChange = scroll >= change && scroll <= stop
-    const isNotStickyChange = scroll < change || scroll > stop
+    const isNotStickyChange = scroll < change / 2 || scroll > stop
     const stub = 'stub' // a stub css class to remove
     if (isNotStickyChange) {
       rAF(() => { tC(e, stickyChange) })
