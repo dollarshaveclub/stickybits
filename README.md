@@ -206,6 +206,12 @@ stickybitsInstancetoBeUpdated.update();
 Re-calculates each Stickybits instance's offsets (stickyStart, stickyStop).
 If the Stickybits implementer would like re-calculate offsets when the DOM window is resized or when the url changes. `.update()` can be invoked within an event listener.
 
+```javascript
+const stickybitsInstancetoBeUpdated = stickybits('selector');
+stickybitsInstancetoBeUpdated.update({ stickyBitStickyOffset: 20 });
+
+```
+
 #### More Stickybits Update Examples
 
 ```javascript
@@ -222,7 +228,19 @@ window.addEventListener('hashchange', () => {
 
 ```
 
-**Note:** `.update` does not re-initialize classnames or pre-set calculations.
+**Note:** `.update` does not re-initialize classnames or pre-set calculations. Perhaps the update value can help you with that (?).
+
+#### StickBits Update Props (beta)
+
+Props can be updated to each instance by passing then into the `.update` function as an object.
+
+```javascript
+
+// .update({ someProp: somePropValue })
+const stickybitsInstancetoBeUpdated = stickybits('selector');
+stickybitsInstancetoBeUpdated.update({ stickyBitStickyOffset: 20 });
+
+```
 
 ### StickyBits NoStyles
 
