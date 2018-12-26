@@ -348,6 +348,16 @@ test('stickybits .update interface', () => {
   expect(stickybit.instances[0].stickyStart).toBe(0)
 })
 
+test('stickybits .update interface', () => {
+  // Set up our document
+  document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
+  const stickybit = stickybits('#manage-sticky', { useStickyClasses: true, stickyBitStickyOffset: 20 })
+  const instance = stickybit.instances[0]
+  expect(stickybit.instances[0].props.stickyBitStickyOffset).toBe(20)
+  stickybit.update({ stickyBitStickyOffset: 30 })
+  expect(stickybit.instances[0].props.stickyBitStickyOffset).toBe(30)
+})
+
 test('stickybits .useFixed interface', () => {
   // Set up our document
   document.body.innerHTML = '<div id="parent"><div id="manage-sticky"></div></div>'
