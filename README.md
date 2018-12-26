@@ -326,7 +326,7 @@ stickybits('selector', {useGetBoundingClientRect: true});
 - [UseStickyClasses](http://codepen.io/yowainwright/pen/NpzPGR) ie: `stickybits('selector', {useStickyClasses: true})`
 - [Clean Stickybits](https://codepen.io/yowainwright/pen/gRgdep) ie: `const stickything = stickybits('selector'); stickything.cleanup();`
 - [Update](https://codepen.io/yowainwright/pen/JZOajV/) ie: `const stickything = stickybits('selector') stickything.update()`
-- [Update props](https://codepen.io/yowainwright/pen/JZOajV/) ie: `const stickything = stickybits('selector') stickything.update({ stickyBitStickyOffset: 20 })`
+- [Update props](https://codepen.io/yowainwright/pen/EGvjYg) ie: `const stickything = stickybits('selector') stickything.update({ stickyBitStickyOffset: 20 })`
 - [Use Fixed](https://codepen.io/yowainwright/pen/mKMzNb/) ie: `const stickything = stickybits('selector', {useFixed: true})`
 - [Use GetBoundingClientRect](https://codepen.io/yowainwright/pen/PdZGMQ) ie: `const stickything = stickybits('selector', {useGetBoundingClientRect: true})`
 - [As a jQuery or Zepto Plugin](http://codepen.io/yowainwright/pen/57b852e88a644e9d919f843dc7b3b5f1) ie: `$('selector').stickybits()`
