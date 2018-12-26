@@ -9,5 +9,6 @@
   "no-duplicate-header": false,
   "no-inline-html": false,
   "no-hard-tabs": false,
+  "single-h1": false,
   "whitespace": false
 }
