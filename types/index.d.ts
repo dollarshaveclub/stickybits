@@ -4,7 +4,15 @@ export default function stickybits(
 ): StickyBits
 
 export interface StickyBits {
+  els: Element[]
+  instances: StickyBits.Instance[]
+
+  props: StickyBits.Options
+  userAgent: string
+  version: string
+
   cleanup: () => void
+  update: (props?: StickyBits.Options) => void
 }
 
 export namespace StickyBits {
@@ -18,7 +26,14 @@ export namespace StickyBits {
     stuckClass?: string
     stickyChangeClass?: string
     useStickyClasses?: boolean
-    verticalPosition?: 'top' | 'bottom'
     useFixed?: boolean
+    useGetBoundingClientRect?: boolean
+    verticalPosition?: 'top' | 'bottom'
+  }
+
+  export interface Instance {
+    el: Element
+    parent: Element
+    props: StickyBits.Options
   }
 }
