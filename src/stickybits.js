@@ -237,7 +237,7 @@ class Stickybits {
       : el.offsetHeight
     const parentBottom = stickyStart + parent.offsetHeight
     it.offset = scrollElOffset + p.stickyBitStickyOffset
-    it.stickyStart = isTop ? stickyStart - it.offset : 0
+    it.stickyStart = isTop ? stickyStart : 0
     it.stickyChange = it.stickyStart + stickyChangeOffset
     it.stickyStop = isTop
       ? parentBottom - (el.offsetHeight + it.offset)
@@ -330,7 +330,7 @@ class Stickybits {
         stl.position = pv
         if (ns) return
         stl.bottom = ''
-        stl[vp] = `${p.stickyBitStickyOffset}px`
+        stl[vp] = `${it.offset}px`
       })
     } else if (isSticky) {
       it.state = 'default'
