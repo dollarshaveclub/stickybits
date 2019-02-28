@@ -104,9 +104,8 @@ class Stickybits {
       el.style.position = positionStyle
 
       if (positionVal === 'fixed' || useStickyClasses) {
-        const instance = this.addInstance(el, this.props)
         // instances are an array of objects
-        this.instances.push(instance)
+        this.instances.push(this.addInstance(el, this.props))
       }
     }
   }
@@ -242,7 +241,6 @@ class Stickybits {
     it.stickyStop = isTop
       ? parentBottom - (el.offsetHeight + it.offset)
       : parentBottom - window.innerHeight
-    return it
   }
 
   /*
@@ -358,7 +356,6 @@ class Stickybits {
     } else if (isStickyChange) {
       rAF(() => { tC(e, stub, stickyChange) })
     }
-    return it
   }
 
   update (updatedProps = null) {
