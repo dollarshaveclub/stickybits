@@ -29,7 +29,6 @@ test('basic stickybits interface', () => {
 })
 
 test('basic stickybits interface with positionVal equalling sticky', () => {
-
   document.body.innerHTML = '<div id="stickybit"></div>'
   const stickybit = stickybits('#stickybit')
 
@@ -84,7 +83,6 @@ test('stickybits interface with custom scrollEl element', () => {
 })
 
 test('stickybits .addInstance interface', () => {
-
   document.body.innerHTML = '<div id="manage-sticky"></div>'
   const e = document.getElementById('manage-sticky')
   const stickybit = stickybits('#manage-sticky', { useStickyClasses: true })
@@ -129,7 +127,6 @@ test('stickybits .computeScrollOffsets interface', () => {
   expect(typeof p).toBe('object')
   stickybit.computeScrollOffsets(instance)
   // test .computeScrollOffsets interface
-  expect(typeof instance).toBe('object')
   expect(instance.offset).toBe(0)
   expect(instance.stickyStart).toBe(0)
   expect(instance.stickyStop).toBe(0)
