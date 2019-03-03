@@ -1,6 +1,6 @@
 /**
   stickybits - Stickybits is a lightweight alternative to `position: sticky` polyfills
-  @version v3.6.2
+  @version v3.6.3
   @link https://github.com/dollarshaveclub/stickybits#readme
   @author Jeff Wainwright <yowainwright@gmail.com> (https://jeffry.in)
   @license MIT
@@ -65,7 +65,7 @@ var Stickybits =
 function () {
   function Stickybits(target, obj) {
     var o = typeof obj !== 'undefined' ? obj : {};
-    this.version = '3.6.2';
+    this.version = '3.6.3';
     this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
     this.props = {
       customStickyChangeNumber: o.customStickyChangeNumber || null,
@@ -108,9 +108,8 @@ function () {
       el.style.position = positionStyle;
 
       if (positionVal === 'fixed' || useStickyClasses) {
-        var instance = this.addInstance(el, this.props); // instances are an array of objects
-
-        this.instances.push(instance);
+        // instances are an array of objects
+        this.instances.push(this.addInstance(el, this.props));
       }
     }
   }
@@ -263,7 +262,6 @@ function () {
     it.stickyStart = isTop ? stickyStart - it.offset : 0;
     it.stickyChange = it.stickyStart + stickyChangeOffset;
     it.stickyStop = isTop ? parentBottom - (el.offsetHeight + it.offset) : parentBottom - window.innerHeight;
-    return it;
   }
   /*
     toggleClasses ⚖️
@@ -385,8 +383,6 @@ function () {
         tC(e, stub, stickyChange);
       });
     }
-
-    return it;
   };
 
   _proto.update = function update(updatedProps) {
