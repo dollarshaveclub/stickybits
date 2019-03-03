@@ -12,3 +12,4 @@ coverage_*/
 tmp
 .idea
 npm-debug.log
+package-lock.json
