@@ -86,7 +86,7 @@ class Stickybits {
       positionVal,
       verticalPosition,
       noStyles,
-      stickyBitStickyOffset
+      stickyBitStickyOffset,
     } = this.props
     const verticalPositionStyle = verticalPosition === 'top' && !noStyles ? `${stickyBitStickyOffset}px` : ''
     const positionStyle = positionVal !== 'fixed' ? positionVal : ''
@@ -395,7 +395,7 @@ class Stickybits {
   cleanup () {
     for (let i = 0; i < this.instances.length; i += 1) {
       const instance = this.instances[i]
-      if(instance.stateContainer) {
+      if (instance.stateContainer) {
         instance.props.scrollEl.removeEventListener('scroll', instance.stateContainer)
       }
       this.removeInstance(instance)
