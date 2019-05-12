@@ -87,7 +87,7 @@
         useGetBoundingClientRect: o.useGetBoundingClientRect || false,
         verticalPosition: o.verticalPosition || 'top'
         /*
-          define positionVal
+          define positionVal after the setting of props, because definePosition looks at the props.useFixed
           ----
           -  uses a computed (`.definePosition()`)
           -  defined the position
@@ -100,8 +100,7 @@
           positionVal = _this$props.positionVal,
           verticalPosition = _this$props.verticalPosition,
           noStyles = _this$props.noStyles,
-          stickyBitStickyOffset = _this$props.stickyBitStickyOffset,
-          useStickyClasses = _this$props.useStickyClasses;
+          stickyBitStickyOffset = _this$props.stickyBitStickyOffset;
       var verticalPositionStyle = verticalPosition === 'top' && !noStyles ? stickyBitStickyOffset + "px" : '';
       var positionStyle = positionVal !== 'fixed' ? positionVal : '';
       this.els = typeof target === 'string' ? document.querySelectorAll(target) : target;
@@ -111,12 +110,9 @@
         var el = this.els[i]; // set vertical position
 
         el.style[verticalPosition] = verticalPositionStyle;
-        el.style.position = positionStyle;
+        el.style.position = positionStyle; // instances are an array of objects
 
-        if (positionVal === 'fixed' || useStickyClasses) {
-          // instances are an array of objects
-          this.instances.push(this.addInstance(el, this.props));
-        }
+        this.instances.push(this.addInstance(el, this.props));
       }
     }
     /*
@@ -184,17 +180,21 @@
         parent: el.parentNode,
         props: props
       };
-      this.isWin = this.props.scrollEl === window;
-      var se = this.isWin ? window : this.getClosestParent(item.el, item.props.scrollEl);
-      this.computeScrollOffsets(item);
-      item.parent.className += " " + props.parentClass;
-      item.state = 'default';
 
-      item.stateContainer = function () {
-        return _this.manageState(item);
-      };
+      if (props.positionVal === 'fixed' || props.useStickyClasses) {
+        this.isWin = this.props.scrollEl === window;
+        var se = this.isWin ? window : this.getClosestParent(item.el, item.props.scrollEl);
+        this.computeScrollOffsets(item);
+        item.parent.className += " " + props.parentClass;
+        item.state = 'default';
 
-      se.addEventListener('scroll', item.stateContainer);
+        item.stateContainer = function () {
+          return _this.manageState(item);
+        };
+
+        se.addEventListener('scroll', item.stateContainer);
+      }
+
       return item;
     }
     /*
@@ -437,7 +437,11 @@
     _proto.cleanup = function cleanup() {
       for (var i = 0; i < this.instances.length; i += 1) {
         var instance = this.instances[i];
-        instance.props.scrollEl.removeEventListener('scroll', instance.stateContainer);
+
+        if (instance.stateContainer) {
+          instance.props.scrollEl.removeEventListener('scroll', instance.stateContainer);
+        }
+
         this.removeInstance(instance);
       }
 

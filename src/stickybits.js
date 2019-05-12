@@ -73,7 +73,7 @@ class Stickybits {
       verticalPosition: o.verticalPosition || 'top',
     }
     /*
-      define positionVal
+      define positionVal after the setting of props, because definePosition looks at the props.useFixed
       ----
       -  uses a computed (`.definePosition()`)
       -  defined the position
@@ -87,7 +87,6 @@ class Stickybits {
       verticalPosition,
       noStyles,
       stickyBitStickyOffset,
-      useStickyClasses,
     } = this.props
     const verticalPositionStyle = verticalPosition === 'top' && !noStyles ? `${stickyBitStickyOffset}px` : ''
     const positionStyle = positionVal !== 'fixed' ? positionVal : ''
@@ -103,10 +102,8 @@ class Stickybits {
       el.style[verticalPosition] = verticalPositionStyle
       el.style.position = positionStyle
 
-      if (positionVal === 'fixed' || useStickyClasses) {
-        // instances are an array of objects
-        this.instances.push(this.addInstance(el, this.props))
-      }
+      // instances are an array of objects
+      this.instances.push(this.addInstance(el, this.props))
     }
   }
 
@@ -164,13 +161,15 @@ class Stickybits {
       parent: el.parentNode,
       props,
     }
-    this.isWin = this.props.scrollEl === window
-    const se = this.isWin ? window : this.getClosestParent(item.el, item.props.scrollEl)
-    this.computeScrollOffsets(item)
-    item.parent.className += ` ${props.parentClass}`
-    item.state = 'default'
-    item.stateContainer = () => this.manageState(item)
-    se.addEventListener('scroll', item.stateContainer)
+    if (props.positionVal === 'fixed' || props.useStickyClasses) {
+      this.isWin = this.props.scrollEl === window
+      const se = this.isWin ? window : this.getClosestParent(item.el, item.props.scrollEl)
+      this.computeScrollOffsets(item)
+      item.parent.className += ` ${props.parentClass}`
+      item.state = 'default'
+      item.stateContainer = () => this.manageState(item)
+      se.addEventListener('scroll', item.stateContainer)
+    }
     return item
   }
 
@@ -396,7 +395,9 @@ class Stickybits {
   cleanup () {
     for (let i = 0; i < this.instances.length; i += 1) {
       const instance = this.instances[i]
-      instance.props.scrollEl.removeEventListener('scroll', instance.stateContainer)
+      if (instance.stateContainer) {
+        instance.props.scrollEl.removeEventListener('scroll', instance.stateContainer)
+      }
       this.removeInstance(instance)
     }
     this.manageState = false
