@@ -1,14 +1,15 @@
 /**
   stickybits - Stickybits is a lightweight alternative to `position: sticky` polyfills
-  @version v3.6.6
+  @version v3.7.0
   @link https://github.com/dollarshaveclub/stickybits#readme
   @author Jeff Wainwright <yowainwright@gmail.com> (https://jeffry.in)
   @license MIT
 **/
-(function (factory) {
-  typeof define === 'function' && define.amd ? define(factory) :
-  factory();
-}(function () { 'use strict';
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('supports-sticky')) :
+  typeof define === 'function' && define.amd ? define(['supports-sticky'], factory) :
+  (global = global || self, factory(global.supportsSticky));
+}(this, function (supportsSticky) { 'use strict';
 
   /*
     STICKYBITS 💉
@@ -65,12 +66,13 @@
     - .removeInstance = removes an instance
     - .cleanup = removes all Stickybits instances and cleans up dom from stickybits
   */
+
   var Stickybits =
   /*#__PURE__*/
   function () {
     function Stickybits(target, obj) {
       var o = typeof obj !== 'undefined' ? obj : {};
-      this.version = '3.6.6';
+      this.version = '3.7.0';
       this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
       this.props = {
         customStickyChangeNumber: o.customStickyChangeNumber || null,
@@ -127,23 +129,7 @@
     var _proto = Stickybits.prototype;
 
     _proto.definePosition = function definePosition() {
-      var stickyProp;
-
-      if (this.props.useFixed) {
-        stickyProp = 'fixed';
-      } else {
-        var prefix = ['', '-o-', '-webkit-', '-moz-', '-ms-'];
-        var test = document.head.style;
-
-        for (var i = 0; i < prefix.length; i += 1) {
-          test.position = prefix[i] + "sticky";
-        }
-
-        stickyProp = test.position ? test.position : 'fixed';
-        test.position = '';
-      }
-
-      return stickyProp;
+      return this.props.useFixed ? 'fixed' : supportsSticky.supportsSticky().stickyPosition;
     }
     /*
       addInstance ✔️

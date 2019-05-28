@@ -25,7 +25,7 @@ test('basic stickybits interface', () => {
   expect(stickybit.props.stickyClass).toBe('js-is-sticky')
   expect(stickybit.props.stuckClass).toBe('js-is-stuck')
   expect(stickybit.props.parentClass).toBe('js-stickybit-parent')
-  expect(stickybit.props.positionVal).toBe('-ms-sticky')
+  expect(stickybit.props.positionVal).toBe('sticky')
 })
 
 test('basic stickybits interface with positionVal equalling sticky', () => {
@@ -37,8 +37,8 @@ test('basic stickybits interface with positionVal equalling sticky', () => {
   // stickybit should be sticky
   expect(stickybit.props.positionVal).toBe('sticky')
   stickybit.props.positionVal = stickybit.definePosition()
-  // stickybit should be `-ms-sticky`
-  expect(stickybit.props.positionVal).toBe('-ms-sticky')
+  // stickybit should be `sticky`
+  expect(stickybit.props.positionVal).toBe('sticky')
 })
 
 test('stickybits interface with an updated object properties', () => {
@@ -60,7 +60,7 @@ test('stickybits interface with an updated object properties', () => {
   expect(stickybit.props.stickyClass).toBe('sticky')
   expect(stickybit.props.stuckClass).toBe('stuck')
   expect(stickybit.props.parentClass).toBe('parent')
-  expect(stickybit.props.positionVal).toBe('-ms-sticky')
+  expect(stickybit.props.positionVal).toBe('sticky')
 })
 
 test('stickybits interface with custom scrollEl selector', () => {
@@ -96,7 +96,7 @@ test('stickybits .addInstance interface', () => {
   expect(p.stuckClass).toBe('js-is-stuck')
   expect(p.useStickyClasses).toBe(true)
   expect(p.verticalPosition).toBe('top')
-  expect(p.positionVal).toBe('-ms-sticky')
+  expect(p.positionVal).toBe('sticky')
 })
 
 test('stickybits .getClosestParent interface', () => {
@@ -155,7 +155,7 @@ test('stickybits .manageState `notSticky` interface', () => {
   // test instance setup
   expect(typeof instance).toBe('object')
   // test results
-  expect(instance.el.style.position).toBe('-ms-sticky')
+  expect(instance.el.style.position).toBe('sticky')
   expect(instance.state).toBe('default')
   expect(instance.stickyStart).toBe(0)
 })
@@ -176,7 +176,7 @@ test('stickybits .manageState `isSticky` interface from default', () => {
   // test instance setup
   expect(typeof instance).toBe('object')
   // test results
-  expect(instance.el.style.position).toBe('-ms-sticky')
+  expect(instance.el.style.position).toBe('sticky')
   expect(instance.state).toBe('sticky')
   expect(instance.stickyStart).toBe(0)
   expect(instance.stickyStop).toBe(200)
@@ -197,7 +197,7 @@ test('stickybits .manageState `isSticky` interface from stuck', () => {
   // test instance setup
   expect(typeof instance).toBe('object')
   // test results
-  expect(instance.el.style.position).toBe('-ms-sticky')
+  expect(instance.el.style.position).toBe('sticky')
   expect(instance.state).toBe('default')
   expect(instance.stickyStart).toBe(1)
 })
@@ -214,7 +214,7 @@ test('stickybits .manageState `isStickyChange` interface', () => {
   // test instance setup
   expect(typeof instance).toBe('object')
   // test results
-  expect(instance.el.style.position).toBe('-ms-sticky')
+  expect(instance.el.style.position).toBe('sticky')
   expect(instance.props.customStickyChangeNumber).toBe(10)
   expect(instance.stickyChange).toBe(10)
 })
@@ -235,7 +235,7 @@ test('stickybits .manageState `isStuck` interface', () => {
   // test instance setup
   expect(typeof instance).toBe('object')
   // test results
-  expect(instance.el.style.position).toBe('-ms-sticky')
+  expect(instance.el.style.position).toBe('sticky')
   expect(instance.state).toBe('stuck')
   expect(instance.props.scrollEl.scrollTop).toBe(500)
   expect(instance.stickyStart).toBe(0)

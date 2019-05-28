@@ -6741,6 +6741,11 @@ supports-color@^6.0.0:
   dependencies:
     has-flag "^3.0.0"
 
+supports-sticky@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/supports-sticky/-/supports-sticky-0.0.3.tgz#c0a7c7a814d3a0f146bcfacd426d747908c72baa"
+  integrity sha512-P6Mlsa+sbK4bJiiO3dI4wrcQoR1gL60v9u/wCn0Y6irPlujjTg/uoZt4fLWR3hwuLisvNkN+ObXLHrfahbvqSg==
+
 symbol-tree@^3.2.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.2.tgz#ae27db38f660a7ae2e1c3b7d1bc290819b8519e6"

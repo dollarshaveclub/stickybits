@@ -359,7 +359,7 @@ Have another example or question? Feel free to [comment](https://github.com/doll
 
 Stickybits is not a Shim or Polyfill for `position: sticky` because full support would require more code. This plugin makes elements vertically sticky very similarly to `position: fixed` but in a `sticky` sort of way. Read more about position sticky [here](https://developer.mozilla.org/en-US/docs/Web/CSS/position) or follow its browser implementation [here](http://caniuse.com/#search=sticky).
 
-Stickybits is a no dependency JavaScript plugin. It provides the smallest API possible in both features and kb size to deliver working sticky elements. This means that opinionated featuring is left out as much as possible and that it works with minimal effort in Frameworks.
+Stickybits provides the smallest API possible in both features and kb size to deliver working sticky elements. This means that opinionated featuring is left out as much as possible and that it works with minimal effort in Frameworks.
 
 ### CSS when `position: sticky` is not supported
 
