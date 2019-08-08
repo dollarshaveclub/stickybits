@@ -62,7 +62,6 @@
     - .computeScrollOffsets = computes scroll position
     - .toggleClasses = older browser toggler
     - .manageState = manages sticky state
-    - .removeClass = older browser support class remover
     - .removeInstance = removes an instance
     - .cleanup = removes all Stickybits instances and cleans up dom from stickybits
   */
