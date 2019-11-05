@@ -30,8 +30,8 @@ const createConfig = ({ input, output, env } = {}) => {
         {
           banner,
           name,
-        }
-      )
+        },
+      ),
     ),
   }
 }
