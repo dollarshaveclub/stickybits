@@ -233,7 +233,7 @@ class Stickybits {
       ? p.customStickyChangeNumber
       : el.offsetHeight
     const parentBottom = stickyStart + parent.offsetHeight
-    it.offset = scrollElOffset + p.stickyBitStickyOffset
+    it.offset = !isCustom ? scrollElOffset + p.stickyBitStickyOffset : 0
     it.stickyStart = isTop ? stickyStart - it.offset : 0
     it.stickyChange = it.stickyStart + stickyChangeOffset
     it.stickyStop = isTop
