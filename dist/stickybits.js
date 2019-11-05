@@ -1,6 +1,6 @@
 /**
   stickybits - Stickybits is a lightweight alternative to `position: sticky` polyfills
-  @version v3.6.7
+  @version v3.6.8
   @link https://github.com/dollarshaveclub/stickybits#readme
   @author Jeff Wainwright <yowainwright@gmail.com> (https://jeffry.in)
   @license MIT
@@ -9,7 +9,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
   (global = global || self, global.stickybits = factory());
-}(this, function () { 'use strict';
+}(this, (function () { 'use strict';
 
   /*
     STICKYBITS 💉
@@ -70,7 +70,7 @@
   function () {
     function Stickybits(target, obj) {
       var o = typeof obj !== 'undefined' ? obj : {};
-      this.version = '3.6.7';
+      this.version = '3.6.8';
       this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
       this.props = {
         customStickyChangeNumber: o.customStickyChangeNumber || null,
@@ -263,7 +263,7 @@
       var stickyStart = isCustom ? this.getTopPosition(parent) - scrollElOffset : this.getTopPosition(parent);
       var stickyChangeOffset = p.customStickyChangeNumber !== null ? p.customStickyChangeNumber : el.offsetHeight;
       var parentBottom = stickyStart + parent.offsetHeight;
-      it.offset = scrollElOffset + p.stickyBitStickyOffset;
+      it.offset = !isCustom ? scrollElOffset + p.stickyBitStickyOffset : 0;
       it.stickyStart = isTop ? stickyStart - it.offset : 0;
       it.stickyChange = it.stickyStart + stickyChangeOffset;
       it.stickyStop = isTop ? parentBottom - (el.offsetHeight + it.offset) : parentBottom - window.innerHeight;
@@ -463,4 +463,4 @@
 
   return stickybits;
 
-}));
+})));
