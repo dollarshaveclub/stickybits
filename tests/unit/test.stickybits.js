@@ -82,6 +82,14 @@ test('stickybits interface with custom scrollEl element', () => {
   expect(stickybit.props.scrollEl).toBe(document.querySelector('#parent'))
 })
 
+test('stickybits interface with custom applyStyle function', () => {
+  const fn = jest.fn(() => {})
+  document.body.innerHTML = '<div id="parent"><div id="stickybit"></div></div>'
+  stickybits("#stickybit", { applyStyle: fn })
+
+  expect(fn).toHaveBeenCalled()
+})
+
 test('stickybits .addInstance interface', () => {
   document.body.innerHTML = '<div id="manage-sticky"></div>'
   const e = document.getElementById('manage-sticky')

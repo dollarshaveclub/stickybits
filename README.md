@@ -318,6 +318,21 @@ stickybits('selector', {useGetBoundingClientRect: true});
 
 \* For jQuery and Zepto support, read the jQuery notes [below](#jquery).
 
+### StickyBits applyStyle
+
+If you want to take control of how styles and classes are applied to elements
+provide a function `applyStyle`. This is useful for example if you want to
+integrate with a framework or view library and want to delegate DOM
+manipulations to it.
+
+``` javascript
+stickybits('selector', {
+  applyStyle: ({ classes, styles }, instance) => {
+    // Apply styles and classes to your element
+  }
+});
+```
+
 ## Examples
 
 - [Basic Usage](https://codepen.io/yowainwright/pen/QdedaO)
