@@ -24,6 +24,7 @@
   - useFixed = boolean
   - useGetBoundingClientRect = boolean
   - verticalPosition = 'string'
+  - applyStyle = function
   --------
   props🔌
   --------
@@ -70,6 +71,7 @@ class Stickybits {
       useFixed: o.useFixed || false,
       useGetBoundingClientRect: o.useGetBoundingClientRect || false,
       verticalPosition: o.verticalPosition || 'top',
+      applyStyle: o.applyStyle || ((item, style) => this.applyStyle(item, style)),
     }
     /*
       define positionVal after the setting of props, because definePosition looks at the props.useFixed
@@ -97,12 +99,21 @@ class Stickybits {
     for (let i = 0; i < this.els.length; i++) {
       const el = this.els[i]
 
+      var instance = this.addInstance(el, this.props)
       // set vertical position
-      el.style[verticalPosition] = verticalPositionStyle
-      el.style.position = positionStyle
+      this.props.applyStyle(
+        {
+          styles: {
+            [verticalPosition]: verticalPositionStyle,
+            position: positionStyle,
+          },
+          classes: {},
+        },
+        instance,
+      )
 
       // instances are an array of objects
-      this.instances.push(this.addInstance(el, this.props))
+      this.instances.push(instance)
     }
   }
 
@@ -166,6 +177,7 @@ class Stickybits {
       this.computeScrollOffsets(item)
       item.parent.className += ` ${props.parentClass}`
       item.state = 'default'
+      item.stateChange = 'default'
       item.stateContainer = () => this.manageState(item)
       se.addEventListener('scroll', item.stateContainer)
     }
@@ -268,15 +280,13 @@ class Stickybits {
   manageState (item) {
     // cache object
     const it = item
-    const e = it.el
     const p = it.props
     const state = it.state
+    const stateChange = it.stateChange
     const start = it.stickyStart
     const change = it.stickyChange
     const stop = it.stickyStop
-    const stl = e.style
     // cache props
-    const ns = p.noStyles
     const pv = p.positionVal
     const se = p.scrollEl
     const sticky = p.stickyClass
@@ -284,6 +294,7 @@ class Stickybits {
     const stuck = p.stuckClass
     const vp = p.verticalPosition
     const isTop = vp !== 'bottom'
+    const aS = p.applyStyle
     /*
       requestAnimationFrame
       ---
@@ -307,11 +318,11 @@ class Stickybits {
       - isSticky
       - isStuck
     */
-    const tC = this.toggleClasses
     const scroll = this.isWin ? (window.scrollY || window.pageYOffset) : se.scrollTop
     const notSticky = scroll > start && scroll < stop && (state === 'default' || state === 'stuck')
     const isSticky = isTop && scroll <= start && (state === 'sticky' || state === 'stuck')
     const isStuck = scroll >= stop && state === 'sticky'
+
     /*
       Unnamed arrow functions within this block
       ---
@@ -321,38 +332,101 @@ class Stickybits {
     */
     if (notSticky) {
       it.state = 'sticky'
-      rAF(() => {
-        tC(e, stuck, sticky)
-        stl.position = pv
-        if (ns) return
-        stl.bottom = ''
-        stl[vp] = `${p.stickyBitStickyOffset}px`
-      })
     } else if (isSticky) {
       it.state = 'default'
-      rAF(() => {
-        tC(e, sticky)
-        tC(e, stuck)
-        if (pv === 'fixed') stl.position = ''
-      })
     } else if (isStuck) {
       it.state = 'stuck'
-      rAF(() => {
-        tC(e, sticky, stuck)
-        if (pv !== 'fixed' || ns) return
-        stl.top = ''
-        stl.bottom = '0'
-        stl.position = 'absolute'
-      })
     }
 
     const isStickyChange = scroll >= change && scroll <= stop
     const isNotStickyChange = scroll < change / 2 || scroll > stop
-    const stub = 'stub' // a stub css class to remove
     if (isNotStickyChange) {
-      rAF(() => { tC(e, stickyChange) })
+      it.stateChange = 'default'
     } else if (isStickyChange) {
-      rAF(() => { tC(e, stub, stickyChange) })
+      it.stateChange = 'sticky'
+    }
+
+    // Only apply new styles if the state has changed
+    if (state === it.state && stateChange === it.stateChange) return
+
+    rAF(() => {
+      const stateStyles = {
+        sticky: {
+          styles: {
+            position: pv,
+            top: '',
+            bottom: '',
+            [vp]: `${p.stickyBitStickyOffset}px`,
+          },
+          classes: { [sticky]: true },
+        },
+        default: {
+          styles: {
+            [vp]: '',
+          },
+          classes: {},
+        },
+        stuck: {
+          styles: {
+            position: 'absolute',
+            top: '',
+            bottom: '0',
+            [vp]: '',
+          },
+          classes: { [stuck]: true },
+        },
+      }
+
+      if (pv === 'fixed') {
+        stateStyles.default.styles.position = ''
+      }
+
+      const style = stateStyles[it.state]
+      style.classes = {
+        [stuck]: !!style.classes[stuck],
+        [sticky]: !!style.classes[sticky],
+        [stickyChange]: isStickyChange,
+      }
+
+      aS(style, item)
+    })
+  }
+
+  /*
+    applyStyle
+    ---
+    - apply the given styles and classes to the element
+  */
+  applyStyle ({ styles, classes }, item) {
+    // cache object
+    const it = item
+    const e = it.el
+    const p = it.props
+    const stl = e.style
+    // cache props
+    const ns = p.noStyles
+
+    const cArray = e.className.split(' ')
+    // Disable due to bug with old versions of eslint-scope and for ... in
+    // https://github.com/eslint/eslint/issues/12117
+    // eslint-disable-next-line no-unused-vars
+    for (const cls in classes) {
+      const addClass = classes[cls]
+      if (addClass) {
+        if (cArray.indexOf(cls) === -1) cArray.push(cls)
+      } else {
+        const idx = cArray.indexOf(cls)
+        if (idx !== -1) cArray.splice(idx, 1)
+      }
+    }
+
+    e.className = cArray.join(' ')
+
+    if (!ns) {
+      // eslint-disable-next-line no-unused-vars
+      for (const key in styles) {
+        stl[key] = styles[key]
+      }
     }
   }
 
@@ -360,11 +434,13 @@ class Stickybits {
     this.instances.forEach((instance) => {
       this.computeScrollOffsets(instance)
       if (updatedProps) {
-        Object.keys(updatedProps).forEach((updatedProp) => {
+        // eslint-disable-next-line no-unused-vars
+        for (const updatedProp in updatedProps) {
           instance.props[updatedProp] = updatedProps[updatedProp]
-        })
+        }
       }
     })
+
     return this
   }
 
@@ -376,12 +452,16 @@ class Stickybits {
   removeInstance (instance) {
     const e = instance.el
     const p = instance.props
-    const tC = this.toggleClasses
-    e.style.position = ''
-    e.style[p.verticalPosition] = ''
-    tC(e, p.stickyClass)
-    tC(e, p.stuckClass)
-    tC(e.parentNode, p.parentClass)
+
+    this.applyStyle(
+      {
+        styles: { position: '', [p.verticalPosition]: '' },
+        classes: { [p.stickyClass]: '', [p.stuckClass]: '' },
+      },
+      instance,
+    )
+
+    this.toggleClasses(e.parentNode, p.parentClass)
   }
 
   /*
