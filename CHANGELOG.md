@@ -1,3 +1,8 @@
+# [3.7.0](https://github.com/dollarshaveclub/stickybits/compare/3.6.8...3.7.0) (2019-11-08)
+
+
+
+
 ## [3.6.8](https://github.com/dollarshaveclub/stickybits/compare/3.6.7...3.6.8) (2019-11-05)
 
 
