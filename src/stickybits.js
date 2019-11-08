@@ -422,11 +422,13 @@ class Stickybits {
 
     e.className = cArray.join(' ')
 
-    if (!ns) {
-      // eslint-disable-next-line no-unused-vars
-      for (const key in styles) {
+    // eslint-disable-next-line no-unused-vars
+    for (const key in styles) {
+      if (ns && key === 'position') {
         stl[key] = styles[key]
+        return
       }
+      stl[key] = styles[key]
     }
   }
 

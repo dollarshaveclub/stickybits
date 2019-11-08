@@ -1,6 +1,6 @@
 /**
   stickybits - Stickybits is a lightweight alternative to `position: sticky` polyfills
-  @version v3.6.8
+  @version v3.7.0
   @link https://github.com/dollarshaveclub/stickybits#readme
   @author Jeff Wainwright <yowainwright@gmail.com> (https://jeffry.in)
   @license MIT
@@ -31,6 +31,7 @@
   - useFixed = boolean
   - useGetBoundingClientRect = boolean
   - verticalPosition = 'string'
+  - applyStyle = function
   --------
   props🔌
   --------
@@ -63,8 +64,10 @@ var Stickybits =
 /*#__PURE__*/
 function () {
   function Stickybits(target, obj) {
+    var _this = this;
+
     var o = typeof obj !== 'undefined' ? obj : {};
-    this.version = '3.6.8';
+    this.version = '3.7.0';
     this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
     this.props = {
       customStickyChangeNumber: o.customStickyChangeNumber || null,
@@ -78,7 +81,10 @@ function () {
       useStickyClasses: o.useStickyClasses || false,
       useFixed: o.useFixed || false,
       useGetBoundingClientRect: o.useGetBoundingClientRect || false,
-      verticalPosition: o.verticalPosition || 'top'
+      verticalPosition: o.verticalPosition || 'top',
+      applyStyle: o.applyStyle || function (item, style) {
+        return _this.applyStyle(item, style);
+      }
       /*
         define positionVal after the setting of props, because definePosition looks at the props.useFixed
         ----
@@ -100,12 +106,17 @@ function () {
     if (!('length' in this.els)) this.els = [this.els];
 
     for (var i = 0; i < this.els.length; i++) {
-      var el = this.els[i]; // set vertical position
+      var _styles;
 
-      el.style[verticalPosition] = verticalPositionStyle;
-      el.style.position = positionStyle; // instances are an array of objects
+      var el = this.els[i];
+      var instance = this.addInstance(el, this.props); // set vertical position
 
-      this.instances.push(this.addInstance(el, this.props));
+      this.props.applyStyle({
+        styles: (_styles = {}, _styles[verticalPosition] = verticalPositionStyle, _styles.position = positionStyle, _styles),
+        classes: {}
+      }, instance); // instances are an array of objects
+
+      this.instances.push(instance);
     }
   }
   /*
@@ -166,7 +177,7 @@ function () {
   ;
 
   _proto.addInstance = function addInstance(el, props) {
-    var _this = this;
+    var _this2 = this;
 
     var item = {
       el: el,
@@ -180,9 +191,10 @@ function () {
       this.computeScrollOffsets(item);
       item.parent.className += " " + props.parentClass;
       item.state = 'default';
+      item.stateChange = 'default';
 
       item.stateContainer = function () {
-        return _this.manageState(item);
+        return _this2.manageState(item);
       };
 
       se.addEventListener('scroll', item.stateContainer);
@@ -292,15 +304,13 @@ function () {
   _proto.manageState = function manageState(item) {
     // cache object
     var it = item;
-    var e = it.el;
     var p = it.props;
     var state = it.state;
+    var stateChange = it.stateChange;
     var start = it.stickyStart;
     var change = it.stickyChange;
-    var stop = it.stickyStop;
-    var stl = e.style; // cache props
+    var stop = it.stickyStop; // cache props
 
-    var ns = p.noStyles;
     var pv = p.positionVal;
     var se = p.scrollEl;
     var sticky = p.stickyClass;
@@ -308,6 +318,7 @@ function () {
     var stuck = p.stuckClass;
     var vp = p.verticalPosition;
     var isTop = vp !== 'bottom';
+    var aS = p.applyStyle;
     /*
       requestAnimationFrame
       ---
@@ -329,7 +340,6 @@ function () {
       - isStuck
     */
 
-    var tC = this.toggleClasses;
     var scroll = this.isWin ? window.scrollY || window.pageYOffset : se.scrollTop;
     var notSticky = scroll > start && scroll < stop && (state === 'default' || state === 'stuck');
     var isSticky = isTop && scroll <= start && (state === 'sticky' || state === 'stuck');
@@ -344,60 +354,117 @@ function () {
 
     if (notSticky) {
       it.state = 'sticky';
-      rAF(function () {
-        tC(e, stuck, sticky);
-        stl.position = pv;
-        if (ns) return;
-        stl.bottom = '';
-        stl[vp] = p.stickyBitStickyOffset + "px";
-      });
     } else if (isSticky) {
       it.state = 'default';
-      rAF(function () {
-        tC(e, sticky);
-        tC(e, stuck);
-        if (pv === 'fixed') stl.position = '';
-      });
     } else if (isStuck) {
       it.state = 'stuck';
-      rAF(function () {
-        tC(e, sticky, stuck);
-        if (pv !== 'fixed' || ns) return;
-        stl.top = '';
-        stl.bottom = '0';
-        stl.position = 'absolute';
-      });
     }
 
     var isStickyChange = scroll >= change && scroll <= stop;
     var isNotStickyChange = scroll < change / 2 || scroll > stop;
-    var stub = 'stub'; // a stub css class to remove
 
     if (isNotStickyChange) {
-      rAF(function () {
-        tC(e, stickyChange);
-      });
+      it.stateChange = 'default';
     } else if (isStickyChange) {
-      rAF(function () {
-        tC(e, stub, stickyChange);
-      });
+      it.stateChange = 'sticky';
+    } // Only apply new styles if the state has changed
+
+
+    if (state === it.state && stateChange === it.stateChange) return;
+    rAF(function () {
+      var _styles2, _classes, _styles3, _styles4, _classes2, _style$classes;
+
+      var stateStyles = {
+        sticky: {
+          styles: (_styles2 = {
+            position: pv,
+            top: '',
+            bottom: ''
+          }, _styles2[vp] = p.stickyBitStickyOffset + "px", _styles2),
+          classes: (_classes = {}, _classes[sticky] = true, _classes)
+        },
+        default: {
+          styles: (_styles3 = {}, _styles3[vp] = '', _styles3),
+          classes: {}
+        },
+        stuck: {
+          styles: (_styles4 = {
+            position: 'absolute',
+            top: '',
+            bottom: '0'
+          }, _styles4[vp] = '', _styles4),
+          classes: (_classes2 = {}, _classes2[stuck] = true, _classes2)
+        }
+      };
+
+      if (pv === 'fixed') {
+        stateStyles.default.styles.position = '';
+      }
+
+      var style = stateStyles[it.state];
+      style.classes = (_style$classes = {}, _style$classes[stuck] = !!style.classes[stuck], _style$classes[sticky] = !!style.classes[sticky], _style$classes[stickyChange] = isStickyChange, _style$classes);
+      aS(style, item);
+    });
+  }
+  /*
+    applyStyle
+    ---
+    - apply the given styles and classes to the element
+  */
+  ;
+
+  _proto.applyStyle = function applyStyle(_ref, item) {
+    var styles = _ref.styles,
+        classes = _ref.classes;
+    // cache object
+    var it = item;
+    var e = it.el;
+    var p = it.props;
+    var stl = e.style; // cache props
+
+    var ns = p.noStyles;
+    var cArray = e.className.split(' '); // Disable due to bug with old versions of eslint-scope and for ... in
+    // https://github.com/eslint/eslint/issues/12117
+    // eslint-disable-next-line no-unused-vars
+
+    for (var cls in classes) {
+      var addClass = classes[cls];
+
+      if (addClass) {
+        if (cArray.indexOf(cls) === -1) cArray.push(cls);
+      } else {
+        var idx = cArray.indexOf(cls);
+        if (idx !== -1) cArray.splice(idx, 1);
+      }
+    }
+
+    e.className = cArray.join(' '); // eslint-disable-next-line no-unused-vars
+
+    for (var key in styles) {
+      if (ns && key === 'position') {
+        stl[key] = styles[key];
+        return;
+      }
+
+      stl[key] = styles[key];
     }
   };
 
   _proto.update = function update(updatedProps) {
-    var _this2 = this;
+    var _this3 = this;
 
     if (updatedProps === void 0) {
       updatedProps = null;
     }
 
     this.instances.forEach(function (instance) {
-      _this2.computeScrollOffsets(instance);
+      _this3.computeScrollOffsets(instance);
 
       if (updatedProps) {
-        Object.keys(updatedProps).forEach(function (updatedProp) {
+        // eslint-disable-next-line no-unused-vars
+        for (var updatedProp in updatedProps) {
           instance.props[updatedProp] = updatedProps[updatedProp];
-        });
+        }
       }
     });
     return this;
@@ -410,14 +477,17 @@ function () {
   ;
 
   _proto.removeInstance = function removeInstance(instance) {
+    var _styles5, _classes3;
+
     var e = instance.el;
     var p = instance.props;
-    var tC = this.toggleClasses;
-    e.style.position = '';
-    e.style[p.verticalPosition] = '';
-    tC(e, p.stickyClass);
-    tC(e, p.stuckClass);
-    tC(e.parentNode, p.parentClass);
+    this.applyStyle({
+      styles: (_styles5 = {
+        position: ''
+      }, _styles5[p.verticalPosition] = '', _styles5),
+      classes: (_classes3 = {}, _classes3[p.stickyClass] = '', _classes3[p.stuckClass] = '', _classes3)
+    }, instance);
+    this.toggleClasses(e.parentNode, p.parentClass);
   }
   /*
     cleanup 🛁
