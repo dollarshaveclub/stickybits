@@ -438,13 +438,15 @@ function () {
       }
     }
 
-    e.className = cArray.join(' ');
+    e.className = cArray.join(' '); // eslint-disable-next-line no-unused-vars
 
-    if (!ns) {
-      // eslint-disable-next-line no-unused-vars
-      for (var key in styles) {
+    for (var key in styles) {
+      if (ns && key === 'position') {
         stl[key] = styles[key];
+        return;
       }
+
+      stl[key] = styles[key];
     }
   };
 
