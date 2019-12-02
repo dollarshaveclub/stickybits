@@ -9,11 +9,11 @@ defaults: &defaults
 restore_cache: &restore_cache
   restore_cache:
     keys:
-      - code-{{ .Branch }}-{{ checksum ".nvmrc" }}-{{ checksum "package.json" }}
+      - code-{{ .Branch }}-{{ checksum ".nvmrc" }}-{{ checksum "yarn.lock" }}
 
 save_cache: &save_cache
   save_cache:
-      key: code-{{ .Branch }}-{{ checksum ".nvmrc" }}-{{ checksum "package.json" }}
+      key: code-{{ .Branch }}-{{ checksum ".nvmrc" }}-{{ checksum "yarn.lock" }}
       paths:
         - node_modules
 
