@@ -63,6 +63,16 @@ test('stickybits interface with an updated object properties', () => {
   expect(stickybit.props.positionVal).toBe('-ms-sticky')
 })
 
+test('stickybits only appends parent class once', () => {
+  document.body.innerHTML = '<div id="parent"><div class="child"></div><div class="child"></div></div>'
+  const stickybit = stickybits('.child', {
+    useStickyClasses: true
+  });
+
+  const parent = document.querySelector('#parent');
+  expect(parent.className).toBe(stickybit.props.parentClass);
+})
+
 test('stickybits interface with custom scrollEl selector', () => {
   document.body.innerHTML = '<div id="parent"><div id="stickybit"></div></div>'
   const stickybit = stickybits('#stickybit', {
