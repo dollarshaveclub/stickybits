@@ -175,7 +175,7 @@ class Stickybits {
       this.isWin = this.props.scrollEl === window
       const se = this.isWin ? window : this.getClosestParent(item.el, item.props.scrollEl)
       this.computeScrollOffsets(item)
-      item.parent.className += ` ${props.parentClass}`
+      this.toggleClasses(item.parent, '', props.parentClass)
       item.state = 'default'
       item.stateChange = 'default'
       item.stateContainer = () => this.manageState(item)
