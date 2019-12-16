@@ -1,6 +1,6 @@
 /**
   stickybits - Stickybits is a lightweight alternative to `position: sticky` polyfills
-  @version v3.7.1
+  @version v3.7.2
   @link https://github.com/dollarshaveclub/stickybits#readme
   @author Jeff Wainwright <yowainwright@gmail.com> (https://jeffry.in)
   @license MIT
@@ -9,6 +9,24 @@
   typeof define === 'function' && define.amd ? define(factory) :
   factory();
 }((function () { 'use strict';
+
+  function _extends() {
+    _extends = Object.assign || function (target) {
+      for (var i = 1; i < arguments.length; i++) {
+        var source = arguments[i];
+
+        for (var key in source) {
+          if (Object.prototype.hasOwnProperty.call(source, key)) {
+            target[key] = source[key];
+          }
+        }
+      }
+
+      return target;
+    };
+
+    return _extends.apply(this, arguments);
+  }
 
   /*
     STICKYBITS 💉
@@ -72,7 +90,7 @@
       var _this = this;
 
       var o = typeof obj !== 'undefined' ? obj : {};
-      this.version = '3.7.1';
+      this.version = '3.7.2';
       this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
       this.props = {
         customStickyChangeNumber: o.customStickyChangeNumber || null,
@@ -377,7 +395,7 @@
 
       if (state === it.state && stateChange === it.stateChange) return;
       rAF(function () {
-        var _styles2, _classes, _styles3, _styles4, _classes2, _style$classes;
+        var _styles2, _classes, _styles3, _extends2, _classes2, _style$classes;
 
         var stateStyles = {
           sticky: {
@@ -393,11 +411,11 @@
             classes: {}
           },
           stuck: {
-            styles: (_styles4 = {
+            styles: _extends((_extends2 = {}, _extends2[vp] = '', _extends2), pv === 'fixed' ? {
               position: 'absolute',
               top: '',
               bottom: '0'
-            }, _styles4[vp] = '', _styles4),
+            } : {}),
             classes: (_classes2 = {}, _classes2[stuck] = true, _classes2)
           }
         };
@@ -443,14 +461,10 @@
         }
       }
 
-      e.className = cArray.join(' '); // eslint-disable-next-line no-unused-vars
+      e.className = cArray.join(' ');
+      if (ns) return; // eslint-disable-next-line no-unused-vars
 
       for (var key in styles) {
-        if (ns && key === 'position') {
-          stl[key] = styles[key];
-          return;
-        }
-
         stl[key] = styles[key];
       }
     };
@@ -482,14 +496,14 @@
     ;
 
     _proto.removeInstance = function removeInstance(instance) {
-      var _styles5, _classes3;
+      var _styles4, _classes3;
 
       var e = instance.el;
       var p = instance.props;
       this.applyStyle({
-        styles: (_styles5 = {
+        styles: (_styles4 = {
           position: ''
-        }, _styles5[p.verticalPosition] = '', _styles5),
+        }, _styles4[p.verticalPosition] = '', _styles4),
         classes: (_classes3 = {}, _classes3[p.stickyClass] = '', _classes3[p.stuckClass] = '', _classes3)
       }, instance);
       this.toggleClasses(e.parentNode, p.parentClass);

@@ -372,7 +372,7 @@ class Stickybits {
               position: 'absolute',
               top: '',
               bottom: '0',
-            } : {})
+            } : {}),
           },
           classes: { [stuck]: true },
         },
