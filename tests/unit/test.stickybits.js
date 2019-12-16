@@ -100,6 +100,68 @@ test('stickybits interface with custom applyStyle function', () => {
   expect(fn).toHaveBeenCalled()
 })
 
+test("stickybits doesn't applyStyles if noStyles is true", () => {
+  document.body.innerHTML = '<div id="parent"></div>'
+  const stickybit = stickybits('#parent', {
+    noStyles: true,
+  });
+
+  const item = stickybit.instances[0];
+  stickybit.applyStyle({ position: 'absolute', classes: [] }, item)
+
+  const parent = document.querySelector('#parent');
+  expect(parent.style['position']).toBe('');
+})
+
+test("stickybits sets position absolute if the element is fixed", () => {
+  document.body.innerHTML = '<div id="parent"></div>'
+  const stickybit = stickybits('#parent', { useFixed: true });
+
+  const item = stickybit.instances[0];
+  item.state = 'sticky';
+  stickybit.isWin = false;
+  item.props.scrollEl = { scrollTop: 200 };
+  item.stickyStart = 0;
+  item.stickyStop = 200;
+  stickybit.manageState(item)
+
+  const parent = document.querySelector('#parent');
+  expect(parent.style['position']).toBe('absolute');
+})
+
+test("stickybits doesn't change position style if the element isn't fixed", () => {
+  document.body.innerHTML = '<div id="parent"></div>'
+  const stickybit = stickybits('#parent');
+  const parent = document.querySelector('#parent');
+  const positionStyle = parent.style['position'];
+
+  const item = stickybit.instances[0];
+  item.state = 'sticky';
+  stickybit.isWin = false;
+  item.props.scrollEl = { scrollTop: 200 };
+  item.stickyStart = 0;
+  item.stickyStop = 200;
+  stickybit.manageState(item)
+
+  expect(parent.style['position']).toBe(positionStyle);
+})
+
+test("stickybits sets position absolute if the element is fixed", () => {
+  document.body.innerHTML = '<div id="parent"></div>'
+  const stickybit = stickybits('#parent', { useFixed: true });
+
+  const item = stickybit.instances[0];
+  item.state = 'sticky';
+  stickybit.isWin = false;
+  item.props.scrollEl = { scrollTop: 200 };
+  item.stickyStart = 0;
+  item.stickyStop = 200;
+  stickybit.manageState(item)
+
+  const parent = document.querySelector('#parent');
+  expect(parent.style['position']).toBe('absolute');
+})
+
 test('stickybits .addInstance interface', () => {
   document.body.innerHTML = '<div id="manage-sticky"></div>'
   const e = document.getElementById('manage-sticky')
