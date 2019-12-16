@@ -322,7 +322,6 @@ class Stickybits {
     const notSticky = scroll > start && scroll < stop && (state === 'default' || state === 'stuck')
     const isSticky = isTop && scroll <= start && (state === 'sticky' || state === 'stuck')
     const isStuck = scroll >= stop && state === 'sticky'
-
     /*
       Unnamed arrow functions within this block
       ---
@@ -368,10 +367,12 @@ class Stickybits {
         },
         stuck: {
           styles: {
-            position: 'absolute',
-            top: '',
-            bottom: '0',
             [vp]: '',
+            ...(pv === 'fixed' ? {
+              position: 'absolute',
+              top: '',
+              bottom: '0',
+            } : {})
           },
           classes: { [stuck]: true },
         },
@@ -422,12 +423,10 @@ class Stickybits {
 
     e.className = cArray.join(' ')
 
+    if (ns) return
+
     // eslint-disable-next-line no-unused-vars
     for (const key in styles) {
-      if (ns && key === 'position') {
-        stl[key] = styles[key]
-        return
-      }
       stl[key] = styles[key]
     }
   }
