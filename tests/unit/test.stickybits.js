@@ -137,7 +137,7 @@ test("stickybits doesn't change position style if the element isn't fixed", () =
 
   const item = stickybit.instances[0];
   item.state = 'sticky';
-  stickybit.isWin = false;
+  stickybit.isWin = true;
   item.props.scrollEl = { scrollTop: 200 };
   item.stickyStart = 0;
   item.stickyStop = 200;
