@@ -320,6 +320,8 @@ function () {
   ;
 
   _proto.manageState = function manageState(item) {
+    var _this3 = this;
+
     // cache object
     var it = item;
     var p = it.props;
@@ -406,7 +408,7 @@ function () {
           classes: {}
         },
         stuck: {
-          styles: _extends((_extends2 = {}, _extends2[vp] = '', _extends2), pv === 'fixed' ? {
+          styles: _extends((_extends2 = {}, _extends2[vp] = '', _extends2), pv === 'fixed' || !_this3.isWin ? {
             position: 'absolute',
             top: '',
             bottom: '0'
@@ -465,14 +467,14 @@ function () {
   };
 
   _proto.update = function update(updatedProps) {
-    var _this3 = this;
+    var _this4 = this;
 
     if (updatedProps === void 0) {
       updatedProps = null;
     }
 
     this.instances.forEach(function (instance) {
-      _this3.computeScrollOffsets(instance);
+      _this4.computeScrollOffsets(instance);
 
       if (updatedProps) {
         // eslint-disable-next-line no-unused-vars

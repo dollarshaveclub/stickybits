@@ -347,7 +347,6 @@ class Stickybits {
 
     // Only apply new styles if the state has changed
     if (state === it.state && stateChange === it.stateChange) return
-
     rAF(() => {
       const stateStyles = {
         sticky: {
@@ -368,7 +367,7 @@ class Stickybits {
         stuck: {
           styles: {
             [vp]: '',
-            ...(pv === 'fixed' ? {
+            ...(pv === 'fixed' || !this.isWin ? {
               position: 'absolute',
               top: '',
               bottom: '0',
