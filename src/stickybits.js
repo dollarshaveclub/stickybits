@@ -422,6 +422,10 @@ class Stickybits {
 
     e.className = cArray.join(' ')
 
+    if(styles['position']) {
+      stl['position'] = styles['position'];
+    }
+
     if (ns) return
 
     // eslint-disable-next-line no-unused-vars

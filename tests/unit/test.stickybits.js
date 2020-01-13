@@ -107,10 +107,23 @@ test("stickybits doesn't applyStyles if noStyles is true", () => {
   });
 
   const item = stickybit.instances[0];
-  stickybit.applyStyle({ position: 'absolute', classes: [] }, item)
+  stickybit.applyStyle({ styles: { color: 'red' }, classes: [] }, item)
 
   const parent = document.querySelector('#parent');
-  expect(parent.style['position']).toBe('');
+  expect(parent.style['color']).toBe('');
+})
+
+test("stickybits sets position even with noStyles true", () => {
+  document.body.innerHTML = '<div id="parent"></div>'
+  const stickybit = stickybits('#parent', {
+    noStyles: true,
+  });
+
+  const item = stickybit.instances[0];
+  stickybit.applyStyle({ styles: { position: 'absolute' }, classes: [] }, item)
+
+  const parent = document.querySelector('#parent');
+  expect(parent.style['position']).toBe('absolute');
 })
 
 test("stickybits sets position absolute if the element is fixed", () => {
