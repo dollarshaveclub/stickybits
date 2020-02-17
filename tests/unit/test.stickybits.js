@@ -159,20 +159,21 @@ test("stickybits doesn't change position style if the element isn't fixed", () =
   expect(parent.style['position']).toBe(positionStyle);
 })
 
-test("stickybits sets position absolute if the element is fixed", () => {
+test("stickybits doesn't change position style if noStyles is true", () => {
   document.body.innerHTML = '<div id="parent"></div>'
-  const stickybit = stickybits('#parent', { useFixed: true });
+  const stickybit = stickybits('#parent');
+  const parent = document.querySelector('#parent');
+  const positionStyle = parent.style['position'];
 
   const item = stickybit.instances[0];
   item.state = 'sticky';
-  stickybit.isWin = false;
+  stickybit.isWin = true;
   item.props.scrollEl = { scrollTop: 200 };
   item.stickyStart = 0;
   item.stickyStop = 200;
   stickybit.manageState(item)
 
-  const parent = document.querySelector('#parent');
-  expect(parent.style['position']).toBe('absolute');
+  expect(parent.style['position']).toBe(positionStyle);
 })
 
 test('stickybits .addInstance interface', () => {

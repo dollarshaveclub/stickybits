@@ -295,6 +295,7 @@ class Stickybits {
     const vp = p.verticalPosition
     const isTop = vp !== 'bottom'
     const aS = p.applyStyle
+    const ns = p.noStyles
     /*
       requestAnimationFrame
       ---
@@ -367,7 +368,7 @@ class Stickybits {
         stuck: {
           styles: {
             [vp]: '',
-            ...(pv === 'fixed' || !this.isWin ? {
+            ...(pv === 'fixed' && !ns ? {
               position: 'absolute',
               top: '',
               bottom: '0',
