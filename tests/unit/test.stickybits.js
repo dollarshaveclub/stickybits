@@ -93,14 +93,22 @@ test('stickybits interface with custom scrollEl element', () => {
 })
 
 test('stickybits interface with custom applyStyle function', () => {
-  const fn = jest.fn(() => {})
+  const applyStyle = jest.fn(() => {})
   document.body.innerHTML = '<div id="parent"><div id="stickybit"></div></div>'
-  stickybits("#stickybit", { applyStyle: fn })
+  const stickybit = stickybits("#stickybit", { applyStyle })
 
-  expect(fn).toHaveBeenCalled()
+  const item = stickybit.instances[0];
+  item.state = 'sticky';
+  stickybit.isWin = false;
+  item.props.scrollEl = { scrollTop: 200 };
+  item.stickyStart = 0;
+  item.stickyStop = 200;
+  stickybit.manageState(item)
+
+  expect(applyStyle).toHaveBeenCalled()
 })
 
-test("stickybits doesn't applyStyles if noStyles is true", () => {
+test("stickybits doesn't apply styles if noStyles is true", () => {
   document.body.innerHTML = '<div id="parent"></div>'
   const stickybit = stickybits('#parent', {
     noStyles: true,

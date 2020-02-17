@@ -111,6 +111,7 @@ class Stickybits {
         },
         instance,
       )
+      this.manageState(instance)
 
       // instances are an array of objects
       this.instances.push(instance)
