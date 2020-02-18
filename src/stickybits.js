@@ -369,7 +369,11 @@ class Stickybits {
         stuck: {
           styles: {
             [vp]: '',
-            ...(pv === 'fixed' && !ns ? {
+            /**
+             * leave !this.isWin
+             * @example https://codepen.io/yowainwright/pen/EXzJeb
+             */
+            ...((pv === 'fixed' && !ns) || !this.isWin ? {
               position: 'absolute',
               top: '',
               bottom: '0',

@@ -337,7 +337,7 @@ test('stickybits .manageState `isStuck` interface', () => {
   // test instance setup
   expect(typeof instance).toBe('object')
   // test results
-  expect(instance.el.style.position).toBe('-ms-sticky')
+  expect(instance.el.style.position).toBe('absolute')
   expect(instance.state).toBe('stuck')
   expect(instance.props.scrollEl.scrollTop).toBe(500)
   expect(instance.stickyStart).toBe(0)
