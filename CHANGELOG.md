@@ -1,3 +1,16 @@
+## [3.7.4](https://github.com/dollarshaveclub/stickybits/compare/3.7.3...3.7.4) (2020-02-18)
+
+
+### fix
+
+* fixes issue with not window scroll issue (#660) ([f8de58c1dea01c56ecd4a6f50f03f90303eff6ca](https://github.com/dollarshaveclub/stickybits/commit/f8de58c1dea01c56ecd4a6f50f03f90303eff6ca)), closes [#660](https://github.com/dollarshaveclub/stickybits/issues/660)
+
+### version
+
+* patch version bump (#659) ([07831c50f667e2926811dc08218f65b368d30efc](https://github.com/dollarshaveclub/stickybits/commit/07831c50f667e2926811dc08218f65b368d30efc)), closes [#659](https://github.com/dollarshaveclub/stickybits/issues/659)
+
+
+
 ## [3.7.3](https://github.com/dollarshaveclub/stickybits/compare/3.7.2...3.7.3) (2020-01-13)
 
 
