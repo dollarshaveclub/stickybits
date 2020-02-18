@@ -1,6 +1,6 @@
 /**
   stickybits - Stickybits is a lightweight alternative to `position: sticky` polyfills
-  @version v3.7.3
+  @version v3.7.4
   @link https://github.com/dollarshaveclub/stickybits#readme
   @author Jeff Wainwright <yowainwright@gmail.com> (https://jeffry.in)
   @license MIT
@@ -90,7 +90,7 @@
       var _this = this;
 
       var o = typeof obj !== 'undefined' ? obj : {};
-      this.version = '3.7.3';
+      this.version = '3.7.4';
       this.userAgent = window.navigator.userAgent || 'no `userAgent` provided by the browser';
       this.props = {
         customStickyChangeNumber: o.customStickyChangeNumber || null,
@@ -137,7 +137,8 @@
         this.props.applyStyle({
           styles: (_styles = {}, _styles[verticalPosition] = verticalPositionStyle, _styles.position = positionStyle, _styles),
           classes: {}
-        }, instance); // instances are an array of objects
+        }, instance);
+        this.manageState(instance); // instances are an array of objects
 
         this.instances.push(instance);
       }
@@ -325,8 +326,6 @@
     ;
 
     _proto.manageState = function manageState(item) {
-      var _this3 = this;
-
       // cache object
       var it = item;
       var p = it.props;
@@ -344,6 +343,7 @@
       var vp = p.verticalPosition;
       var isTop = vp !== 'bottom';
       var aS = p.applyStyle;
+      var ns = p.noStyles;
       /*
         requestAnimationFrame
         ---
@@ -413,7 +413,7 @@
             classes: {}
           },
           stuck: {
-            styles: _extends((_extends2 = {}, _extends2[vp] = '', _extends2), pv === 'fixed' || !_this3.isWin ? {
+            styles: _extends((_extends2 = {}, _extends2[vp] = '', _extends2), pv === 'fixed' && !ns ? {
               position: 'absolute',
               top: '',
               bottom: '0'
@@ -477,14 +477,14 @@
     };
 
     _proto.update = function update(updatedProps) {
-      var _this4 = this;
+      var _this3 = this;
 
       if (updatedProps === void 0) {
         updatedProps = null;
       }
 
       this.instances.forEach(function (instance) {
-        _this4.computeScrollOffsets(instance);
+        _this3.computeScrollOffsets(instance);
 
         if (updatedProps) {
           // eslint-disable-next-line no-unused-vars
