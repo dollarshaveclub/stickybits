@@ -74,7 +74,7 @@
     "node-qunit-phantomjs": "^2.0.0",
     "nyc": "^15.0.0",
     "qunit": "^2.6.1",
-    "rollup": "1.31.1",
+    "rollup": "1.32.1",
     "rollup-plugin-babel": "^4.1.0",
     "rollup-plugin-replace": "^2.0.0",
     "rollup-plugin-uglify": "^6.0.0",
