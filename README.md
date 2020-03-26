@@ -1,3 +1,13 @@
+<p align="center">⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️</p>
+<p align="center">
+  <strong>
+    This software is maintained under a new repository located at <a href="https://github.com/yowainwright/stickybits">yowainwright/stickybits</a>
+  </strong>
+</p>
+<p align="center">⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️</p>
+
+***
+
 <p align="center">
   <img alt="StickyBits banner" src="https://yowainwright.imgix.net/gh/stickybits.svg" width="400" />
 </p>
